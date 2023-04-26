@@ -60,6 +60,7 @@ public class UserController {
         AccountResponse accountResponse = new AccountResponse();
         boolean result = userService.ifEmailExist(jwtLogin.getEmail());
         if(result){
+            ///////
             accountResponse.setResult(0);
         } else {
             String myCode = UserCode.getCode();
