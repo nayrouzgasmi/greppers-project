@@ -60,6 +60,8 @@ public class UserController {
         AccountResponse accountResponse = new AccountResponse();
         boolean result = userService.ifEmailExist(jwtLogin.getEmail());
         if(result){
+            ///////
+            ///
             accountResponse.setResult(0);
         } else {
             String myCode = UserCode.getCode();
@@ -72,6 +74,7 @@ public class UserController {
                 Role ur = new Role();
                 ur.setRoleName(r);
                 return ur;
+                /////////////////////////////////////////////////////////////////////////////
             }).collect(Collectors.toSet()));
             user.setActive(0);
             Mail mail = new Mail(jwtLogin.getEmail(),myCode);
