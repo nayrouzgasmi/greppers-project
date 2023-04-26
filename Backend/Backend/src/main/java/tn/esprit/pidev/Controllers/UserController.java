@@ -72,6 +72,7 @@ public class UserController {
                 Role ur = new Role();
                 ur.setRoleName(r);
                 return ur;
+                /////////////////////////////////////////////////////////////////////////////
             }).collect(Collectors.toSet()));
             user.setActive(0);
             Mail mail = new Mail(jwtLogin.getEmail(),myCode);
