@@ -23,6 +23,7 @@ public class Tag implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String name;
+    String icon;
     // Subcategories for FOOD_AND_EDIBLE category
     // ORGANIC("ORGANIC"),
     // GLUTEN_FREE("GLUTEN-FREE"),
