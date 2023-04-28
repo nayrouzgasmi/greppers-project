@@ -19,6 +19,12 @@ import { CodeActivationComponent } from './code-activation/code-activation.compo
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ModalComponent } from './shared/modal/modal.component';
 import { CarouselModule } from 'primeng/carousel';
+import { ProductsComponent } from './products/products.component';
+import { StoresComponent } from './stores/stores.component';
+import { StoreComponent } from './store/store.component';
+import { MerchantDashboardComponent } from './merchant-dashboard/merchant-dashboard.component';
+import { MerchantGuideComponent } from './merchant-guide/merchant-guide.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +39,13 @@ import { CarouselModule } from 'primeng/carousel';
     RegisterComponent,
     CodeActivationComponent,
     ResetPasswordComponent,
-    ModalComponent
+    ModalComponent,
+    ProductsComponent,
+    StoresComponent,
+    StoreComponent,
+    MerchantDashboardComponent,
+    MerchantGuideComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
