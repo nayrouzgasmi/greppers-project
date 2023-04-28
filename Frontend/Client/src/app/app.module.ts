@@ -17,6 +17,8 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
 import { CookieService } from 'ngx-cookie-service';
 import { CodeActivationComponent } from './code-activation/code-activation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ModalComponent } from './shared/modal/modal.component';
+import { CarouselModule } from 'primeng/carousel';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     LoginComponent,
     RegisterComponent,
     CodeActivationComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    CarouselModule,
     SocialLoginModule  
   ],
   providers: [
