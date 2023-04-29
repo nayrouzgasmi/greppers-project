@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import tn.esprit.pidev.Entities.Tag;
 import tn.esprit.pidev.Repositories.TagRepository;
 
 @Service
+@Transactional
 public class TagService {
     @Autowired
     private TagRepository tagRepository;
