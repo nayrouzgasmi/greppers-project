@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductService } from './product.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -12,13 +12,14 @@ const httpOptions = {
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.sass']
+  styleUrls: ['./product.component.sass'],
 })
 export class ProductComponent {
   productData: any;
   product: any;
-  constructor(private productService: ProductService, private router: Router,) { }
-  ngOnInit():void {
-    this.product=this.productService.getProduct().subscribe()
+  constructor(private route: ActivatedRoute,private productService: ProductService, private router: Router) {}
+  ngOnInit(): void {
+    const id = this.route.snapshot.params['id'];
+    this.productService.getProduct(id).subscribe((data) => (this.product = data));
   }
 }
