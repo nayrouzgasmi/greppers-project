@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { AjoutSellerComponent } from './ajout-seller/ajout-seller.component';
 import { ClientComponent } from './client/client.component';
 import { AjoutClientComponent } from './client/ajout-client/ajout-client.component';
+import { EventComponent } from './event/event.component';
+import { AddEventComponent } from './event/add-event/add-event.component';
+import { EditEventComponent } from './event/edit-event/edit-event.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +21,10 @@ import { AjoutClientComponent } from './client/ajout-client/ajout-client.compone
     SellerComponent,
     AjoutSellerComponent,
     ClientComponent,
-    AjoutClientComponent
-    
+    AjoutClientComponent,
+    EventComponent,
+    AddEventComponent,
+    EditEventComponent,
   ],
   imports: [
     BrowserModule,
