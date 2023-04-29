@@ -14,6 +14,7 @@ import tn.esprit.pidev.Services.ProductService;
 
 @RestController
 @RequestMapping("/api/products")
+@CrossOrigin
 public class ProductController {
 
     @Autowired

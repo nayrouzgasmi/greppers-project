@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "user")
+@Transactional
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +38,7 @@ public class User{
     private int active;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Role> userRoles = new HashSet<>();
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
