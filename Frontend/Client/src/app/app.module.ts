@@ -25,6 +25,7 @@ import { StoreComponent } from './store/store.component';
 import { MerchantDashboardComponent } from './merchant-dashboard/merchant-dashboard.component';
 import { MerchantGuideComponent } from './merchant-guide/merchant-guide.component';
 import { AboutComponent } from './about/about.component';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AboutComponent } from './about/about.component';
     StoreComponent,
     MerchantDashboardComponent,
     MerchantGuideComponent,
-    AboutComponent
+    AboutComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { StoresComponent } from './stores/stores.component';
 import { StoreComponent } from './store/store.component';
 import { AboutComponent } from './about/about.component';
 import { MerchantGuideComponent } from './merchant-guide/merchant-guide.component';
+import { ProductComponent } from './product/product.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'reset', component:ResetPasswordComponent},
   {path: 'active', component:CodeActivationComponent},
   { path: 'products', component: ProductsComponent },
+  { path: 'product/:id', component: ProductComponent },
   // { path: 'filter', component: ProductsFilterComponent },
   { path: 'merchant-dashboard', component: MerchantDashboardComponent },
   { path: 'merchant-guide', component: MerchantGuideComponent },

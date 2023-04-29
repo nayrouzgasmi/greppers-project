@@ -81,14 +81,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row product-grid">
-                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+                <div class="row product-grid" >
+                    <div *ngFor="let product of products | async" class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
-                                    <a routerLink="/product">
-                                        <img class="default-img" src="assets/imgs/shop/product-1-1.jpg" alt="" />
-                                        <img class="hover-img" src="assets/imgs/shop/product-1-2.jpg" alt="" />
+                                    <a routerLink="/product/{{product.id}}">
+                                        <img class="default-img" src={{product?.imageUrls[0]}} alt="" />
+                                        <img class="hover-img" src={{product?.imageUrls[1]}} alt="" />
                                     </a>
                                 </div>
                                 <div class="product-action-1">
@@ -107,7 +107,7 @@
                                 <div class="product-category">
                                     <a href="shop-grid-right.html">Snack</a>
                                 </div>
-                                <h2><a routerLink="/product">Seeds of Change Organic Quinoe</a></h2>
+                                <h2><a routerLink="/product">{{product.name}}</a></h2>
                                 <div class="product-rate-cover">
                                     <div class="product-rate d-inline-block">
                                         <div class="product-rating" style="width: 90%"></div>
@@ -131,8 +131,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
-                    <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+                    <!-- <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
@@ -181,7 +180,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -231,7 +229,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -278,7 +275,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -328,7 +324,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -375,7 +370,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -422,7 +416,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -472,7 +465,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -522,7 +514,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6 d-none d-xl-block">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -569,7 +560,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -619,7 +610,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -669,7 +660,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -719,7 +710,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -766,7 +757,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -816,7 +807,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -863,7 +854,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -910,7 +901,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -960,7 +951,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -1010,7 +1001,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end product card-->
+                    
                     <div class="col-lg-3 col-md-4 col-12 col-sm-6 d-none d-xl-block">
                         <div class="product-cart-wrap">
                             <div class="product-img-action-wrap">
@@ -1056,8 +1047,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--end product card-->
+                    </div> -->
+
                 </div>
                 <!--product grid-->
                 <div class="pagination-area mt-20 mb-20">
