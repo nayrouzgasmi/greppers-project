@@ -44,14 +44,16 @@ public class StoreService implements IStoreService {
     @Override
     public Store updateStore(Long id, Store store) {
         Optional<Store> optionalStore = storeRepository.findById(id);
-
+    
         if (optionalStore.isPresent()) {
             Store existingStore = optionalStore.get();
-            // existingStore.setCategory(store.getCategory());
+            existingStore.setName(store.getName());
+            existingStore.setDescription(store.getDescription());
             existingStore.setVendor(store.getVendor());
-            existingStore.setProducts(store.getProducts());
+            // existingStore.setProducts(store.getProducts());
             existingStore.setStoreImage(store.getStoreImage());
-            // existingStore.setStoreBanner(store.getStoreBanner());
+            existingStore.setLogo(store.getLogo());
+            existingStore.setApproved(store.isApproved());
             return storeRepository.save(existingStore);
         } else {
             return null;
