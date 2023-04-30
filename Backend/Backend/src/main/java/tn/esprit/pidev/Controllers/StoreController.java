@@ -14,6 +14,7 @@ import tn.esprit.pidev.Services.IStoreService;
 
 @RestController
 @RequestMapping("/api/stores")
+@CrossOrigin
 public class StoreController {
 
     @Autowired

@@ -41,5 +41,6 @@ public class Store implements Serializable {
     @JsonManagedReference
     Set<Product> products;
     String storeImage;
+    String logo;
     boolean isApproved;
 }
