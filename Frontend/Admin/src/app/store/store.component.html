@@ -58,7 +58,7 @@
                         <a class="dropdown-item" href="#"><i class="material-icons md-receipt"></i>Billing</a>
                         <a class="dropdown-item" href="#"><i class="material-icons md-help_outline"></i>Help center</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#"><i
+                        <a class="dropdown-item text-danger" routerLink=""><i
                                 class="material-icons md-exit_to_app"></i>Logout</a>
                     </div>
                 </li>
@@ -70,7 +70,7 @@
             <a href="javascript:history.back()"><i class="material-icons md-arrow_back"></i> Go back </a>
         </div>
         <div class="card mb-4">
-            <div class="card-header bg-brand-2" style="height: 150px"></div>
+            <div class="card-header bg-brand-2" style="height: 150px;background-image: url({{store.storeImage}});"></div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl col-lg flex-grow-0" style="flex-basis: 230px">
@@ -142,10 +142,10 @@
                 <div class="row">
                     <div *ngFor="let product of store.products " class="col-xl-2 col-lg-3 col-md-6">
                         <div class="card card-product-grid">
-                            <a href="#" class="img-wrap"> <img src={{product.imageUrls[0]}} alt="Product" /> </a>
+                            <a routerLink="/edit-product/{{product.id}}" class="img-wrap"> <img src={{product.imageUrls[0]}} alt="Product" /> </a>
                             <div class="info-wrap">
                                 <a routerLink="" class="title">{{product.name||"undefined"}}</a>
-                                <div class="price mt-1">${{product.price}}</div>
+                                <div class="price mt-1">${{product.price || 0}}</div>
                                 <!-- price-wrap.// -->
                                 <div class="button-container"> 
                                     <a routerLink="/edit-product/{{product.id}}" class="btn btn-primary btn-sm mt-2"> <i

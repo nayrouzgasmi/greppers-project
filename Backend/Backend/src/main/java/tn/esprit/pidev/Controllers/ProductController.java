@@ -1,14 +1,20 @@
 package tn.esprit.pidev.Controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.model.Bucket;
+// import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Services.IProductService;
@@ -17,7 +23,7 @@ import tn.esprit.pidev.Util.ObjectStorage;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductController {
 
     @Autowired
@@ -53,9 +59,44 @@ public class ProductController {
 
     @PostMapping("/{id}")
     public ResponseEntity<Product> createProductAndAssignToStore(@PathVariable("id") long id,
-            @RequestBody Product product) {
-        Product createdProduct = productService.createProductAndAssignToStore(id, product);
+            @RequestParam("product") String productJson, @RequestParam(value = "file", required = false) List<MultipartFile> images)
+            throws IOException {
+                System.out.println("arrived");
+                ObjectMapper objectMapper = new ObjectMapper();
+                Product product = objectMapper.readValue(productJson, Product.class);
+        Product createdProduct = productService.createProductAndAssignToStore(id, product, images);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/img")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public void saveFile(@RequestParam(value = "file", required = true) MultipartFile image) {
+        // Product createdProduct = productService.saveFileAlone( image);
+        // System.out.println(image.toString());
+        try {
+            System.out.println("file arrived" + image.toString());
+            productService.saveFileAlone(image);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        // return new ResponseEntity<>(, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/imgs")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public void saveFiles(@RequestParam(value = "file", required = true) List<MultipartFile> images) {
+        // Product createdProduct = productService.saveFileAlone( image);
+        // System.out.println(image.toString());
+        System.out.println("file arrived");
+        System.out.println(images.getClass());
+        images.forEach(image -> {
+            try {
+                productService.saveFileAlone((MultipartFile) image);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
     }
 
     @PutMapping("/{id}")

@@ -1,7 +1,10 @@
 package tn.esprit.pidev.Services;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.pidev.Entities.Product;
 
@@ -17,6 +20,8 @@ public interface IProductService {
 
     void deleteById(long id);
     void deleteProductWithReference(Long productId) ;
-    Product createProductAndAssignToStore(Long storeId, Product productDto);
+    Product createProductAndAssignToStore(Long storeId, Product productDto,List<MultipartFile> multipartFiles) throws IOException;
+    void saveFile(MultipartFile multipartFile,Product product) throws IOException ;
+    String saveFileAlone(MultipartFile multipartFile) throws IOException;
 
 }

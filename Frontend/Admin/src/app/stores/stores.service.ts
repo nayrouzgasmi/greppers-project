@@ -1,17 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { httpOptions } from '../utils/httpOptions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoresService {
-  public baseUrl="http://localhost:8080/api/stores";
+  public baseUrl="http://localhost:8080/api/stores/";
 
   constructor(private http:HttpClient) { }
   
   public getStores() { 
     return this.http.get(this.baseUrl,httpOptions); 
+   }
+   public deleteStore(id:number) { 
+    console.log(id)
+    return this.http.delete(this.baseUrl+id,httpOptions).subscribe(data=>console.log(data)); 
    }
 }
