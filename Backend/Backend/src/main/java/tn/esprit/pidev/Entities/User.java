@@ -36,7 +36,6 @@ public class User{
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<Role> userRoles = new HashSet<>();
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "code_id")
