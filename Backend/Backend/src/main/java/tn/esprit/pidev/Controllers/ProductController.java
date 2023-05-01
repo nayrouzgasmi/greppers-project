@@ -27,10 +27,6 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts() {
         try {
             List<Product> products = productService.findAll();
-            List<Bucket> buckets = ObjectStorage .s3client .listBuckets();
-            for (Bucket bucket : buckets) {
-                System.out.println(bucket.getName());
-            }
             return new ResponseEntity<>(products, HttpStatus.OK);
 
         } catch (Exception e) {
