@@ -11,7 +11,6 @@ export class StoreService {
   baseUrl = 'http://localhost:8080/api/stores/';
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
   public getStore(id: number): Observable<any> {
-    console.log(this.baseUrl + id)
     return this.http.get(this.baseUrl + id, httpOptions);
   }
 }

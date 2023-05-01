@@ -11,7 +11,7 @@ export class StoresService {
 
   constructor(private http:HttpClient) { }
   
-  public getStores() { 
+  public getStores(): Observable<any> { 
     return this.http.get(this.baseUrl,httpOptions); 
    }
 }

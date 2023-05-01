@@ -17,6 +17,7 @@
 /Users/khalil/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/JwtLogin.java
 /Users/khalil/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Entities/EntityTest.java
 /Users/khalil/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/TokenDto.java
+/Users/khalil/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Util/ObjectStorage.java
 /Users/khalil/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/UserActive.java
 /Users/khalil/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/ActiveAccount.java
 /Users/khalil/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Repositories/RepositoryTest.java
