@@ -19,5 +19,6 @@ public interface IVendorService {
     Vendor updateVendor(Long id, Vendor vendor);
 
     Vendor assignStoreToVendor(Long id, Store store);
+    Store assignExistingStoreToVendor(long vendorId,long storeId);
 
 }

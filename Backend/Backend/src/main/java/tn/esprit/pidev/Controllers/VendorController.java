@@ -14,6 +14,7 @@ import tn.esprit.pidev.Services.IVendorService;
 
 @RestController
 @RequestMapping("/api/vendors")
+@CrossOrigin
 public class VendorController {
 
     @Autowired
@@ -64,6 +65,11 @@ public class VendorController {
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteVendorById(@PathVariable Long id) {
         vendorService.deleteVendorById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PutMapping("/{id}/store/{storeId}")
+    public ResponseEntity<HttpStatus> assignExistingStoreToVendor(@PathVariable Long id,@PathVariable Long storeId) {
+        Store store= vendorService.assignExistingStoreToVendor(id, storeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

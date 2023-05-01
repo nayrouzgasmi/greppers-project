@@ -16,5 +16,7 @@ public interface IProductService {
     Product updateProduct(long id, Product updatedProduct);
 
     void deleteById(long id);
+    void deleteProductWithReference(Long productId) ;
+    Product createProductAndAssignToStore(Long storeId, Product productDto);
 
 }

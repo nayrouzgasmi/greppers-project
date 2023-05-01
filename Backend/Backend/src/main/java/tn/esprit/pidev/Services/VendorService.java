@@ -76,5 +76,11 @@ public class VendorService implements IVendorService {
             return null;
         }
     }
-
+    public Store assignExistingStoreToVendor(long vendorId,long storeId) {
+        Vendor vendor = vendorRepository.findById(vendorId).orElseThrow(() -> new EntityNotFoundException("Vendor not found with ID: " + vendorId));
+        Store store = storeRepository.findById(storeId).orElseThrow(() -> new EntityNotFoundException("Store not found with ID: " + storeId));
+        store.setVendor(vendor);
+        vendor.addStore(store);
+        return storeRepository.save(store);
+    }
 }

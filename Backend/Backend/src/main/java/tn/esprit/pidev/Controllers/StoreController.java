@@ -53,5 +53,4 @@ public class StoreController {
         Store updatedStore = storeService.assignExistingProductToStore(id, productId);
         return updatedStore != null ? ResponseEntity.ok(updatedStore) : ResponseEntity.notFound().build();
     }
-
 }

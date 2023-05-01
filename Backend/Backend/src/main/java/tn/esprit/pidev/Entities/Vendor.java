@@ -40,5 +40,9 @@ public class Vendor implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     @JsonManagedReference
     Set<Store> stores;
+    public void addStore(Store store) {
+        stores.add(store);
+        store.setVendor(this);
+    }
 
 }

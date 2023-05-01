@@ -8,9 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.amazonaws.services.s3.model.Bucket;
+
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Services.IProductService;
 import tn.esprit.pidev.Services.ProductService;
+import tn.esprit.pidev.Util.ObjectStorage;
 
 @RestController
 @RequestMapping("/api/products")
@@ -24,7 +27,12 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts() {
         try {
             List<Product> products = productService.findAll();
+            List<Bucket> buckets = ObjectStorage .s3client .listBuckets();
+            for (Bucket bucket : buckets) {
+                System.out.println(bucket.getName());
+            }
             return new ResponseEntity<>(products, HttpStatus.OK);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -47,6 +55,13 @@ public class ProductController {
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<Product> createProductAndAssignToStore(@PathVariable("id") long id,
+            @RequestBody Product product) {
+        Product createdProduct = productService.createProductAndAssignToStore(id, product);
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable("id") long id, @RequestBody Product product) {
         Product updatedProduct = productService.updateProduct(id, product);
@@ -60,6 +75,12 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") long id) {
         productService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/ref/{id}")
+    public ResponseEntity<Void> deleteProductWithReference(@PathVariable("id") long id) {
+        productService.deleteProductWithReference(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
