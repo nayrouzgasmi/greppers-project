@@ -15,4 +15,7 @@ export class StoresComponent {
   ngOnInit(): void {
     // this.stores = this.storesServices.getStores().subscribe();
   }
+  deleteStore(id:number){
+    this.storesServices.deleteStore(id)
+  }
 }

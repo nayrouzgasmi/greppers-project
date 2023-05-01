@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Entities.Store;
@@ -31,9 +36,18 @@ public class StoreController {
         return store.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Store createOrUpdateStore(@RequestBody Store store) {
-        return storeService.createOrUpdateStore(store);
+    // @PostMapping("/{id}")
+    // public Store createOrUpdateStore(@RequestBody Store store) {
+    // return storeService.createOrUpdateStore(store);
+    // }
+    @PostMapping("/{id}")
+    public Store createOrUpdateStore(@PathVariable("id") long id, @RequestParam("store") String storeJson,
+            @RequestParam(value = "logo", required = false) MultipartFile logo,
+            @RequestParam(value = "banner", required = false) MultipartFile storeImage)
+            throws JsonMappingException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Store store = objectMapper.readValue(storeJson, Store.class);
+        return storeService.createOrUpdateStore(store, logo, storeImage);
     }
 
     @PutMapping("/{id}")
@@ -44,6 +58,7 @@ public class StoreController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStoreById(@PathVariable Long id) {
+        System.out.println("deleting");
         storeService.deleteStoreById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

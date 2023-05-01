@@ -9,6 +9,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { StoresComponent } from './stores/stores.component';
 import { StoreComponent } from './store/store.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { AddStoreComponent } from './add-store/add-store.component';
 
 const routes: Routes = [
   {path:"", component: MenuComponent},
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path:"add-product/:id", component: AddProductComponent},
   {path:"stores", component: StoresComponent},
   {path:"store/:id", component: StoreComponent},
+  {path:"add-store/:id", component: AddStoreComponent},
   {path:"add_seller", component: AjoutSellerComponent},
   {path:"add_client", component: AjoutClientComponent}
 

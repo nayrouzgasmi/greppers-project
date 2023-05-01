@@ -20,6 +20,8 @@ export class StoreComponent {
   }
   deleteProduct(id: number): void {
     console.log('clicked,', id);
+    const idGet = this.route.snapshot.params['id'];
     this.storeService.removeProduct(id).subscribe((data:any) => console.log(data));
+    this.storeService.getStore(idGet).subscribe((data) => (this.store = data));
   }
 }

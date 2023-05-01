@@ -58,7 +58,7 @@
         <div class="content-header">
             <h2 class="content-title">Sellers list</h2>
             <div>
-                <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>
+                <a routerLink="/add-store/1" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>
             </div>
         </div>
         <div class="card mb-4">
@@ -100,7 +100,7 @@
                         <tbody>
                             <tr *ngFor="let store of stores | async ">
                                 <td width="40%">
-                                    <a href="#" class="itemside">
+                                    <a routerLink="/store/{{store.id}}" class="itemside">
                                         <div class="left">
                                             <img src={{store.logo}} class="img-sm img-avatar" alt="Userpic" />
                                         </div>
@@ -113,8 +113,9 @@
                                 <td>{{store.owner || "undefined"}}</td>
                                 <td><span class="badge rounded-pill alert-success">Active</span></td>
                                 <td>08.07.2020</td>
-                                <td class="text-end">
-                                    <a routerLink="/store/{{store.id}}" class="btn btn-sm btn-brand rounded font-sm mt-15">View details</a>
+                                <td class="text-end flex-col flex">
+                                    <button (click)="deleteStore(store.id)" class="btn btn-sm btn-danger rounded font-sm m-2">Delete <i class="material-icons md-delete"></i></button>
+                                    <a routerLink="/store/{{store.id}}" class="btn btn-sm btn-brand rounded font-sm m-2">View details</a>
                                 </td>
                             </tr>
                         </tbody>

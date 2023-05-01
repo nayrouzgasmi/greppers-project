@@ -1,5 +1,6 @@
 package tn.esprit.pidev.Services;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +11,16 @@ import tn.esprit.pidev.Entities.Store;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.google.api.client.util.Value;
 
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Entities.Tag;
@@ -29,6 +38,12 @@ public class ProductService implements IProductService {
     private StoreRepository storeRepository;
     @Autowired
     private TagRepository tagRepository;
+    @Autowired
+	AmazonS3 s3Client;
+    // @Value("${do.space.bucket}")
+	private String doSpaceBucket="green-bubble";
+
+	String FOLDER = "products/";
 
     @Override
     public List<Product> findAll() {
@@ -73,6 +88,7 @@ public class ProductService implements IProductService {
     public void deleteProductWithReference(Long productId) {
         // Retrieve the product that you want to delete
         Product product = productRepository.findById(productId).orElse(null);
+        // product.getImageUrls().clear();
 
         if (product != null) {
             // Retrieve the stores that reference the product
@@ -83,13 +99,16 @@ public class ProductService implements IProductService {
                 store.getProducts().remove(product);
                 storeRepository.save(store);
             }
-
+            // product.getTags().forEach(tag->product.getTags().remove(tag));
+            product.getTags().clear();
+            product.getImageUrls().clear();
+            // product.getImageUrls().forEach(image->product.getImageUrls().remove(image));
             // Delete the product
             productRepository.delete(product);
         }
     }
 
-    public Product createProductAndAssignToStore(Long storeId, Product productDto) {
+    public Product createProductAndAssignToStore(Long storeId, Product productDto,List<MultipartFile> multipartFiles) throws IOException {
         // Retrieve the store from the repository
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new EntityNotFoundException("Store not found with ID: " + storeId));
@@ -105,7 +124,19 @@ public class ProductService implements IProductService {
         else
             product.setAvailable(false);
         product.setBioScore(productDto.getBioScore());
-        product.setImageUrls(productDto.getImageUrls());
+        // product.setImageUrls(productDto.getImageUrls());
+        // saveFile(multipartFile, product);
+        if (product.getImageUrls() == null) {
+            product.setImageUrls(new HashSet<String>());
+        }
+        multipartFiles.forEach(image -> {
+            try {
+                String imgUrl=saveFileAlone((MultipartFile) image);
+                product.getImageUrls().add(imgUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         product.setStore(store);
         if (product.getTags() == null) {
             product.setTags(new HashSet<Tag>());
@@ -134,5 +165,35 @@ public class ProductService implements IProductService {
 
         return product;
     }
+    @Override
+	public void saveFile(MultipartFile multipartFile,Product product) throws IOException {
+		String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+		String imgName = FilenameUtils.removeExtension(multipartFile.getOriginalFilename());
+		String key = FOLDER + imgName + "." + extension;
+		saveImageToServer(multipartFile, key);
+        product.getImageUrls().add(key);
+        return;
+	}
+    public String saveFileAlone(MultipartFile multipartFile) throws IOException {
+		String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+		String imgName = FilenameUtils.removeExtension(multipartFile.getOriginalFilename());
+		String key = FOLDER + imgName + "." + extension;
+        System.out.println(key);
+		saveImageToServer(multipartFile, key);
+        return "https://green-bubble.fra1.digitaloceanspaces.com/"+key;
+	}
+    private void saveImageToServer(MultipartFile multipartFile, String key) throws IOException {
+        System.out.println("inside save image");
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(multipartFile.getInputStream().available());
+		if (multipartFile.getContentType() != null && !"".equals(multipartFile.getContentType())) {
+			metadata.setContentType(multipartFile.getContentType());
+		}
+
+		s3Client.putObject(new PutObjectRequest(doSpaceBucket, key, multipartFile.getInputStream(), metadata)
+				.withCannedAcl(CannedAccessControlList.PublicReadWrite));
+        System.out.println("here");
+
+	}
 
 }

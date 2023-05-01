@@ -3,6 +3,8 @@ package tn.esprit.pidev.Services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Entities.Store;
 
@@ -12,7 +14,7 @@ public interface IStoreService {
 
     Optional<Store> getStoreById(Long id);
 
-    Store createOrUpdateStore(Store store);
+    Store createOrUpdateStore(Store store, MultipartFile logo, MultipartFile storeImage);
 
     void deleteStoreById(Long id);
 
