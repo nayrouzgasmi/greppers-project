@@ -49,4 +49,5 @@ public class Store implements Serializable {
     String storeImage;
     String logo;
     boolean isApproved;
+    String address;
 }

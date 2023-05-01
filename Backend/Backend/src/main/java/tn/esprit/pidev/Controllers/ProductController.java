@@ -1,10 +1,7 @@
 package tn.esprit.pidev.Controllers;
-
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,14 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.s3.model.Bucket;
-// import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import tn.esprit.pidev.Entities.Product;
-import tn.esprit.pidev.Services.IProductService;
 import tn.esprit.pidev.Services.ProductService;
-import tn.esprit.pidev.Util.ObjectStorage;
 
 @RestController
 @RequestMapping("/api/products")
@@ -61,7 +54,6 @@ public class ProductController {
     public ResponseEntity<Product> createProductAndAssignToStore(@PathVariable("id") long id,
             @RequestParam("product") String productJson, @RequestParam(value = "file", required = false) List<MultipartFile> images)
             throws IOException {
-                System.out.println("arrived");
                 ObjectMapper objectMapper = new ObjectMapper();
                 Product product = objectMapper.readValue(productJson, Product.class);
         Product createdProduct = productService.createProductAndAssignToStore(id, product, images);
@@ -74,7 +66,6 @@ public class ProductController {
         // Product createdProduct = productService.saveFileAlone( image);
         // System.out.println(image.toString());
         try {
-            System.out.println("file arrived" + image.toString());
             productService.saveFileAlone(image);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -85,10 +76,6 @@ public class ProductController {
     @PostMapping("/imgs")
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     public void saveFiles(@RequestParam(value = "file", required = true) List<MultipartFile> images) {
-        // Product createdProduct = productService.saveFileAlone( image);
-        // System.out.println(image.toString());
-        System.out.println("file arrived");
-        System.out.println(images.getClass());
         images.forEach(image -> {
             try {
                 productService.saveFileAlone((MultipartFile) image);
