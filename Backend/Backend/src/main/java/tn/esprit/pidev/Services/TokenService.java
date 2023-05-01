@@ -7,10 +7,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import tn.esprit.pidev.Entities.User;
 import tn.esprit.pidev.Payload.JwtLogin;
 import tn.esprit.pidev.Payload.JwtProperties;
 import tn.esprit.pidev.Payload.LoginResponse;
 import tn.esprit.pidev.Payload.UserPrincipal;
+import tn.esprit.pidev.Repositories.UserRepository;
 
 import java.util.Date;
 
@@ -20,9 +22,12 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 public class TokenService {
     private AuthenticationManager authenticationManager;
 
+    private UserRepository userRepository;
+
     @Autowired
-    public TokenService(AuthenticationManager authenticationManager) {
+    public TokenService(UserRepository userRepository,AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
+        this.userRepository=userRepository;
     }
 
 
@@ -44,7 +49,8 @@ public class TokenService {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtLogin.getEmail(),
                 jwtLogin.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
+        User user = userRepository.findByemail(jwtLogin.getEmail());
         String token = generateToken(authenticate);
-        return new LoginResponse(jwtLogin.getEmail(),token);
+        return new LoginResponse(user,jwtLogin.getEmail(),token);
     }
 }

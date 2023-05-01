@@ -12,5 +12,8 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  GoBack() {
+    window.location.href = 'http://localhost:4200/'
 
+  }
 }

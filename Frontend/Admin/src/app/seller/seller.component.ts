@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { SellerService } from './seller.service';
 import { NgForm } from '@angular/forms';
 
@@ -28,9 +28,22 @@ export class SellerComponent implements OnInit {
     id:"",
     username:"",
     email:"",
-    phone_number:""
+    phone_number:"",
+    active:""
    }
-  constructor(private sellerService: SellerService) {
+
+    
+studentToUpdate = {
+  username:"",
+  email:"",
+  phone_number:"",
+  active:"",
+  id:null
+}
+
+
+showForm= false ;
+  constructor(private renderer: Renderer2, private elRef: ElementRef, private sellerService: SellerService) {
     this.getSellersDetails();
    }
 
@@ -48,7 +61,7 @@ getSellersDetails(){
   );
 }
 edit(seller: any){
-  this.sellerToUpdate=seller;
+  this.studentToUpdate=seller;
 }
 updateSeller(){
   this.sellerService.updateSellers(this.sellerToUpdate).subscribe(
@@ -71,6 +84,33 @@ deleteSeller(seller:any){
     }
   );
 }
+
+
+updateUser(){
+  this.sellerService.updateSellers(this.studentToUpdate).subscribe(
+    (resp) => {
+      console.log(resp);
+      this.showForm = false;
+
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
+
+openForm(seller: any){
+  
+  this.studentToUpdate = seller;
+  this.showForm = true;
+
+}
+
+closeForm(){
+  this.showForm = false;
+}
+
+
 
 
 }
