@@ -25,6 +25,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findAllSellers();
     @Query("SELECT u FROM User u JOIN u.userRoles r WHERE r.roleName = 'Client'")
     List<User> findAllClients();
-
+    public User findByUsername(String username);
 
 }

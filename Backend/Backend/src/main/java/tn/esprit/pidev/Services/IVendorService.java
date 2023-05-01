@@ -20,5 +20,6 @@ public interface IVendorService {
 
     Vendor assignStoreToVendor(Long id, Store store);
     Store assignExistingStoreToVendor(long vendorId,long storeId);
+    public Vendor saveVendorWithUser(Vendor vendor,String username);
 
 }

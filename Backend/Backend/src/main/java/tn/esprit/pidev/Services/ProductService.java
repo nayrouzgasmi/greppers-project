@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import tn.esprit.pidev.Entities.Store;
 
@@ -20,7 +19,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.google.api.client.util.Value;
 
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Entities.Tag;
@@ -124,8 +122,6 @@ public class ProductService implements IProductService {
         else
             product.setAvailable(false);
         product.setBioScore(productDto.getBioScore());
-        // product.setImageUrls(productDto.getImageUrls());
-        // saveFile(multipartFile, product);
         if (product.getImageUrls() == null) {
             product.setImageUrls(new HashSet<String>());
         }

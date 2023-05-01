@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.pidev.Entities.Store;
+import tn.esprit.pidev.Entities.User;
 import tn.esprit.pidev.Entities.Vendor;
 import tn.esprit.pidev.Repositories.StoreRepository;
+import tn.esprit.pidev.Repositories.UserRepository;
 import tn.esprit.pidev.Repositories.VendorRepository;
 
 @Service
@@ -22,6 +24,8 @@ public class VendorService implements IVendorService {
     private VendorRepository vendorRepository;
     @Autowired
     private StoreRepository storeRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<Vendor> getAllVendors() {
@@ -41,6 +45,14 @@ public class VendorService implements IVendorService {
 
     @Override
     public Vendor saveVendor(Vendor vendor) {
+        return vendorRepository.save(vendor);
+    }
+    @Override
+    public Vendor saveVendorWithUser(Vendor vendor,String username) {
+        User  user=userRepository.findByUsername(username);
+        if (user!=null) {
+            vendor.setUser(user);
+        }
         return vendorRepository.save(vendor);
     }
 
