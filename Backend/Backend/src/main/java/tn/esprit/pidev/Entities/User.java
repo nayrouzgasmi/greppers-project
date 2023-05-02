@@ -45,6 +45,13 @@ public class User{
     @JoinColumn(name = "code_id")
     @JsonIgnore
     private Code code;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "author_articles",
+	       joinColumns = @JoinColumn(name =  "user_id"),
+	       inverseJoinColumns = @JoinColumn(name = "article_id"))
+    private Set<Article> articles;
+
     public Set<Role> getUserRoles() {
         return userRoles;
     }
