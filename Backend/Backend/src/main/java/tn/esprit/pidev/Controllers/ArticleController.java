@@ -17,7 +17,6 @@ import tn.esprit.pidev.Entities.Article;
 @RequestMapping("/articles")
 public class ArticleController {
 
-    @Autowired
     ArticleService service;
     
     @GetMapping
