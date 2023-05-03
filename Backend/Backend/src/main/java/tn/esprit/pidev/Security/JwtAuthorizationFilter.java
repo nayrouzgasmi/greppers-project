@@ -46,14 +46,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
             return;
         }
 
-        if ("/signin".equals(request.getRequestURI()) && request.getMethod().equals(HttpMethod.POST.name())) {
-            String username = request.getParameter("username");
-            int failedAttempts = loginAttemptService.getFailedLoginAttempts(username);
-            if (failedAttempts >= 3) {
-                response.sendError(HttpStatus.FORBIDDEN.value(), "Maximum login attempts exceeded. Please try again later or contact support.");
-                return;
-            }
-        }
+
         // If header is present, try grab user principal from database and perform authorization
         Authentication authentication = getUsernamePasswordAuthentication(request);
         SecurityContextHolder.getContext().setAuthentication(authentication);
