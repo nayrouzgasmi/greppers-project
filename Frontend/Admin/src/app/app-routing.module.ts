@@ -5,15 +5,28 @@ import { MenuComponent } from './menu/menu.component';
 import { AjoutSellerComponent } from './ajout-seller/ajout-seller.component';
 import { ClientComponent } from './client/client.component';
 import { AjoutClientComponent } from './client/ajout-client/ajout-client.component';
+import { ReviewComponent } from './review/review.component';
+import { HeaderComponent } from './ui/header/header.component';
+import { CreateReviewComponent } from './create-review/create-review.component';
 
 const routes: Routes = [
-  {path:"", component: MenuComponent},
+  { path: "", component: MenuComponent },
 
-  {path:"seller", component: SellerComponent},
-  {path:"client", component: ClientComponent},
+  { path: "seller", component: SellerComponent },
 
-  {path:"add_seller", component: AjoutSellerComponent},
-  {path:"add_client", component: AjoutClientComponent}
+  {
+    path: "review", component: HeaderComponent, children: [
+      { path: '', redirectTo: 'listReviews', pathMatch: 'full' },
+      { path: 'listReviews', component: ReviewComponent },
+      { path: 'create', component: CreateReviewComponent }
+
+    ]
+  },
+
+  { path: "client", component: ClientComponent },
+
+  { path: "add_seller", component: AjoutSellerComponent },
+  { path: "add_client", component: AjoutClientComponent }
 
 
 ];

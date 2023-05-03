@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartException;
 
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Services.IProductService;
@@ -41,7 +43,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping(value= "", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         Product createdProduct = productService.save(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);

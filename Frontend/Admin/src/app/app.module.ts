@@ -10,7 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { AjoutSellerComponent } from './ajout-seller/ajout-seller.component';
 import { ClientComponent } from './client/client.component';
 import { AjoutClientComponent } from './client/ajout-client/ajout-client.component';
-
+import { ReviewComponent } from './review/review.component';
+import { HeaderComponent } from './ui/header/header.component';
+import { CreateReviewComponent } from './create-review/create-review.component';
+import { LoadingComponent } from './ui/loading/loading.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,8 +21,12 @@ import { AjoutClientComponent } from './client/ajout-client/ajout-client.compone
     SellerComponent,
     AjoutSellerComponent,
     ClientComponent,
-    AjoutClientComponent
-    
+    AjoutClientComponent,
+    ReviewComponent,
+    HeaderComponent,
+    CreateReviewComponent,
+    LoadingComponent
+
   ],
   imports: [
     BrowserModule,
