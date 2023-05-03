@@ -17,6 +17,7 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
 import { CookieService } from 'ngx-cookie-service';
 import { CodeActivationComponent } from './code-activation/code-activation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { BlogComponent } from './blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     HomeComponent,
     NavbarComponent,
     FooterComponent,
+    BlogComponent,
     HeroComponent,
     CategoriesComponent,
     EventsComponent,
@@ -38,7 +40,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SocialLoginModule  
+    SocialLoginModule
   ],
   providers: [
     {

@@ -6,18 +6,16 @@ import { RegisterComponent } from './register/register.component';
 import { EventsComponent } from './events/events.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CodeActivationComponent } from './code-activation/code-activation.component';
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-  },
+  { path: '', component: HomeComponent },
   { path: 'events', component: EventsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  {path: 'reset', component:ResetPasswordComponent},
-  {path: 'active', component:CodeActivationComponent},
-
+  { path: 'reset', component: ResetPasswordComponent},
+  { path: 'active', component: CodeActivationComponent},
+  { path: 'blog', component: BlogComponent }
 ];
 
 @NgModule({
