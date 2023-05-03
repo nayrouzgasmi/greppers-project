@@ -34,10 +34,8 @@ th {
     align-items: center;
     height: 100%;
     width: 100%;
-    position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
 }
 
@@ -45,7 +43,7 @@ th {
     background-color: white;
     width: 600px;
     padding: 20px 50px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .form-control {

@@ -4,7 +4,6 @@ export const httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization:
-        'Bearer ' +
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJraGFsaWwuY2hldHRhb3VpMDZAZ21haWwuY29tIiwiZXhwIjoxNjgzODEzNzIzfQ.U_UOE8z3IK_krIruiqT2W25jUb2xoThh4YwNEYSUranxfo2lpQrGuBLTUhifJCL1Gc7soJkUVEmmPfOX7b1NgQ',
+        'Bearer '+'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYXlyb3V6Z2FzbWlAZ21haWwuY29tIiwiZXhwIjoxNjgzOTgzMjEwfQ.LFVDetRPGeuKHmiujd_bV-0gMdRFQ7Sp5uYHsACmQ7JnizknPnZfqgvo5Xb2HaCnMVNd8vnd3_mmf-fnuOVTZg'
     }),
   };
