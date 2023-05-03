@@ -20,8 +20,8 @@ export class RegisterComponent implements OnInit{
 	phone_number: string = '';
 
 	user_roles: any = [
-		{name:'Patient', value:'Patient', selected: false},
-		{name:'Doctor', value:'Doctor', selected: false},
+		{name:'Client', value:'Client', selected: false},
+		{name:'Marchant', value:'Marchant', selected: false},
 	]
 
 	selectedRoles: string[] = [];

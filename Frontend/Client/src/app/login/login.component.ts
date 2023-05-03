@@ -64,7 +64,15 @@ export class LoginComponent implements OnInit {
 			  this.checkoutParentGroup.controls['user'].value.password
 			).subscribe({
 			  next: response =>{
-				this.router.navigateByUrl("/")
+				let name=response.user.userRoles[0].roleName;
+				console.log('role:',name);
+				console.log('id :',sessionStorage.getItem("id"));
+				if( name ==='Admin'){
+					window.location.href = 'http://localhost:4201/'
+				}
+				else{
+					this.router.navigateByUrl("")
+				}
 			  }
 			})
 		  } else if(ac === 0){

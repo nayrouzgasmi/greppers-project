@@ -44,11 +44,13 @@ public class UserController {
     public LoginResponse logIn(@RequestBody JwtLogin jwtLogin){
         return tokenService.login(jwtLogin);
     }
-
+    @CrossOrigin("http://localhost:4201")
     @GetMapping("/getSellers")
     public List<User> GetAllSellers(){
         return userService.fetchSellerList();
     }
+
+    @CrossOrigin("http://localhost:4201")
     @GetMapping("/getClients")
     public List<User> GetAllClients(){
         return userService.fetchClientList();
@@ -167,11 +169,14 @@ public class UserController {
     }
 
     @PutMapping("/updateSellers")
+    @CrossOrigin("http://localhost:4201")
+
     public User updateUser(@RequestBody User seller){
         return userService.updateUser(seller);
     }
 
     @DeleteMapping("/deleteSellers")
+    @CrossOrigin("http://localhost:4201")
     public void deleteSellers(@RequestParam Long id){
          userService.deleteSeller(id);
     }
