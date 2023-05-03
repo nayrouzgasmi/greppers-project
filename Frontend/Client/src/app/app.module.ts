@@ -26,6 +26,7 @@ import { MerchantDashboardComponent } from './merchant-dashboard/merchant-dashbo
 import { MerchantGuideComponent } from './merchant-guide/merchant-guide.component';
 import { AboutComponent } from './about/about.component';
 import { ProductComponent } from './product/product.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ProductComponent } from './product/product.component';
     MerchantDashboardComponent,
     MerchantGuideComponent,
     AboutComponent,
-    ProductComponent
+    ProductComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
