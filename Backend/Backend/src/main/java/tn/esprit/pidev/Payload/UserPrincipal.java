@@ -14,7 +14,7 @@ public class UserPrincipal implements UserDetails {
 
     private User user;
 
-    @Autowired
+
     public UserPrincipal(User user) {
         this.user = user;
     }
