@@ -21,7 +21,5 @@ public interface IProductService {
     void deleteById(long id);
     void deleteProductWithReference(Long productId) ;
     Product createProductAndAssignToStore(Long storeId, Product productDto,List<MultipartFile> multipartFiles) throws IOException;
-    void saveFile(MultipartFile multipartFile,Product product) throws IOException ;
-    String saveFileAlone(MultipartFile multipartFile) throws IOException;
 
 }

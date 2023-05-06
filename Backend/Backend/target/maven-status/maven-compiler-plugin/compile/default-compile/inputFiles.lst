@@ -17,6 +17,7 @@
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Security/SecurityTest.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Repositories/LoginAttemptRepository.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/ServiceTest.java
+/Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/ObjectStorageService.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Controllers/ProductSubcategoryController.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/CompositionService.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Entities/Code.java
@@ -39,6 +40,7 @@
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Entities/Product.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Controllers/ControllerTest.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Controllers/StoreController.java
+/Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/IObjectStorageService.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Repositories/AuthoritiesRepository.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Repositories/ProductSubcategoryRepository.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Controllers/ProductController.java

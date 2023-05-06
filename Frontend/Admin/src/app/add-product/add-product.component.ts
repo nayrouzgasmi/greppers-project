@@ -16,6 +16,7 @@ export class AddProductComponent implements OnInit {
     quantity: number;
     bioScore: number;
     tags: any[];
+    compositions: { name: string; description: string; quantity: number }[];
     // imageUrls: any;
   } = {
     name: '',
@@ -24,12 +25,14 @@ export class AddProductComponent implements OnInit {
     quantity: 0,
     bioScore: 0,
     tags: [],
+    compositions: [],
     // imageUrls: [],
   };
   selectedTags: any[] = [];
   multipartFile: any;
   data: FormData = new FormData();
-  filesToUpload: any[]=[];
+  filesToUpload: any[] = [];
+  composition = { name: 'string', description: 'string', quantity: 0 };
   constructor(
     private addProductService: AddProductService,
     private route: ActivatedRoute
@@ -37,7 +40,9 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {}
   public popTag(tagToPop: any) {
-    const index = this.product.tags.findIndex(tag => tag.name === tagToPop.name);
+    const index = this.product.tags.findIndex(
+      (tag) => tag.name === tagToPop.name
+    );
     if (index !== -1) {
       this.product.tags.splice(index, 1);
     }
@@ -45,6 +50,19 @@ export class AddProductComponent implements OnInit {
   public addTag(tagToPush: any) {
     this.product.tags.push({ name: tagToPush.target.value });
     tagToPush.target.value = '';
+  }
+  public addComposition(event:any) {
+    if (!this.composition.name||!this.composition.description||!this.composition.quantity) {
+      return
+    }
+    this.product.compositions.push(this.composition);
+    this.composition = { name: '', description: '', quantity: 0 };
+  }
+  public popComposition(compositionToPop:any) {
+    const index=this.product.compositions.findIndex(comp=>comp.name===compositionToPop.name);
+    if (index !== -1) {
+      this.product.compositions.splice(index, 1);
+    }
   }
   public saveFiles(files: any) {
     const fileList: FileList = files.target.files;
@@ -69,11 +87,11 @@ export class AddProductComponent implements OnInit {
     // console.log('files', files.target.files)
     // this.addProductService.saveFiles(data);
   }
-  public deleteFiles(){
-    console.log(this.data.getAll("file"))
-    this.data.delete('file')
+  public deleteFiles() {
+    console.log(this.data.getAll('file'));
+    this.data.delete('file');
     // this.data.delete('files');
-    this.filesToUpload=[];
+    this.filesToUpload = [];
   }
   public submitForm() {
     this.data.append('product', JSON.stringify(this.product));

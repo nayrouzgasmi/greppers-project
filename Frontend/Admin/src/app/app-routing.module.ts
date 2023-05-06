@@ -11,6 +11,7 @@ import { StoreComponent } from './store/store.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { AddStoreComponent } from './add-store/add-store.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { EditStoreComponent } from './edit-store/edit-store.component';
 
 const routes: Routes = [
   {path:"", component: MenuComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path:"stores", component: StoresComponent},
   {path:"store/:id", component: StoreComponent},
   {path:"add-store/:id", component: AddStoreComponent},
+  {path:"edit-store/:id", component: EditStoreComponent},
   {path:"add_seller", component: AjoutSellerComponent},
   {path:"add_client", component: AjoutClientComponent},
   {path:"user-details/:id", component: UserDetailsComponent}

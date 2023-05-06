@@ -12,8 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Entities.Store;
 import tn.esprit.pidev.Services.IStoreService;
 
@@ -45,20 +43,33 @@ public class StoreController {
             @RequestParam(value = "logo", required = false) MultipartFile logo,
             @RequestParam(value = "banner", required = false) MultipartFile storeImage)
             throws JsonMappingException, JsonProcessingException {
+        System.out.println("hello");
         ObjectMapper objectMapper = new ObjectMapper();
         Store store = objectMapper.readValue(storeJson, Store.class);
         return storeService.createOrUpdateStore(store, logo, storeImage);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Store> updateStore(@PathVariable Long id, @RequestBody Store store) {
-        Store updatedStore = storeService.updateStore(id, store);
-        return updatedStore != null ? ResponseEntity.ok(updatedStore) : ResponseEntity.notFound().build();
+    public Store UpdateStore(@PathVariable("id") long id, @RequestParam("store") String storeJson,
+            @RequestParam(value = "logo", required = false) MultipartFile logo,
+            @RequestParam(value = "banner", required = false) MultipartFile storeImage)
+            throws JsonMappingException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Store store = objectMapper.readValue(storeJson, Store.class);
+        return storeService.updateStore(id,store, logo, storeImage);
+
     }
+
+    // @PutMapping("/{id}")
+    // public ResponseEntity<Store> updateStore(@PathVariable Long id, @RequestBody
+    // Store store) {
+    // Store updatedStore = storeService.updateStore(id, store);
+    // return updatedStore != null ? ResponseEntity.ok(updatedStore) :
+    // ResponseEntity.notFound().build();
+    // }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStoreById(@PathVariable Long id) {
-        System.out.println("deleting");
         storeService.deleteStoreById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -9,39 +9,39 @@ import tn.esprit.pidev.Entities.Store;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import tn.esprit.pidev.Entities.Composition;
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Entities.Tag;
+import tn.esprit.pidev.Repositories.CompositionRepository;
 import tn.esprit.pidev.Repositories.ProductRepository;
 import tn.esprit.pidev.Repositories.StoreRepository;
 import tn.esprit.pidev.Repositories.TagRepository;
+import tn.esprit.pidev.Util.ObjectStorage;
 
 @Service
 @Transactional
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductService implements IProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    ProductRepository productRepository;
     @Autowired
-    private StoreRepository storeRepository;
+    StoreRepository storeRepository;
     @Autowired
-    private TagRepository tagRepository;
+    TagRepository tagRepository;
     @Autowired
-	AmazonS3 s3Client;
+    CompositionRepository compositionRepository;
+    @Autowired
+    IObjectStorageService objectStorageService;
     // @Value("${do.space.bucket}")
-	private String doSpaceBucket="green-bubble";
 
-	String FOLDER = "products/";
+    String FOLDER = "products/";
 
     @Override
     public List<Product> findAll() {
@@ -99,6 +99,7 @@ public class ProductService implements IProductService {
             }
             // product.getTags().forEach(tag->product.getTags().remove(tag));
             product.getTags().clear();
+            product.getImageUrls().forEach(image -> objectStorageService.deleteFile(image));
             product.getImageUrls().clear();
             // product.getImageUrls().forEach(image->product.getImageUrls().remove(image));
             // Delete the product
@@ -106,90 +107,48 @@ public class ProductService implements IProductService {
         }
     }
 
-    public Product createProductAndAssignToStore(Long storeId, Product productDto,List<MultipartFile> multipartFiles) throws IOException {
+    public Product createProductAndAssignToStore(Long storeId, Product product, List<MultipartFile> multipartFiles)
+            throws IOException {
         // Retrieve the store from the repository
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new EntityNotFoundException("Store not found with ID: " + storeId));
-
-        // Create the product entity from the DTO
-        Product product = new Product();
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-        product.setDescription(productDto.getDescription());
-        product.setQuantity(productDto.getQuantity());
-        if (productDto.getQuantity() > 0)
+        if (product.getCompositions() == null) {
+            product.setCompositions(new HashSet<Composition>());
+        }
+        // if (product.getTags() == null) {
+        //     product.setTags(new HashSet<Tag>());
+        // }
+        for (Composition composition : product.getCompositions()) {
+            compositionRepository.save(composition);
+            product.getCompositions().add(composition);
+        }
+        if (product.getQuantity() > 0)
             product.setAvailable(true);
         else
             product.setAvailable(false);
-        product.setBioScore(productDto.getBioScore());
         if (product.getImageUrls() == null) {
             product.setImageUrls(new HashSet<String>());
         }
         multipartFiles.forEach(image -> {
-            try {
-                String imgUrl=saveFileAlone((MultipartFile) image);
-                product.getImageUrls().add(imgUrl);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            String imgUrl = objectStorageService.saveFileAlone((MultipartFile) image, FOLDER);
+            product.getImageUrls().add(imgUrl);
         });
-        product.setStore(store);
-        if (product.getTags() == null) {
-            product.setTags(new HashSet<Tag>());
-        }
-        // Assign existing or create new tags for the product
-        for (Tag tag : productDto.getTags()) {
+        for (Tag tag : product.getTags()) {
             Tag existingTag = tagRepository.findByName(tag.getName());
             if (existingTag != null) {
                 // Use existing tag if found in the database
                 product.getTags().add(existingTag);
             } else {
                 // Create a new tag if not found in the database
-                Tag newTag = new Tag();
-                newTag.setName(tag.getName());
-                newTag.setIcon(tag.getIcon());
-                tagRepository.save(newTag);
-                product.getTags().add(newTag);
+                tagRepository.save(tag);
+                product.getTags().add(tag);
             }
         }
-
-        // Add the product to the store's products set
+        product.setStore(store);
         store.getProducts().add(product);
-
-        // Save the store (which will cascade save the product)
         storeRepository.save(store);
 
         return product;
     }
-    @Override
-	public void saveFile(MultipartFile multipartFile,Product product) throws IOException {
-		String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
-		String imgName = FilenameUtils.removeExtension(multipartFile.getOriginalFilename());
-		String key = FOLDER + imgName + "." + extension;
-		saveImageToServer(multipartFile, key);
-        product.getImageUrls().add(key);
-        return;
-	}
-    public String saveFileAlone(MultipartFile multipartFile) throws IOException {
-		String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
-		String imgName = FilenameUtils.removeExtension(multipartFile.getOriginalFilename());
-		String key = FOLDER + imgName + "." + extension;
-        System.out.println(key);
-		saveImageToServer(multipartFile, key);
-        return "https://green-bubble.fra1.digitaloceanspaces.com/"+key;
-	}
-    private void saveImageToServer(MultipartFile multipartFile, String key) throws IOException {
-        System.out.println("inside save image");
-		ObjectMetadata metadata = new ObjectMetadata();
-		metadata.setContentLength(multipartFile.getInputStream().available());
-		if (multipartFile.getContentType() != null && !"".equals(multipartFile.getContentType())) {
-			metadata.setContentType(multipartFile.getContentType());
-		}
-
-		s3Client.putObject(new PutObjectRequest(doSpaceBucket, key, multipartFile.getInputStream(), metadata)
-				.withCannedAcl(CannedAccessControlList.PublicReadWrite));
-        System.out.println("here");
-
-	}
 
 }

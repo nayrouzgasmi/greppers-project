@@ -1,4 +1,5 @@
 package tn.esprit.pidev.Controllers;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -13,12 +14,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Services.ProductService;
+import tn.esprit.pidev.Util.ObjectStorage;
 
 @RestController
 @RequestMapping("/api/products")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductController {
-
     @Autowired
     private ProductService productService;
 
@@ -52,49 +53,50 @@ public class ProductController {
 
     @PostMapping("/{id}")
     public ResponseEntity<Product> createProductAndAssignToStore(@PathVariable("id") long id,
-            @RequestParam("product") String productJson, @RequestParam(value = "file", required = false) List<MultipartFile> images)
+            @RequestParam("product") String productJson,
+            @RequestParam(value = "file", required = false) List<MultipartFile> images)
             throws IOException {
-                ObjectMapper objectMapper = new ObjectMapper();
-                Product product = objectMapper.readValue(productJson, Product.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Product product = objectMapper.readValue(productJson, Product.class);
         Product createdProduct = productService.createProductAndAssignToStore(id, product, images);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
-    @PostMapping("/img")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public void saveFile(@RequestParam(value = "file", required = true) MultipartFile image) {
-        // Product createdProduct = productService.saveFileAlone( image);
-        // System.out.println(image.toString());
-        try {
-            productService.saveFileAlone(image);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        // return new ResponseEntity<>(, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/imgs")
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
-    public void saveFiles(@RequestParam(value = "file", required = true) List<MultipartFile> images) {
-        images.forEach(image -> {
-            try {
-                productService.saveFileAlone((MultipartFile) image);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });
-    }
-
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") long id, @RequestBody Product product) {
-        Product updatedProduct = productService.updateProduct(id, product);
-        if (updatedProduct != null) {
-            return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Product> updateProductAndAssignToStore(@PathVariable("id") long id,
+            @RequestParam("product") String productJson,
+            @RequestParam(value = "file", required = false) List<MultipartFile> images)
+            throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Product product = objectMapper.readValue(productJson, Product.class);
+        Product createdProduct = productService.createProductAndAssignToStore(id, product, images);
+        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
+
+    // @PostMapping("/img")
+    // @CrossOrigin(origins = "*", allowedHeaders = "*")
+    // public void saveFile(@RequestParam(value = "file", required = true) MultipartFile image) {
+    //     objectStorage.saveFileAlone((MultipartFile) image, "");
+    // }
+
+    // @PostMapping("/imgs")
+    // @CrossOrigin(origins = "*", allowedHeaders = "*")
+    // public void saveFiles(@RequestParam(value = "file", required = true) List<MultipartFile> images) {
+    //     images.forEach(image -> {
+    //         objectStorage.saveFileAlone((MultipartFile) image, "");
+    //     });
+    // }
+
+    // @PutMapping("/{id}")
+    // public ResponseEntity<Product> updateProduct(@PathVariable("id") long id,
+    // @RequestBody Product product) {
+    // Product updatedProduct = productService.updateProduct(id, product);
+    // if (updatedProduct != null) {
+    // return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    // } else {
+    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // }
+    // }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") long id) {

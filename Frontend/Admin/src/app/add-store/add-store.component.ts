@@ -36,10 +36,9 @@ export class AddStoreComponent implements OnInit {
     // this.data.append('banner', files.target.files[0]);
   }
   public submitForm() {
+    console.log("clicked")
     this.data.append('store', JSON.stringify(this.store));
     // console.log(this.data.getAll("file"))
-    console.log("banner",this.banner)
-    console.log("logo",this.logo)
     this.data.append('logo',this.logo)
     this.data.append('banner',this.banner)
     const id = this.route.snapshot.params['id'];

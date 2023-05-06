@@ -18,9 +18,10 @@ public interface IStoreService {
 
     void deleteStoreById(Long id);
 
-    Store updateStore(Long id, Store store);
+    // Store updateStore(Long id, Store store);
 
     Store assignProductToStore( long id,Product product);
     Store assignExistingProductToStore( long storeId,long productId);
+    Store updateStore(long id,Store store, MultipartFile logo, MultipartFile storeImage);
 
 }

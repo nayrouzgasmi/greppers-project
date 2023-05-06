@@ -72,7 +72,8 @@
                     <h2 class="content-title">Add New Product</h2>
                     <div>
                         <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">Save to draft</button>
-                        <button class="btn btn-md rounded font-sm hover-up" type="submit" form="myform">Publish</button>
+                        <button class="btn btn-md rounded font-sm hover-up" type="submit"
+                            form="add-product">Publish</button>
                     </div>
                 </div>
             </div>
@@ -82,55 +83,116 @@
                         <h4>Basic</h4>
                     </div>
                     <div class="card-body">
-                        <form (ngSubmit)="submitForm()" id="myform">
+                        <form id="add-product" (ngSubmit)="submitForm()" (keydown.enter)="$event.preventDefault()">
                             <div class="mb-4">
                                 <label for="product_name" class="form-label">Product title</label>
-                                <input [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}" type="text"
-                                    placeholder="Type here" class="form-control" id="product_name" />
+                                <input type="text" placeholder="Type here" class="form-control" id="product_name"
+                                    [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}" />
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Full description</label>
-                                <textarea placeholder="Type here" class="form-control"
-                                    rows="4">{{product.description}}</textarea>
+                                <textarea placeholder="Type here" class="form-control" rows="4"
+                                    [(ngModel)]="product.description" [ngModelOptions]="{standalone: true}"></textarea>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="mb-4">
                                         <label class="form-label">Regular price</label>
                                         <div class="row gx-2">
-                                            <input placeholder="$" type="text" class="form-control"
-                                                value={{product.price}} />
+                                            <input placeholder="$" type="number" class="form-control"
+                                                [(ngModel)]="product.price" [ngModelOptions]="{standalone: true}" />
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="col-lg-4">
+                                    <div class="mb-4">
+                                        <label class="form-label">Quantity (unit)</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="unit" type="number" class="form-control"
+                                                [(ngModel)]="product.quantity" [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-4">
+                                        <label class="form-label">Bio Score (not editable)</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="$" type="number" class="form-control" disabled
+                                                [(ngModel)]="product.bioScore" [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="mb-4">
                                 <label class="form-label">Tags</label>
-                                <select class="form-select">
-                                    <option *ngFor="let tag of product.tags">{{tag.name}}</option>
-                                </select>
+                                <input type="text" placeholder="write tag" class="form-control" id="product_name"
+                                    (keyup.enter)="addTag($event)" />
+                                <span class="btn btn-primary btn-sm m-1" *ngFor="let tag of product.tags"
+                                    (click)="popTag(tag)">{{tag.name}}</span>
                             </div>
-                            <div class="mb-4">
-                                <label class="form-label">Quantity</label>
-                                <input type="number" placeholder="%" class="form-control" id="quantity"
-                                    value={{product.quantity}} />
+                            <span class="mb-4">Compositions</span>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="mb-4">
+                                        <label class="form-label">Name</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="Composition Name" type="text" class="form-control"
+                                                [(ngModel)]="composition.name" [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-4">
+                                        <label class="form-label">Description</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="Composition Name" type="text" class="form-control"
+                                                [(ngModel)]="composition.description"
+                                                [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-4">
+                                        <label class="form-label">Quantity (mg)</label>
+                                        <div class="row gx-2">
+                                            <input placeholder="mg" type="number" class="form-control"
+                                                [(ngModel)]="composition.quantity"
+                                                [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="mb-4">
-                                <label class="form-label">Tags</label>
-                                <input type="number" placeholder="%" class="form-control" id="quantity"
-                                    value={{product.tags}} data-role="tagsinput" />
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label">Bio Score</label>
-                                <input type="number" class="form-control" id="product_name" value={{product.bioScore}}
-                                    disabled />
-                            </div>
-                            <label class="form-check mb-4">
-                                <input class="form-check-input" type="checkbox" value={{product.isAvailable}} />
-                                <span class="form-check-label"> Is Available </span>
-                            </label>
                         </form>
+                        <div class="col-lg-12">
+                            <div class="mb-4">
+                                <div class="row gx-2">
+                                    <button (click)="addComposition($event)"
+                                        class="btn btn-md rounded font-sm hover-up btn-container">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let composition of product.compositions">
+                                    <td><b>{{composition.name}}</b></td>
+                                    <td><b>{{composition.description}}</b></td>
+                                    <td>{{composition.quantity}}</td>
+                                    <td class="text-end">
+                                        <button (click)="popComposition(composition)" class="btn btn-danger btn-danger-md rounded font-sm"><i
+                                            class="material-icons md-delete"></i></button>
+                                        <!-- dropdown //end -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <!-- card end// -->
@@ -141,10 +203,12 @@
                         <h4>Media</h4>
                     </div>
                     <div class="card-body">
+                        <img *ngFor="let img of product.imageUrls" src={{img}} alt="" />
                         <div class="input-upload">
-                            <img *ngFor="let image of product.imageUrls" src={{image}} alt="" />
-                            <input class="form-control" type="file" multiple form="myform"
-                                value={{product.imageUrls}} />
+                            <input class="form-control" type="file" accept="image/*" (change)="saveFiles($event)"
+                                multiple />
+                            <button class="btn btn-danger m-3" (click)="deleteFiles()"><i
+                                    class="material-icons md-delete"></i></button>
                         </div>
                     </div>
                 </div>
@@ -174,10 +238,6 @@
                                     <option>Mercedes</option>
                                     <option>Chevrolet</option>
                                 </select>
-                            </div>
-                            <div class="mb-4">
-                                <label for="product_name" class="form-label">Tags</label>
-                                <input type="text" class="form-control" />
                             </div>
                         </div>
                         <!-- row.// -->

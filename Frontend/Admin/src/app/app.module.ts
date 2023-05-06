@@ -17,6 +17,8 @@ import { StoreComponent } from './store/store.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { AddStoreComponent } from './add-store/add-store.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { EditStoreComponent } from './edit-store/edit-store.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     StoreComponent,
     EditProductComponent,
     AddStoreComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    EditStoreComponent,
+    FooterComponent
     
   ],
   imports: [
