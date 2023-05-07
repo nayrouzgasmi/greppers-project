@@ -41,12 +41,12 @@ public class Product implements Serializable {
     @JoinColumn(name = "store_id")
     @JsonBackReference
     Store store;
-    @ManyToMany()
+    @ManyToMany
     Set<Composition> compositions;
     int quantity;
     boolean isAvailable;
     float bioScore;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     Set<Tag> tags;
     @ElementCollection
     Set<String> imageUrls;

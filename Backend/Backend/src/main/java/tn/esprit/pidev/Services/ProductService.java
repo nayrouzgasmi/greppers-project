@@ -1,7 +1,9 @@
 package tn.esprit.pidev.Services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +12,7 @@ import tn.esprit.pidev.Entities.Store;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -121,48 +124,46 @@ public class ProductService implements IProductService {
         if (product.getCompositions() == null) {
             product.setCompositions(new HashSet<Composition>());
         }
-        // if (product.getTags() == null) {
-        // product.setTags(new HashSet<Tag>());
-        // }
         for (Composition composition : product.getCompositions()) {
-            carcirogenics.forEach(carcirogenic -> {
-                boolean containsIgnoreCase = composition.getName().toLowerCase()
-                        .contains((CharSequence) carcirogenic.getName().toLowerCase());
-                if (containsIgnoreCase) {
-                    System.out.println(containsIgnoreCase);
-                    product.setBioScore(
-                            product.getBioScore() - carcirogenic.getToxicityScore() * composition.getQuantity());
-                }
-            });
-            product.getCompositions().add(composition);
-            if (product.getBioScore() < 20) {
-                return null;
+            Carcirogenic carcirogenicFound = carcirogenics.stream()
+                    .filter(carcirogenic -> composition.getName().toLowerCase()
+                            .contains(carcirogenic.getName().toLowerCase()))
+                    .findAny().orElse(null);
+            if (carcirogenicFound != null) {
+                product.setBioScore(
+                        product.getBioScore() - carcirogenicFound.getToxicityScore() *
+                                composition.getQuantity());
             }
-            compositionRepository.save(composition);
+        }
+        compositionRepository.saveAll(product.getCompositions());
+        if (product.getBioScore() < 20) {
+            return null;
         }
         if (product.getQuantity() > 0)
             product.setAvailable(true);
-        else
-            product.setAvailable(false);
         if (product.getImageUrls() == null) {
             product.setImageUrls(new HashSet<String>());
         }
+        HashSet<Tag> tagsToIterate = new HashSet<Tag>();
+        tagsToIterate.addAll(product.getTags());
+        tagsToIterate.forEach(tag -> {
+            Tag exist = tagRepository.findFirstByName(tag.getName());
+            if (exist != null) {
+                product.getTags().remove(tag);
+                product.getTags().add(exist);
+                return;
+            }
+            tagRepository.save(tag);
+        });
+        if (multipartFiles != null)
         multipartFiles.forEach(image -> {
             String imgUrl = objectStorageService.saveFileAlone((MultipartFile) image, FOLDER);
             product.getImageUrls().add(imgUrl);
         });
-        for (Tag tag : product.getTags()) {
-            Tag existingTag = tagRepository.findByName(tag.getName());
-            if (existingTag != null) {
-                // Use existing tag if found in the database
-                product.getTags().add(existingTag);
-            } else {
-                // Create a new tag if not found in the database
-                tagRepository.save(tag);
-                product.getTags().add(tag);
-            }
+        if (product.getId() >= 0) {
+            return productRepository.save(product);
         }
-        product.setStore(store);
+
         store.getProducts().add(product);
         storeRepository.save(store);
 

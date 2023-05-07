@@ -12,13 +12,16 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { AddStoreComponent } from './add-store/add-store.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { EditStoreComponent } from './edit-store/edit-store.component';
+import { CarcirogenicsComponent } from './carcirogenics/carcirogenics.component';
+import { CreateCarcirogenicsComponent } from './create-carcirogenics/create-carcirogenics.component';
+import { ToxicProductComponent } from './toxic-product/toxic-product.component';
 
 const routes: Routes = [
   {path:"", component: MenuComponent},
 
   {path:"seller", component: SellerComponent},
   {path:"client", component: ClientComponent},
-  {path:"edit-product/:id", component: EditProductComponent},
+  {path:"edit-product/:storeId/:id", component: EditProductComponent},
   {path:"add-product/:id", component: AddProductComponent},
   {path:"stores", component: StoresComponent},
   {path:"store/:id", component: StoreComponent},
@@ -26,7 +29,10 @@ const routes: Routes = [
   {path:"edit-store/:id", component: EditStoreComponent},
   {path:"add_seller", component: AjoutSellerComponent},
   {path:"add_client", component: AjoutClientComponent},
-  {path:"user-details/:id", component: UserDetailsComponent}
+  {path:"user-details/:id", component: UserDetailsComponent},
+  {path:"carcirogenics", component: CarcirogenicsComponent},
+  {path:"create-carcirogenics", component: CreateCarcirogenicsComponent},
+  {path:"toxic", component: ToxicProductComponent}
 
 ];
 

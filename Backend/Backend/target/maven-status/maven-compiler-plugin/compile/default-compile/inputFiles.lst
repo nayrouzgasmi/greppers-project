@@ -32,6 +32,7 @@
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/AccountResponse.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Repositories/CarcirogenicRepository.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/NewPassword.java
+/Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Controllers/CarcirogenicController.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Repositories/VendorRepository.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/TagService.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Entities/Vendor.java

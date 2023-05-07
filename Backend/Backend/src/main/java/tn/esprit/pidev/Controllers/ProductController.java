@@ -64,7 +64,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProductAndAssignToStore(@PathVariable("id") long id,
-            @RequestParam("product") String productJson,
+            @RequestParam(required = false,name = "product",value = "product") String productJson,
             @RequestParam(value = "file", required = false) List<MultipartFile> images)
             throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -72,31 +72,6 @@ public class ProductController {
         Product createdProduct = productService.createProductAndAssignToStore(id, product, images);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
-
-    // @PostMapping("/img")
-    // @CrossOrigin(origins = "*", allowedHeaders = "*")
-    // public void saveFile(@RequestParam(value = "file", required = true) MultipartFile image) {
-    //     objectStorage.saveFileAlone((MultipartFile) image, "");
-    // }
-
-    // @PostMapping("/imgs")
-    // @CrossOrigin(origins = "*", allowedHeaders = "*")
-    // public void saveFiles(@RequestParam(value = "file", required = true) List<MultipartFile> images) {
-    //     images.forEach(image -> {
-    //         objectStorage.saveFileAlone((MultipartFile) image, "");
-    //     });
-    // }
-
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Product> updateProduct(@PathVariable("id") long id,
-    // @RequestBody Product product) {
-    // Product updatedProduct = productService.updateProduct(id, product);
-    // if (updatedProduct != null) {
-    // return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
-    // } else {
-    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    // }
-    // }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") long id) {

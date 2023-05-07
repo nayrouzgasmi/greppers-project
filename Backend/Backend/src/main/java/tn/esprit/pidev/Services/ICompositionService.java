@@ -3,6 +3,7 @@ package tn.esprit.pidev.Services;
 import java.util.List;
 
 import tn.esprit.pidev.Entities.Composition;
+import tn.esprit.pidev.Entities.Product;
 
 public interface ICompositionService {
 
@@ -12,7 +13,7 @@ public interface ICompositionService {
 
     Composition getCompositionById(long id);
 
-    void deleteCompositionById(long id);
+    void deleteCompositionById(long id,Product product);
 
     Composition updateComposition(long id, Composition composition);
 

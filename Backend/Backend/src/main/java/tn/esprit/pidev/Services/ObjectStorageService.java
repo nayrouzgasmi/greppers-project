@@ -33,8 +33,14 @@ public class ObjectStorageService implements IObjectStorageService{
     }
     @Override
 	public void deleteFile(String link) {
-			String key = link.replace("https://green-bubble.fra1.digitaloceanspaces.com/", "");
+        try {
+            System.out.println("inside file");
+            String key = link.replace("https://green-bubble.fra1.digitaloceanspaces.com/", "");
+            // System.out.println(key);
 			s3Client.deleteObject(new DeleteObjectRequest(doSpaceBucket, key));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 	}
     private void saveImageToServer(MultipartFile multipartFile, String key)  {
         ObjectMetadata metadata = new ObjectMetadata();

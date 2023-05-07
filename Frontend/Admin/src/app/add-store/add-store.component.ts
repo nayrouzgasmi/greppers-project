@@ -44,6 +44,5 @@ export class AddStoreComponent implements OnInit {
     this.data.append('banner',this.banner)
     const id = this.route.snapshot.params['id'];
     this.addStoreService.addStoreToVendor(id, this.data);
-    this.router.navigateByUrl('/stores')
   }
 }

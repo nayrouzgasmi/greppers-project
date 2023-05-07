@@ -9,7 +9,9 @@ import { Observable } from 'rxjs';
 })
 export class StoresComponent {
   stores: Observable<any> | null = null;
-  constructor(private storesServices: StoresService) {}
+  constructor(private storesServices: StoresService) {
+    this.stores = this.storesServices.getStores();
+  }
   ngOnInit(): void {
     // this.stores = this.storesServices.getStores().subscribe();
     this.stores = this.storesServices.getStores();

@@ -16,7 +16,8 @@ export class StoreComponent {
   ) {}
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
-    this.storeService.getStore(id).subscribe((data) => (this.store = data));
+    this.storeService.getStore(id).subscribe((data) => {this.store = data;console.log(data)});
+    console.log(this.store)
   }
   deleteProduct(id: number): void {
     const idGet = this.route.snapshot.params['id'];

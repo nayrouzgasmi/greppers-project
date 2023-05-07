@@ -19,6 +19,9 @@ import { AddStoreComponent } from './add-store/add-store.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { EditStoreComponent } from './edit-store/edit-store.component';
 import { FooterComponent } from './footer/footer.component';
+import { CarcirogenicsComponent } from './carcirogenics/carcirogenics.component';
+import { CreateCarcirogenicsComponent } from './create-carcirogenics/create-carcirogenics.component';
+import { ToxicProductComponent } from './toxic-product/toxic-product.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { FooterComponent } from './footer/footer.component';
     AddStoreComponent,
     UserDetailsComponent,
     EditStoreComponent,
-    FooterComponent
+    FooterComponent,
+    CarcirogenicsComponent,
+    CreateCarcirogenicsComponent,
+    ToxicProductComponent
     
   ],
   imports: [

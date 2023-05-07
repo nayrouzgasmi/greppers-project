@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 export const httpOptionsFiles = {
   headers: new HttpHeaders({
@@ -12,8 +13,8 @@ export const httpOptionsFiles = {
 })
 export class AddStoreService {
   public storeUrl = 'http://localhost:8080/api/stores/';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router:Router) { }
   addStoreToVendor(id:number,data:any){
-    return this.http.post(this.storeUrl+id, data, httpOptionsFiles).subscribe(data=>console.log(data));
+    return this.http.post(this.storeUrl+id, data, httpOptionsFiles).subscribe(data=>this.router.navigateByUrl("/stores"));
   }
 }

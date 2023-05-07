@@ -32,7 +32,7 @@ export class AddProductComponent implements OnInit {
   multipartFile: any;
   data: FormData = new FormData();
   filesToUpload: any[] = [];
-  composition = { name: 'string', description: 'string', quantity: 0 };
+  composition = { name: '', description: '', quantity: 0 };
   constructor(
     private addProductService: AddProductService,
     private route: ActivatedRoute
