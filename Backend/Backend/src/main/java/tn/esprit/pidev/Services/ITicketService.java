@@ -8,6 +8,7 @@ import java.util.List;
 public interface ITicketService {
 
     List<Ticket> retrieveAllTicket();
+    List<Ticket> retrieveAllTicketsatus();
 
     Ticket addTicket(Ticket t ,Long idUser,Integer idProduct);
 

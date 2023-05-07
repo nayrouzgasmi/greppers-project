@@ -195,18 +195,15 @@
             <div class="card mb-4">
                 <header class="card-header">
                     <div class="row gx-3">
-                        <div class="col-lg-4 col-md-6 me-auto">
-                            <input type="text" placeholder="Search..." class="form-control" />
-                        </div>
+                        <form>
                         <div class="col-lg-2 col-md-3 col-6">
-                            <select class="form-select">
-                              <option>Status</option>
-                              <option>Active</option>
-                              <option>Disabled</option>
-                              <option>Show all</option>
+                            <select class="form-select" [(ngModel)]="archiver" name="archiver" id="archiver"   (ngModelChange)="clearfilter()">
+                              <option  value="all" >all</option>
+                              <option  value="archiver" >archiver</option>
+
                           </select>
                         </div>
-
+                    </form>
                     </div>
                 </header>
 
@@ -217,15 +214,14 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col"> Id</th>
                                     <th scope="col">Title</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Priority</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Type</th>
+                                    <th scope="col">Satisfaction</th>
                                     <th scope="col">Archive</th>
                                     <th scope="col">status</th>
-
                                     <th scope="col">Action</th>
 
 
@@ -234,14 +230,20 @@
                             <tbody>
 
                                 <tr *ngFor="let t of tickets">
-                                    <td>{{t.id}}</td>
                                     <td>{{t.title}}</td>
                                     <td>{{t.description}}</td>
                                     <td>{{t.priority}}</td>
                                     <td>{{t.creationDate}}</td>
                                     <td>{{t.type}}</td>
+                                    <td>
+                                     
+                                   <div class="rate"   >                                    
+                                            <label *ngFor="let f of [].constructor(t.satisfaction); let r = index"  for="star1"  title="text">1 star</label>
+                                          </div>
+                            </td>
                                     <td>{{t.archiver}}</td>
                                     <td>{{t.status}}</td>
+
 
                                     <td>
                                         <button (click)="reponseticket(t.id)" class="btn btn-info" *ngIf="t.status === 'PENDING'"> reponse ticket </button>

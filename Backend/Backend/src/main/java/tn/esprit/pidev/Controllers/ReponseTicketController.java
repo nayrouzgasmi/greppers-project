@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.pidev.Entities.ReponseTicket;
 import tn.esprit.pidev.Entities.Ticket;
 import tn.esprit.pidev.Entities.TicketStatus;
+import tn.esprit.pidev.Payload.Mail;
+import tn.esprit.pidev.Services.EmailService;
 import tn.esprit.pidev.Services.IReponseTicketService;
 import tn.esprit.pidev.Services.ITicketService;
+import tn.esprit.pidev.Services.UserCode;
 import tn.esprit.pidev.dto.Statistique;
 import tn.esprit.pidev.dto.TicketDTO;
 
@@ -25,6 +28,7 @@ public class ReponseTicketController {
     IReponseTicketService rtservice;
     ITicketService ticketService;
 
+    private EmailService emailService;
 
 
     @GetMapping("/retrieve-all-ReponseTickets")
@@ -45,6 +49,9 @@ public class ReponseTicketController {
         Ticket ticket=ticketService.retrieveTicket(idTicket);
         ticket.setStatus(TicketStatus.ACCEPTED);
         ticketService.updateTicket(ticket);
+        String code = UserCode.getCode();
+        Mail mail = new Mail("farouk.mokhtar@esprit.tn","votre reclamatoion est traite merci de voir la reponse sur notre site");
+        emailService.sendCodeByMail(mail);
         ReponseTicket rt = rtservice.addReponseTicket(r,idTicket);
         return rt;
     }

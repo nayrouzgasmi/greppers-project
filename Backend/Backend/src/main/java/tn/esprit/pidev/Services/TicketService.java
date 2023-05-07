@@ -2,10 +2,9 @@ package tn.esprit.pidev.Services;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import tn.esprit.pidev.Entities.Product;
-import tn.esprit.pidev.Entities.Ticket;
-import tn.esprit.pidev.Entities.User;
+import tn.esprit.pidev.Entities.*;
 import tn.esprit.pidev.Repositories.ProductRepository;
 import tn.esprit.pidev.Repositories.ReponseTicketRepository;
 import tn.esprit.pidev.Repositories.TicketRepository;
@@ -33,6 +32,11 @@ public class TicketService implements  ITicketService {
     @Override
     public List<Ticket> retrieveAllTicket() {
         return ticketRepository.findAll();
+
+    }
+    @Override
+    public List<Ticket> retrieveAllTicketsatus() {
+        return ticketRepository.findByStatus(TicketStatus.ACCEPTED);
 
     }
 
@@ -133,17 +137,17 @@ public class TicketService implements  ITicketService {
 
     }
 
-//    @Scheduled(cron = "*/20 * * * * *")
-//    public void ArchiverTicketTraiter() {
-//
-//        List<ReponseTicket> reponseTickets = reponseTicketRepository.findByStatus(true);
-//
-//        for(ReponseTicket reponse : reponseTickets)
-//        {
-//            reponse.getTicket().setArchiver(true);
-//            reponseTicketRepository.save(reponse);
-//            System.out.println(reponse.getTicket().getId());
-//        }
-//        System.out.println("Terminer");
-//    }
+   @Scheduled(cron = "*/20 * * * * *")
+   public void ArchiverTicketTraiter() {
+
+        List<Ticket> Tickets = ticketRepository.findByStatus(TicketStatus.ACCEPTED);
+
+       for(Ticket ticket : Tickets)
+       {
+           ticket.setArchiver(true);
+           ticketRepository.save(ticket);
+          System.out.println(ticket.getId());
+       }
+        System.out.println("Terminer");
+   }
 }

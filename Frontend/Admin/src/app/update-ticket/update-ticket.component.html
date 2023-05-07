@@ -188,48 +188,96 @@
 
 
 
-            <form (ngSubmit)="onSubmit()">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="title">title</label>
-                    <input type="text" class="form-control" id="title" aria-describedby="title" placeholder="Enter title" [(ngModel)]="ticket.title" name="title">
-                </div>
-
-                <div class="form-group">
-                    <label for="description">description</label>
-                    <input type="text" class="form-control" id="description" aria-describedby="description" placeholder="Enter description" [(ngModel)]="ticket.description" name="description">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" aria-describedby="title" placeholder="Enter title" [ngClass]="{ 'is-invalid': submitted && f['title'].errors }" [(ngModel)]="ticket.title" name="title" formControlName="title">
+                    <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+                        <div *ngIf="f['title'].errors['required']">Title is required</div>
+                    </div>
                 </div>
 
 
 
                 <div class="form-group">
-                    <label for="creationDate">creationDate</label>
-                    <input type="date" class="form-control" id="creationDate" aria-describedby="creationDate" placeholder="Enter creationDate" [(ngModel)]="ticket.creationDate" name="creationDate">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" id="description" aria-describedby="description" placeholder="Enter description" [ngClass]="{ 'is-invalid': submitted && f['description'].errors }" [(ngModel)]="ticket.description" name="description" formControlName="description">
+                    <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+                        <div *ngIf="f['description'].errors['required']">description is required</div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="form-group">
+                    <label for="creationDate">Date Envoi</label>
+                    <input type="date" class="form-control" id="creationDate" aria-describedby="creationDate" placeholder="Enter creationDate" [ngClass]="{ 'is-invalid': submitted && f['creationDate'].errors }" [(ngModel)]="ticket.creationDate" name="creationDate" formControlName="creationDate">
+                    <div *ngIf="submitted && f['creationDate'].errors" class="invalid-feedback">
+                        <div *ngIf="f['creationDate'].errors['required']">creationDate is required</div>
+                    </div>
+                </div>
+
+                
+                
+
+
+                
+
+
+
+
+                <div class="form-group">
+                    <label for="type">Type</label>
+
+
+                    <select class="form-select" [(ngModel)]="ticket.type" [ngClass]="{ 'is-invalid': submitted && f['type'].errors }" name="type" id="type" formControlName="type" aria-label="Default select example">
+                          <option value="INQUIRY">INQUIRY</option>
+                          <option value="ISSUE">ISSUE</option>
+                        </select>
+                    <div *ngIf="submitted && f['type'].errors" class="invalid-feedback">
+                        <div *ngIf="f['type'].errors['type']">type is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="type"> Priority </label>
+                    <input type="text" class="form-control" id="priority" formControlName="priority" [ngClass]="{ 'is-invalid': submitted && f['priority'].errors }" aria-describedby="priority" placeholder="Enter priority" [(ngModel)]="ticket.priority" name="priority">
+                    <div *ngIf="submitted && f['priority'].errors" class="invalid-feedback">
+                        <div *ngIf="f['priority'].errors['required']">priority is required</div>
+                    </div>
                 </div>
 
 
                 <div class="form-group">
-                    <label for="satisfaction">satisfaction</label>
-                    <input type="text" class="form-control" id="satisfaction" aria-describedby="satisfaction" placeholder="Enter satisfaction" [(ngModel)]="ticket.satisfaction" name="satisfaction">
+                    <label for="satisfaction">Satisfaction</label>
+
+                    <div class="rate"   >
+                        <input type="radio"  [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star5" name="satisfaction" value="5" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star4" name="satisfaction" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star3" name="satisfaction" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star2" name="satisfaction" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star1" name="satisfaction" value="1" />
+                        <label for="star1" title="text">1 star</label>
+                      </div>
+    
+                    <div *ngIf="submitted && f['satisfaction'].errors" class="invalid-feedback">
+                        <div *ngIf="f['satisfaction'].errors['required']">satisfaction is required</div>
+                    </div>
                 </div>
 
 
-                <div class="form-group">
-                    <label for="type">type</label>
-                    <input type="text" class="form-control" id="type" aria-describedby="type" placeholder="Enter type" [(ngModel)]="ticket.type" name="type">
-                </div>
-
-
-                <div class="form-group">
-                    <label for="type">status</label>
-                    <input type="text" class="form-control" id="status" aria-describedby="status" placeholder="Enter status" [(ngModel)]="ticket.status" name="status">
-                </div>
-
-
-                <div class="form-group">
-                    <label for="type">priority</label>
-                    <input type="text" class="form-control" id="priority" aria-describedby="priority" placeholder="Enter priority" [(ngModel)]="ticket.priority" name="priority">
-                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+
+               
+
+                
             </form>
 
 

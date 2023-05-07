@@ -27,6 +27,7 @@ this.id = this.route.snapshot.params['id'];
   
 
   gotoreponseList(){
+    
     this.router.navigate(['/reponses']);
     }
     
@@ -34,6 +35,7 @@ this.id = this.route.snapshot.params['id'];
         this.reponseService.editReponse(this.id,this.reponse).subscribe(data =>{
           console.log(data);
           this.reponse = new Reponse();
+          
           this.gotoreponseList();
     
     }, error => console.log(error));      }

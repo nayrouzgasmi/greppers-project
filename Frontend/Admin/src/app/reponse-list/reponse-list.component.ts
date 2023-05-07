@@ -32,9 +32,10 @@ this.router.navigate(['update-reponse',id]);
 
 
   deleteReponse  (id : Number){
+    if(confirm('are you sure to delete this response ?'))
 
     this.reponseservice.deleteReponse(id).subscribe(data => {
-      console.log(data);
+      alert("Succefully delete")
       this.getReponse();
     })
       }

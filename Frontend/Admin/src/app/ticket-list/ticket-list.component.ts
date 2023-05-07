@@ -12,7 +12,7 @@ export class TicketListComponent implements OnInit {
  
 
   tickets: Ticket[] = [];
-  
+  archiver!:String;  
 
   constructor(private ticketservice : TicketService,
     private router: Router) {
@@ -34,9 +34,10 @@ this.router.navigate(['update-ticket',id]);
 
 
   deleteTicket  (id : Number){
+    if(confirm('are you sure to delete ?'))
 
     this.ticketservice.deleteTicket(id).subscribe(data => {
-      console.log(data);
+      alert("Succefully delete ")
       this.getTicket();
     })
       }
@@ -44,4 +45,23 @@ this.router.navigate(['update-ticket',id]);
       reponseticket  (id : Number){
         this.router.navigate(['create-reponse',id]);
           }
-}
+
+          clearfilter()
+          {
+            console.log(this.archiver);
+            if( this.archiver=="all")
+            {
+              this.getTicket();
+            }
+            else
+            {
+               this.ticketservice.getTicketbystatus().subscribe (datas =>{
+                this.tickets = datas as Ticket[];
+              } )
+            }
+          }
+
+
+
+        }
+

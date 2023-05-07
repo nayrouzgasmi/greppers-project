@@ -24,6 +24,13 @@ public class TicketController {
         return listTickets;
     }
 
+
+    @RequestMapping(method = RequestMethod.GET , value = "/retrieve-all-ticketss")
+    public List<Ticket> getTickets() {
+        List<Ticket> listTickets = ticketService.retrieveAllTicketsatus();
+        return listTickets;
+    }
+
     @RequestMapping(method = RequestMethod.GET ,value= "/retrieve-Ticket/{id}")
     public Ticket retrieveTicket(@PathVariable("id") Integer id ) {
         return ticketService.retrieveTicket(id);

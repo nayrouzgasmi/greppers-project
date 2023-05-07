@@ -59,6 +59,32 @@
                     </div>
                 </li>
 
+                
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="tickets">
+                        <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">Liste ticket</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-orders-1.html">Order list 1</a>
+                        <a href="page-orders-2.html">Order list 2</a>
+                        <a href="page-orders-detail.html">Order detail</a>
+                    </div>
+                </li>
+                
+
+                <li class="menu-item has-submenu">
+                    <a class="menu-link" href="reponses">
+                        <i class="icon material-icons md-shopping_cart"></i>
+                        <span class="text">reponse ticket</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="page-orders-1.html">Order list 1</a>
+                        <a href="page-orders-2.html">Order list 2</a>
+                        <a href="page-orders-detail.html">Order detail</a>
+                    </div>
+                </li>
+
                 <li class="menu-item has-submenu ">
                     <a class="menu-link " href="page-form-product-1.html ">
                         <i class="icon material-icons md-add_box "></i>
@@ -157,15 +183,13 @@
         </header>
         <section class="content-main ">
 
-            <p>
-                update-ticket works!</p>
 
 
 
 
-            <p> Formulaire ticket : </p>
+            <h1> Formulaire ticket : </h1>
             <div *ngIf="badword===true" class="alert alert-danger" role="alert">
-                This is a danger alert—check it out!
+                bad words detected in description fields please remove it 
             </div>
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
@@ -199,37 +223,17 @@
                     </div>
                 </div>
 
+                
+                
 
-                <div class="form-group">
-                    <label for="satisfaction">Satisfaction</label>
 
-
-                    <select class="form-select" [ngClass]="{ 'is-invalid': submitted && f['satisfaction'].errors }" [(ngModel)]="ticket.satisfaction" name="satisfaction" id="satisfaction" formControlName="satisfaction" aria-label="Default select example">
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                          <option value="4">four</option>
-                          <option value="5">five</option>
-                          <option value="6">six</option>
-                          <option value="7">seven</option>
-                          <option value="8">eight</option>
-                          <option value="9">nine</option>
-                          <option value="10">ten</option>
-                        </select>
-                    <div *ngIf="submitted && f['satisfaction'].errors" class="invalid-feedback">
-                        <div *ngIf="f['satisfaction'].errors['required']">satisfaction is required</div>
-                    </div>
-                </div>
+                
 
 
 
 
                 <div class="form-group">
                     <label for="type">Type</label>
-
-
-
-
 
 
                     <select class="form-select" [(ngModel)]="ticket.type" [ngClass]="{ 'is-invalid': submitted && f['type'].errors }" name="type" id="type" formControlName="type" aria-label="Default select example">
@@ -250,7 +254,33 @@
                 </div>
 
 
+                <div class="form-group">
+                    <label for="satisfaction">Satisfaction</label>
+
+                    <div class="rate"   >
+                        <input type="radio"  [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star5" name="satisfaction" value="5" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star4" name="satisfaction" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star3" name="satisfaction" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star2" name="satisfaction" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" [(ngModel)]="ticket.satisfaction" formControlName="satisfaction" id="star1" name="satisfaction" value="1" />
+                        <label for="star1" title="text">1 star</label>
+                      </div>
+    
+                    <div *ngIf="submitted && f['satisfaction'].errors" class="invalid-feedback">
+                        <div *ngIf="f['satisfaction'].errors['required']">satisfaction is required</div>
+                    </div>
+                </div>
+
+
                 <button type="submit" class="btn btn-primary">Submit</button>
+
+               
+
+                
             </form>
 
             <!-- card end// -->
