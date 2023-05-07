@@ -3,7 +3,7 @@ import { AuthService } from '../security/auth.service';
 import { Request } from '../model/sign-up-request';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { SocialService } from '../login/social.service';
 
 @Component({
@@ -75,6 +75,22 @@ export class RegisterComponent implements OnInit{
 			  }
 			})
 			console.log(data.idToken)
+		  }
+		);
+	  }
+
+	  signInWithFB(): void {
+		this.auth.signIn(FacebookLoginProvider.PROVIDER_ID).then(
+		  data => {
+			this.social.loginWithFacebook(data.authToken).subscribe({
+			  next: response =>{
+				this.router.navigateByUrl("/")
+				let name=response.user.userRoles[0].roleName;
+				console.log('role:', name);
+				console.log(sessionStorage.getItem("id"));
+			  }
+			})
+			console.log(data.authToken)
 		  }
 		);
 	  }

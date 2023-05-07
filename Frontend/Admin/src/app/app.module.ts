@@ -1,6 +1,6 @@
 import { WalletComponent } from './event/wallet/wallet.component';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,11 +17,15 @@ import { StoreComponent } from './store/store.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { AddStoreComponent } from './add-store/add-store.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventComponent } from './event/event.component';
 import { AddEventComponent } from './event/add-event/add-event.component';
 import { EditEventComponent } from './event/edit-event/edit-event.component';
 import { CommonModule } from '@angular/common';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { HttpInterceptorService } from './login/http-interceptor.service';
+import { ForbidenComponent } from './login/forbiden/forbiden.component';
 
 @NgModule({
   declarations: [
@@ -41,17 +45,23 @@ import { CommonModule } from '@angular/common';
     EventComponent,
     AddEventComponent,
     EditEventComponent,
-    WalletComponent
+    WalletComponent,
+    DashboardComponent,
+    LoginComponent,
+    ForbidenComponent
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     CommonModule
   ],
-  providers: [],
+  providers: [  {provide: HTTP_INTERCEPTORS,
+    useClass: HttpInterceptorService,
+    multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

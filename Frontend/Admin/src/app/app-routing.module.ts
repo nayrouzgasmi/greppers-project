@@ -15,25 +15,29 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { AddEventComponent } from './event/add-event/add-event.component';
 import { EditEventComponent } from './event/edit-event/edit-event.component';
 import { EventComponent } from './event/event.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { AdminGuardService } from './login/admin-guard.service';
+import { ForbidenComponent } from './login/forbiden/forbiden.component';
 
 const routes: Routes = [
-  {path:"", component: MenuComponent},
-
-  {path:"seller", component: SellerComponent},
-  {path:"client", component: ClientComponent},
-  {path:"edit-product/:id", component: EditProductComponent},
-  {path:"add-product/:id", component: AddProductComponent},
-  {path:"stores", component: StoresComponent},
-  {path:"store/:id", component: StoreComponent},
-  {path:"add-store/:id", component: AddStoreComponent},
-  {path:"add_seller", component: AjoutSellerComponent},
-  {path:"add_client", component: AjoutClientComponent},
-  {path:"user-details/:id", component: UserDetailsComponent},
-
-  {path:"events", component: EventComponent},
-  {path:"addEvent", component: AddEventComponent},
-  {path:"editEvent/:id", component: EditEventComponent},
-  {path:"wallet", component: WalletComponent}
+  {path:"menu", component: MenuComponent , canActivate: [AdminGuardService]},
+  {path:"", component: LoginComponent },
+  {path:"seller", component: SellerComponent, canActivate: [AdminGuardService]},
+  {path:"client", component: ClientComponent, canActivate: [AdminGuardService]},
+  {path:"edit-product/:id", component: EditProductComponent, canActivate: [AdminGuardService]},
+  {path:"add-product/:id", component: AddProductComponent, canActivate: [AdminGuardService]},
+  {path:"stores", component: StoresComponent, canActivate: [AdminGuardService]},
+  {path:"store/:id", component: StoreComponent, canActivate: [AdminGuardService]},
+  {path:"add-store/:id", component: AddStoreComponent, canActivate: [AdminGuardService]},
+  {path:"add_seller", component: AjoutSellerComponent, canActivate: [AdminGuardService]},
+  {path:"add_client", component: AjoutClientComponent, canActivate: [AdminGuardService]},
+  {path:"user-details/:id", component: UserDetailsComponent, canActivate: [AdminGuardService]},
+  {path:"forbiden", component: ForbidenComponent},
+  {path:"events", component: EventComponent, canActivate: [AdminGuardService]},
+  {path:"addEvent", component: AddEventComponent, canActivate: [AdminGuardService]},
+  {path:"editEvent/:id", component: EditEventComponent, canActivate: [AdminGuardService]},
+  {path:"wallet", component: WalletComponent, canActivate: [AdminGuardService]}
 
 
 ];

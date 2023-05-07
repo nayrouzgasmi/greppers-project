@@ -108,4 +108,21 @@ export class LoginComponent implements OnInit {
 		);
 	  }
 
+	   
+signInWithFB(): void {
+	this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
+	  data => {
+		this.social.loginWithFacebook(data.authToken).subscribe({
+		  next: response =>{
+			this.router.navigateByUrl("/")
+			let name=response.user.userRoles[0].roleName;
+			console.log('role:', name);
+			console.log(sessionStorage.getItem("id"));
+		  }
+		})
+		console.log(data.authToken)
+	  }
+	);
+  }
+
 }

@@ -76,7 +76,7 @@ import { EventDetailsComponent } from './events/event-details/event-details.comp
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('224006282781296')
+            provider: new FacebookLoginProvider('557258556600595')
           }
         ]
       } as SocialAuthServiceConfig,
