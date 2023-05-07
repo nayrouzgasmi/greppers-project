@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -36,6 +37,15 @@ public class User{
 
     @Column(name = "active")
     private int active;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Event> events;
+
+
+    public List<Event> getEvents()
+    {
+        return this.events;
+    }
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -103,4 +113,6 @@ public class User{
     public void setCode(Code code) {
         this.code = code;
     }
+
+    
 }

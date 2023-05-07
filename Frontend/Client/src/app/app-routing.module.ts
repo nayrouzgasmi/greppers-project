@@ -1,3 +1,4 @@
+import { EventDetailsComponent } from './events/event-details/event-details.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   },
   { path: 'about', component: AboutComponent },
   { path: 'events', component: EventsComponent },
+  { path: 'event/:id', component: EventDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {path: 'reset', component:ResetPasswordComponent},
