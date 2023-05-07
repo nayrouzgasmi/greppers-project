@@ -1,30 +1,25 @@
 package tn.esprit.pidev.Entities;
 
-
-import java.io.Serializable;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-@Entity
+@Entity(name = "carcirogenics")
 @Getter
 @Setter
-@Table(name = "compositions")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Composition implements Serializable {
+public class Carcirogenic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+    @Column(unique = true)
     String name;
-    String description;
-    float quantity;
-    float bioScore;
+    float toxicityScore;
 }

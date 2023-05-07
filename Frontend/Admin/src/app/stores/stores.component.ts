@@ -8,14 +8,16 @@ import { Observable } from 'rxjs';
   styleUrls: ['./stores.component.css'],
 })
 export class StoresComponent {
-  stores: Observable<any> ;
-  constructor(private storesServices: StoresService) {
-    this.stores = this.storesServices.getStores();
-  }
+  stores: Observable<any> | null = null;
+  constructor(private storesServices: StoresService) {}
   ngOnInit(): void {
     // this.stores = this.storesServices.getStores().subscribe();
+    this.stores = this.storesServices.getStores();
   }
-  deleteStore(id:number){
-    this.storesServices.deleteStore(id)
+  deleteStore(id: number) {
+    this.storesServices.deleteStore(id);
+    this.stores = this.storesServices.getStores();
+    window.location.reload();
+
   }
 }

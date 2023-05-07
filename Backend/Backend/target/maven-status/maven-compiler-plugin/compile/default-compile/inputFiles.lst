@@ -14,6 +14,7 @@
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/IStoreService.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/ProductCategoryService.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/LoginResponse.java
+/Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Entities/Carcirogenic.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Security/SecurityTest.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Repositories/LoginAttemptRepository.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/ServiceTest.java
@@ -29,6 +30,7 @@
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Controllers/CompositionController.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/StoreService.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/AccountResponse.java
+/Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Repositories/CarcirogenicRepository.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/NewPassword.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Repositories/VendorRepository.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/TagService.java
@@ -56,6 +58,7 @@
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Entities/LoginAttempt.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Controllers/ProductCategoryController.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Payload/JwtSignup.java
+/Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/CarcirogenicService.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Services/AuthoritiesService.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Entities/Tag.java
 /Users/khalil/Desktop/greppers-project/Backend/Backend/src/main/java/tn/esprit/pidev/Entities/User.java

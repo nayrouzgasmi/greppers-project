@@ -15,9 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import tn.esprit.pidev.Entities.Carcirogenic;
 import tn.esprit.pidev.Entities.Composition;
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Entities.Tag;
+import tn.esprit.pidev.Repositories.CarcirogenicRepository;
 import tn.esprit.pidev.Repositories.CompositionRepository;
 import tn.esprit.pidev.Repositories.ProductRepository;
 import tn.esprit.pidev.Repositories.StoreRepository;
@@ -39,6 +41,8 @@ public class ProductService implements IProductService {
     CompositionRepository compositionRepository;
     @Autowired
     IObjectStorageService objectStorageService;
+    @Autowired
+    CarcirogenicRepository carcirogenicRepository;
     // @Value("${do.space.bucket}")
 
     String FOLDER = "products/";
@@ -110,17 +114,31 @@ public class ProductService implements IProductService {
     public Product createProductAndAssignToStore(Long storeId, Product product, List<MultipartFile> multipartFiles)
             throws IOException {
         // Retrieve the store from the repository
+        List<Carcirogenic> carcirogenics = carcirogenicRepository.findAll();
+        product.setBioScore(100);
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new EntityNotFoundException("Store not found with ID: " + storeId));
         if (product.getCompositions() == null) {
             product.setCompositions(new HashSet<Composition>());
         }
         // if (product.getTags() == null) {
-        //     product.setTags(new HashSet<Tag>());
+        // product.setTags(new HashSet<Tag>());
         // }
         for (Composition composition : product.getCompositions()) {
-            compositionRepository.save(composition);
+            carcirogenics.forEach(carcirogenic -> {
+                boolean containsIgnoreCase = composition.getName().toLowerCase()
+                        .contains((CharSequence) carcirogenic.getName().toLowerCase());
+                if (containsIgnoreCase) {
+                    System.out.println(containsIgnoreCase);
+                    product.setBioScore(
+                            product.getBioScore() - carcirogenic.getToxicityScore() * composition.getQuantity());
+                }
+            });
             product.getCompositions().add(composition);
+            if (product.getBioScore() < 20) {
+                return null;
+            }
+            compositionRepository.save(composition);
         }
         if (product.getQuantity() > 0)
             product.setAvailable(true);

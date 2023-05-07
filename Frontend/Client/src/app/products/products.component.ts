@@ -30,11 +30,23 @@ export class ProductsComponent {
     //   this.products = data;
     // })
     // console.log(this.getProducts().subscribe(data=>this.products=data))
-    console.log("hello  ",sessionStorage.getItem("token"))
+    console.log('hello  ', sessionStorage.getItem('token'));
     this.products = this.getProducts();
   }
+  public displayScore(product: any) {
+    if (product.bioScore >= 80) {
+      return 'Healthy & Approved';
+    }
+    if (product.bioScore < 80 && product.bioScore >= 60) {
+      return 'Safe';
+    }
+    if (product.bioScore < 60 && product.bioScore >= 50) {
+      return 'Standard';
+    }
+    return 'Low';
+  }
 
-  public getProducts(): Observable<any[]> | any{
+  public getProducts(): Observable<any[]> | any {
     return this.http.get(this.baseUrl, httpOptions);
   }
 }

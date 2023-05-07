@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AddStoreService } from './add-store.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-store',
@@ -22,7 +22,8 @@ export class AddStoreComponent implements OnInit {
   data: FormData = new FormData();
   constructor(
     private addStoreService: AddStoreService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -43,5 +44,6 @@ export class AddStoreComponent implements OnInit {
     this.data.append('banner',this.banner)
     const id = this.route.snapshot.params['id'];
     this.addStoreService.addStoreToVendor(id, this.data);
+    this.router.navigateByUrl('/stores')
   }
 }

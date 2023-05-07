@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row product-grid" >
+                <div class="row product-grid">
                     <div *ngFor="let product of products | async" class="col-lg-3 col-md-4 col-12 col-sm-6">
                         <div class="product-cart-wrap mb-30">
                             <div class="product-img-action-wrap">
@@ -100,7 +100,9 @@
                                         data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
                                 </div>
                                 <div class="product-badges product-badges-position product-badges-mrg">
-                                    <span class="hot">Hot</span>
+                                    <span
+                                        [ngClass]="{'new' : product.bioScore>=80,'sale':product.bioScore < 80 && product.bioScore >= 60,'hot':product.bioScore < 60 && product.bioScore >= 50,'best':product.bioScore<50}">
+                                        {{displayScore(product)}}</span>
                                 </div>
                             </div>
                             <div class="product-content-wrap">

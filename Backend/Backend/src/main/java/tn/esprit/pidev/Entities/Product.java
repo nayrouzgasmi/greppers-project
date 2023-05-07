@@ -41,7 +41,7 @@ public class Product implements Serializable {
     @JoinColumn(name = "store_id")
     @JsonBackReference
     Store store;
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany()
     Set<Composition> compositions;
     int quantity;
     boolean isAvailable;
