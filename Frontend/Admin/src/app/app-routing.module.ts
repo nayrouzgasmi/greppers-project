@@ -1,3 +1,4 @@
+import { WalletComponent } from './event/wallet/wallet.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SellerComponent } from './seller/seller.component';
@@ -11,6 +12,9 @@ import { StoreComponent } from './store/store.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { AddStoreComponent } from './add-store/add-store.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { AddEventComponent } from './event/add-event/add-event.component';
+import { EditEventComponent } from './event/edit-event/edit-event.component';
+import { EventComponent } from './event/event.component';
 
 const routes: Routes = [
   {path:"", component: MenuComponent},
@@ -24,7 +28,13 @@ const routes: Routes = [
   {path:"add-store/:id", component: AddStoreComponent},
   {path:"add_seller", component: AjoutSellerComponent},
   {path:"add_client", component: AjoutClientComponent},
-  {path:"user-details/:id", component: UserDetailsComponent}
+  {path:"user-details/:id", component: UserDetailsComponent},
+
+  {path:"events", component: EventComponent},
+  {path:"addEvent", component: AddEventComponent},
+  {path:"editEvent/:id", component: EditEventComponent},
+  {path:"wallet", component: WalletComponent}
+
 
 ];
 
