@@ -32,7 +32,7 @@ export class SellerComponent implements OnInit {
     active:""
    }
 
-    
+
 studentToUpdate = {
   username:"",
   email:"",
@@ -100,7 +100,7 @@ updateUser(){
 }
 
 openForm(seller: any){
-  
+
   this.studentToUpdate = seller;
   this.showForm = true;
 
