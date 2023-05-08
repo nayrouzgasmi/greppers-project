@@ -34,7 +34,4 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Long CountAdmins();
     @Query("SELECT count(*) FROM User u JOIN u.userRoles r WHERE r.roleName = 'Marchant'")
     Long CountMarchants();
-
-    public User findByUsername(String username);
-
 }
