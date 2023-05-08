@@ -203,7 +203,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/forms@^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0", "@angular/forms@^14.0.0", "@angular/forms@^15.2.0":
+"@angular/forms@^15.2.0":
   "integrity" "sha512-SdZxsE9MUOVMz0FjOwtx1RN/SGpObnAyZBqXNrN0c4BmJg+faJzvKIBBN102CKpWZOGRoq2YYrgxow9StMhxTw=="
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-15.2.6.tgz"
   "version" "15.2.6"
@@ -3692,7 +3692,7 @@
   "resolved" "https://registry.npmjs.org/jquery-ticker/-/jquery-ticker-1.0.0.tgz"
   "version" "1.0.0"
 
-"jquery@^3.6.4", "jquery@>=1.8.0":
+"jquery@^3.6.4":
   "integrity" "sha512-v28EW9DWDFpzcD9O5iyJXg3R3+q+mET5JhnjJzQUZMHOv67bpSIHq81GEYpPNZHG+XXHsfSme3nxp/hndKEcsQ=="
   "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.4.tgz"
   "version" "3.6.4"
@@ -4341,6 +4341,19 @@
   dependencies:
     "tslib" "^2.3.0"
 
+"nice-napi@^1.0.2":
+  "integrity" "sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA=="
+  "resolved" "https://registry.npmjs.org/nice-napi/-/nice-napi-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "node-addon-api" "^3.0.0"
+    "node-gyp-build" "^4.2.2"
+
+"node-addon-api@^3.0.0":
+  "integrity" "sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A=="
+  "resolved" "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz"
+  "version" "3.2.1"
+
 "node-forge@^1":
   "integrity" "sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA=="
   "resolved" "https://registry.npmjs.org/node-forge/-/node-forge-1.3.1.tgz"
@@ -4819,11 +4832,6 @@
   "resolved" "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-5.6.0.tgz"
   "version" "5.6.0"
 
-"primeicons@^6.0.1":
-  "integrity" "sha512-KDeO94CbWI4pKsPnYpA1FPjo79EsY9I+M8ywoPBSf9XMXoe/0crjbUK7jcQEDHuc0ZMRIZsxH3TYLv4TUtHmAA=="
-  "resolved" "https://registry.npmjs.org/primeicons/-/primeicons-6.0.1.tgz"
-  "version" "6.0.1"
-
 "primeng@^14.2.5-lts":
   "integrity" "sha512-pXML6/T+pY9PZwXeHwhsIo2qQ/+2niB8NVwi2ivd9xt1ZyHlPKAlb3o5sKoOC/0U+DnulamXH19aMWc877GZ0A=="
   "resolved" "https://registry.npmjs.org/primeng/-/primeng-14.2.5-lts.tgz"
@@ -5113,7 +5121,7 @@
   dependencies:
     "queue-microtask" "^1.2.2"
 
-"rxjs@^6.0.0 || ^7.0.0", "rxjs@^6.5.3 || ^7.4.0", "rxjs@^7.5.5", "rxjs@~7.8.0":
+"rxjs@^7.5.5", "rxjs@~7.8.0":
   "integrity" "sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg=="
   "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-7.8.0.tgz"
   "version" "7.8.0"
@@ -6143,7 +6151,7 @@
     "y18n" "^5.0.5"
     "yargs-parser" "^21.1.1"
 
-"zone.js@^0.10.2 || ^0.11.0 || ^0.12.0", "zone.js@>=0.10.2", "zone.js@~0.11.4 || ~0.12.0 || ~0.13.0", "zone.js@~0.12.0":
+"zone.js@~0.12.0":
   "integrity" "sha512-XtC+I5dXU14HrzidAKBNMqneIVUykLEAA1x+v4KVrd6AUPWlwYORF8KgsVqvgdHiKZ4BkxxjvYi/ksEixTPR0Q=="
   "resolved" "https://registry.npmjs.org/zone.js/-/zone.js-0.12.0.tgz"
   "version" "0.12.0"
