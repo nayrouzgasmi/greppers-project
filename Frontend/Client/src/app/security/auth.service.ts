@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 	providedIn: 'root'
 })
 export class AuthService {
-	
+
 	private baseUrl = 'http://localhost:8080/';
 	isLoggedIn = false;
      tokenExpirationTime = 5000000; // 5 seconds
@@ -30,12 +30,12 @@ this.setId(resp.user.id)
 
           setTimeout(() => {
             sessionStorage.removeItem("token");
-          }, 5000000); 
+          }, 5000000);
           setTimeout(() => {
             sessionStorage.removeItem("email");
           }, 5000000);
 
-          
+
             return resp;
         }));
         this.isLoggedIn = true;
@@ -65,13 +65,13 @@ this.setId(resp.user.id)
       }
 
     signup(request: Request): Observable<any> {
-        return this.http.post<any>(this.baseUrl + 'signup', request, {headers: new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: 'text' as 'json'}).pipe(map((resp) => {                                                         
+        return this.http.post<any>(this.baseUrl + 'signup', request, {headers: new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: 'text' as 'json'}).pipe(map((resp) => {
             return resp;
         }));
     }
 
 
-    
+
     userActive(email: any,password: any): Observable<any>{
         return this.http.post<any>(`${this.baseUrl}active`,{email,password}).pipe(
           map(
@@ -92,7 +92,7 @@ this.setId(resp.user.id)
           )
         )
       }
-    
+
       checkEmail(email: any):Observable<any>{
         return this.http.post<any>(`${this.baseUrl}checkEmail`,{email}).pipe(
           map(
@@ -102,7 +102,7 @@ this.setId(resp.user.id)
           )
         )
       }
-    
+
       resetPassword(email: any,code: any,password: any):Observable<any>{
         return this.http.post<any>(`${this.baseUrl}resetPassword`,{email,code,password}).pipe(
           map(
@@ -125,16 +125,16 @@ sessionStorage.removeItem('roles');
 
     isUserSignedin() {
         return sessionStorage.getItem('token') !== null;
-        
+
     }
 
     getSignedinUser() {
         return sessionStorage.getItem('user') as string;
-        
+
     }
     getSignInPhoneNumber() {
         return sessionStorage.getItem('phone_number') as string;
-        
+
     }
     isLogin(){
         return !(sessionStorage.getItem('email') == null ||

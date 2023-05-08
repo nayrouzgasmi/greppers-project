@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit{
 	onChangeCategory(event: any, role: any) {
 		// set the selected state of the role based on the checkbox state
 		this.selectedRoles.push(role.value);
-		
+
 		// check if the "Doctor" role is selected
 		if (role.name === 'Doctor' && role.selected) {
 		  this.showAdditionalInputs = true;
@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit{
 		}
 	}
 
-  
+
 	signInWithGoogle(): void {
 		this.auth.signIn(GoogleLoginProvider.PROVIDER_ID).then(
 		  data => {

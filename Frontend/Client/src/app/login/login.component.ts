@@ -27,12 +27,12 @@ export class LoginComponent implements OnInit {
 
 		if(this.isSignedin) {
 			this.router.navigateByUrl('');
-			
+
 		}
 		this.myFormLogin()
 	}
-	
-	
+
+
 	  myFormLogin(){
 		this.checkoutParentGroup = this.formChildGroup.group({
 		  user:this.formChildGroup.group({
@@ -86,14 +86,14 @@ export class LoginComponent implements OnInit {
 	  this.isSignedin = true;
     return true;
 	}
-  
+
 	  get email(){
     return this.checkoutParentGroup.get('user.email')
   }
   get password(){
     return this.checkoutParentGroup.get('user.password')
   }
-	
+
 
 	signInWithGoogle(): void {
 		this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
