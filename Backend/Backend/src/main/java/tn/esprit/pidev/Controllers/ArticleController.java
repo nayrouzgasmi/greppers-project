@@ -1,12 +1,10 @@
 package tn.esprit.pidev.Controllers;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import lombok.AllArgsConstructor;
 import tn.esprit.pidev.Services.ArticleService;
 import tn.esprit.pidev.Entities.Article;
 
