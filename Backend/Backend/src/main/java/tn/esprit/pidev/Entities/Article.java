@@ -3,7 +3,6 @@ package tn.esprit.pidev.Entities;
 
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -20,12 +19,12 @@ import lombok.Setter;
 public class Article {
     @Id
     @GeneratedValue
-    private UUID id;
+    private Long id;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "articles")
     private Set<User> authors;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "article_keywords", 
 	       joinColumns = @JoinColumn(name =  "article_id"),
 	       inverseJoinColumns = @JoinColumn(name = "keyword_id"))
@@ -36,56 +35,4 @@ public class Article {
     private String content;
 
     private LocalDate published;
-    
-    // Getters
-    public UUID getId() {
-        return id;
-    }
-
-    public Set<User> getAuthors() {
-        return authors;
-    }
-
-    public Set<Keyword> getKeywords() {
-        return keywords;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public LocalDate getPublished() {
-        return published;
-    }
-
-    // Setters
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setAuthors(Set<User> authors) {
-        this.authors = authors;
-    }
-
-    public void setKeywords(Set<Keyword> keywords) {
-        this.keywords = keywords;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setPublished(LocalDate published) {
-        this.published = published;
-    }
-
-    @Override
-    public String toString() {
-        return "Article { " +
-	    "id = " + id +
-	    ", authors = " + authors +
-	    ", keywords = " + keywords +
-	    ", published = " + published +
-	    " }";
-    }
 }
