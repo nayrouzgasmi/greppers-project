@@ -22,6 +22,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CarcirogenicsComponent } from './carcirogenics/carcirogenics.component';
 import { CreateCarcirogenicsComponent } from './create-carcirogenics/create-carcirogenics.component';
 import { ToxicProductComponent } from './toxic-product/toxic-product.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesProductsComponent } from './categories-products/categories-products.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ToxicProductComponent } from './toxic-product/toxic-product.component';
     FooterComponent,
     CarcirogenicsComponent,
     CreateCarcirogenicsComponent,
-    ToxicProductComponent
+    ToxicProductComponent,
+    CategoriesComponent,
+    CategoriesProductsComponent
     
   ],
   imports: [

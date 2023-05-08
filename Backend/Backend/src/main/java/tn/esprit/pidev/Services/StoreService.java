@@ -36,25 +36,27 @@ public class StoreService implements IStoreService {
 
     @Override
     public Store createOrUpdateStore(Store store, MultipartFile logo, MultipartFile storeImage) {
-        String logoUrl = objectStorageService.saveFileAlone((MultipartFile) logo, FOLDER);
+        String path=FOLDER+store.getName().replaceAll(" ", "-").toLowerCase()+"/";
+        String logoUrl = objectStorageService.saveFileAlone((MultipartFile) logo, path);
         store.setLogo(logoUrl);
-        String storeImageUrl = objectStorageService.saveFileAlone((MultipartFile) storeImage, FOLDER);
+        String storeImageUrl = objectStorageService.saveFileAlone((MultipartFile) storeImage, path);
         store.setStoreImage(storeImageUrl);
         return storeRepository.save(store);
     }
 
     @Override
     public Store updateStore(long id, Store store, MultipartFile logo, MultipartFile storeImage) {
+        String path=FOLDER+store.getName().replaceAll(" ", "-").toLowerCase()+"/";
         Store storeToEdit = storeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Store not found with ID: "));
         if (logo != null) {
             objectStorageService.deleteFile(storeToEdit.getLogo());
-            String logoUrl = objectStorageService.saveFileAlone((MultipartFile) logo, FOLDER);
+            String logoUrl = objectStorageService.saveFileAlone((MultipartFile) logo, path);
             storeToEdit.setLogo(logoUrl);
         }
         if (storeImage != null) {
             objectStorageService.deleteFile(storeToEdit.getStoreImage());
-            String storeImageUrl = objectStorageService.saveFileAlone((MultipartFile) storeImage, FOLDER);
+            String storeImageUrl = objectStorageService.saveFileAlone((MultipartFile) storeImage, path);
             storeToEdit.setStoreImage(storeImageUrl);
         }
         storeToEdit.setName(store.getName());
@@ -66,8 +68,12 @@ public class StoreService implements IStoreService {
     public void deleteStoreById(Long id) {
         Store store = storeRepository.findById(id).get();
         if (store != null && store.getLogo() != null) {
+            store.getProducts().forEach(
+                product -> objectStorageService.deleteFiles(product.getImageUrls()));
             objectStorageService.deleteFile(store.getLogo());
             objectStorageService.deleteFile(store.getStoreImage());
+
+
         }
         storeRepository.deleteById(id);
     }

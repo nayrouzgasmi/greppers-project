@@ -15,6 +15,8 @@ import { EditStoreComponent } from './edit-store/edit-store.component';
 import { CarcirogenicsComponent } from './carcirogenics/carcirogenics.component';
 import { CreateCarcirogenicsComponent } from './create-carcirogenics/create-carcirogenics.component';
 import { ToxicProductComponent } from './toxic-product/toxic-product.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesProductsComponent } from './categories-products/categories-products.component';
 
 const routes: Routes = [
   {path:"", component: MenuComponent},
@@ -32,7 +34,9 @@ const routes: Routes = [
   {path:"user-details/:id", component: UserDetailsComponent},
   {path:"carcirogenics", component: CarcirogenicsComponent},
   {path:"create-carcirogenics", component: CreateCarcirogenicsComponent},
-  {path:"toxic", component: ToxicProductComponent}
+  {path:"toxic", component: ToxicProductComponent},
+  {path:"categories", component: CategoriesComponent},
+  {path:"categories/:id", component: CategoriesProductsComponent}
 
 ];
 

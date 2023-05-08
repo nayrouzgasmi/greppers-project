@@ -1,9 +1,7 @@
 package tn.esprit.pidev.Services;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +10,10 @@ import tn.esprit.pidev.Entities.Store;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.api.client.util.Objects;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -27,7 +26,6 @@ import tn.esprit.pidev.Repositories.CompositionRepository;
 import tn.esprit.pidev.Repositories.ProductRepository;
 import tn.esprit.pidev.Repositories.StoreRepository;
 import tn.esprit.pidev.Repositories.TagRepository;
-import tn.esprit.pidev.Util.ObjectStorage;
 
 @Service
 @Transactional
@@ -121,9 +119,8 @@ public class ProductService implements IProductService {
         product.setBioScore(100);
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new EntityNotFoundException("Store not found with ID: " + storeId));
-        if (product.getCompositions() == null) {
-            product.setCompositions(new HashSet<Composition>());
-        }
+                System.out.println(store.getName());
+        if (product.getCompositions() != null) 
         for (Composition composition : product.getCompositions()) {
             Carcirogenic carcirogenicFound = carcirogenics.stream()
                     .filter(carcirogenic -> composition.getName().toLowerCase()
@@ -155,16 +152,18 @@ public class ProductService implements IProductService {
             }
             tagRepository.save(tag);
         });
+        String path=FOLDER+product.getName().replaceAll(" ", "-").toLowerCase()+"/";
         if (multipartFiles != null)
         multipartFiles.forEach(image -> {
-            String imgUrl = objectStorageService.saveFileAlone((MultipartFile) image, FOLDER);
+            String imgUrl = objectStorageService.saveFileAlone((MultipartFile) image, path);
             product.getImageUrls().add(imgUrl);
         });
-        if (product.getId() >= 0) {
+        if ( product.getId()!=0L) {
             return productRepository.save(product);
         }
 
         store.getProducts().add(product);
+        System.out.println(store.getProducts().toString());
         storeRepository.save(store);
 
         return product;

@@ -33,4 +33,9 @@ public class ProductCategory implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     Set<ProductSubcategory> productSubcategories;
     String icon;
+    @Override
+    public String toString() {
+        return "ProductCategory [id=" + id + ", name=" + name + ", productSubcategories=" + productSubcategories
+                + ", icon=" + icon + "]";
+    }
 }

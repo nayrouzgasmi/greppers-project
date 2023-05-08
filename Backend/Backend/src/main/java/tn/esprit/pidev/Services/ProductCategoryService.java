@@ -8,6 +8,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import tn.esprit.pidev.Entities.ProductCategory;
 import tn.esprit.pidev.Entities.ProductSubcategory;
@@ -18,6 +19,8 @@ public class ProductCategoryService implements Serializable {
 
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
+    @Autowired
+    private IObjectStorageService objectStorageService;
 
     public List<ProductCategory> getAllProductCategories() {
         try {
@@ -33,7 +36,11 @@ public class ProductCategoryService implements Serializable {
         return productCategoryRepository.findById((long) id).orElse(null);
     }
 
-    public ProductCategory saveProductCategory(ProductCategory productCategory) {
+    public ProductCategory saveProductCategory(ProductCategory productCategory,MultipartFile iconFile) {
+        if (iconFile!=null) {
+            String link=objectStorageService.saveFileAlone(iconFile, "icons/"+productCategory.getName());
+            productCategory.setIcon(link);
+        }
         return productCategoryRepository.save(productCategory);
     }
 

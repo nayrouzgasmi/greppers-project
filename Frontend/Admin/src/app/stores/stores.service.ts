@@ -15,6 +15,6 @@ export class StoresService {
     return this.http.get(this.baseUrl,httpOptions); 
    }
    public deleteStore(id:number) { 
-    return this.http.delete(this.baseUrl+id,httpOptions).subscribe(data=>this.router.navigateByUrl("/stores")); 
+    return this.http.delete(this.baseUrl+id,httpOptions).subscribe(data=>data && this.router.navigateByUrl("/stores")); 
    }
 }
