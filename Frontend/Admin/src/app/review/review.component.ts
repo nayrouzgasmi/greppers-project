@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewService } from '../services/ReviewServices';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 
 @Component({
   selector: 'app-review',
@@ -26,7 +28,7 @@ export class ReviewComponent implements OnInit {
   }
 
   getReviews() {
-    this.reviewService.getReviews(this.pageNo, 3).subscribe(
+    this.reviewService.getReviews(this.pageNo, 10).subscribe(
       (resp: any) => {
         this.reviews = resp.reviews;
         this.totalPages = resp.totalPages
@@ -57,6 +59,12 @@ export class ReviewComponent implements OnInit {
       (resp) => {
         this.getReviews();
         this.displayModal = 'none'
+        Swal.fire({
+          icon: 'info',
+          title: 'deleted item',
+          showConfirmButton: false,
+          timer: 3000,
+        });
 
       },
       (err) => {

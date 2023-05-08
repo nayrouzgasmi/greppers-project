@@ -72,7 +72,7 @@
   .rating label {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 2;
     height: 100%;
     cursor: pointer;
   }

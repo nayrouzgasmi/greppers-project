@@ -8,6 +8,7 @@ import { AjoutClientComponent } from './client/ajout-client/ajout-client.compone
 import { ReviewComponent } from './review/review.component';
 import { HeaderComponent } from './ui/header/header.component';
 import { CreateReviewComponent } from './create-review/create-review.component';
+import { UpdateReviewComponent } from './update-review/update-review.component';
 
 const routes: Routes = [
   { path: "", component: MenuComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
     path: "review", component: HeaderComponent, children: [
       { path: '', redirectTo: 'listReviews', pathMatch: 'full' },
       { path: 'listReviews', component: ReviewComponent },
-      { path: 'create', component: CreateReviewComponent }
+      { path: 'create', component: CreateReviewComponent },
+      { path: 'update/:id', component: UpdateReviewComponent }
 
     ]
   },

@@ -73,7 +73,7 @@ public class ReviewService implements IReviewService {
 
 	@Override
 	public Page<Review> findPaginated(int pageNo, int pageSize,String sortBy) {
-		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC,sortBy));
         Page<Review> pagedResult = reviewRepository.findAll(paging);
         return pagedResult;
 	}

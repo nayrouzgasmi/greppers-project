@@ -7,7 +7,11 @@
       <div class="row gx-5">
         <div class="col-lg-12">
           <section class="content-body p-xl-4">
-            <form>
+            <form
+              #reviewform="ngForm"
+              (ngSubmit)="addReview()"
+              ngNativeValidate
+            >
               <div class="row">
                 <div class="col-lg-8">
                   <div class="row gx-3">
@@ -17,10 +21,18 @@
                       <input
                         [(ngModel)]="reviewToSave.userName"
                         name="userName"
-                        class="form-control"
+                        [class]="
+                          userName.errors &&
+                          (userName.touched || userName.dirty)
+                            ? 'form-control  is-invalid'
+                            : 'form-control'
+                        "
                         type="text"
                         placeholder="name"
                         id="inputname"
+                        required
+                        minlength="4"
+                        #userName="ngModel"
                       />
                     </div>
 
@@ -29,10 +41,14 @@
                         >Product</label
                       >
                       <select
-                        class="form-select"
+                        class="form-control"
                         id="inputProduct"
                         aria-label="choose a product"
                         [(ngModel)]="reviewToSave.product"
+                        name="productId"
+                        required
+                        min="1"
+                        #productId="ngModel"
                       >
                         <option
                           *ngFor="let product of listProducts"
@@ -41,6 +57,16 @@
                           {{ product.name }}
                         </option>
                       </select>
+
+                      <div
+                        style="color: red"
+                        *ngIf="
+                          reviewToSave.product === 0 &&
+                          (productId.touched || productId.dirty)
+                        "
+                      >
+                        Please choose a product from list.
+                      </div>
                     </div>
                     <!-- col .// -->
                     <div class="col-lg-12 mb-3">
@@ -51,8 +77,15 @@
                         [(ngModel)]="reviewToSave.comment"
                         name="comment"
                         id="inputcomment"
-                        class="form-control"
+                        [class]="
+                          comment.errors && (comment.touched || comment.dirty)
+                            ? 'form-control  is-invalid'
+                            : 'form-control'
+                        "
                         placeholder="Type here"
+                        required
+                        minlength="4"
+                        #comment="ngModel"
                       >
                       </textarea>
                     </div>
@@ -61,7 +94,7 @@
                       <label>
                         <input
                           type="radio"
-                          name="stars"
+                          name="stars1"
                           value="1"
                           [(ngModel)]="reviewToSave.note"
                         />
@@ -70,7 +103,7 @@
                       <label>
                         <input
                           type="radio"
-                          name="stars"
+                          name="stars2"
                           value="2"
                           [(ngModel)]="reviewToSave.note"
                         />
@@ -80,7 +113,7 @@
                       <label>
                         <input
                           type="radio"
-                          name="stars"
+                          name="stars3"
                           value="3"
                           [(ngModel)]="reviewToSave.note"
                         />
@@ -91,7 +124,7 @@
                       <label>
                         <input
                           type="radio"
-                          name="stars"
+                          name="stars4"
                           value="4"
                           [(ngModel)]="reviewToSave.note"
                         />
@@ -101,7 +134,12 @@
                         <span class="icon">★</span>
                       </label>
                       <label>
-                        <input type="radio" name="stars" value="5" />
+                        <input
+                          type="radio"
+                          name="stars5"
+                          value="5"
+                          [(ngModel)]="reviewToSave.note"
+                        />
                         <span class="icon">★</span>
                         <span class="icon">★</span>
                         <span class="icon">★</span>
@@ -136,15 +174,26 @@
                   <figure class="text-lg-center">
                     <img
                       class="img-lg mb-3 img-avatar"
-                      src="assets/imgs/people/avatar-1.png"
+                      [src]="localUrl"
+                      *ngIf="localUrl"
                       alt="User Photo"
                     />
                     <figcaption style="margin-left: 40px">
                       <input
                         (change)="onFileSelect($event)"
+                        (click)="focusFileFunction()"
                         class="form-control"
                         type="file"
+                        accept="image/*"
+                        id="img"
+                        required
                       />
+                      <div
+                        style="color: red"
+                        *ngIf="uploadForm == null && focusFile > 0"
+                      >
+                        Please choose user image.
+                      </div>
                     </figcaption>
                   </figure>
                 </aside>
@@ -155,9 +204,9 @@
               <button
                 class="btn btn-primary"
                 type="submit"
-                (click)="addReview()"
+                [disabled]="loadButtonSubmit"
               >
-                Save changes
+                {{ !loadButtonSubmit ? "Save changes" : "Loading..." }}
               </button>
             </form>
             <hr class="my-5" />

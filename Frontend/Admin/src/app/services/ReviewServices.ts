@@ -18,12 +18,18 @@ export class ReviewService {
         return this.http.get(this.BASE + '/api/reviews/list?pageNo=' + pageNo + '&pageSize=' + pageSize, { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', Authorization: `Bearer ${localStorage.getItem('token')}`, }) })
     }
 
+    public getReviewById(id: number) {
+        return this.http.get(this.BASE + '/api/reviews/' + id, { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', Authorization: `Bearer ${localStorage.getItem('token')}`, }) })
+    }
+
     public getProducts() {
         return this.http.get(this.BASE + '/api/products', { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', Authorization: `Bearer ${localStorage.getItem('token')}`, }) })
     }
 
-    public updateSellers(seller: any) {
-        return this.http.put(this.BASE + '/updateSellers', seller)
+    public updateReview(id: number, review: any) {
+        return this.http.put<any>(this.BASE + '/api/reviews/' + id, review, { headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*', Authorization: `Bearer ${localStorage.getItem('token')}`, }) }).pipe(map((resp) => {
+            return resp;
+        }));
 
     }
 

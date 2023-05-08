@@ -62,7 +62,7 @@
     <div class="card-body">
       <article class="itemlist" *ngFor="let review of reviews; let i = index">
         <div class="row align-items-center">
-          <div class="col-lg-4 col-sm-4 col-8 flex-grow-1 col-name">
+          <div class="col-lg-5 col-sm-4 col-8 flex-grow-1 col-name">
             <a class="itemside" href="#">
               <div class="left">
                 <img
@@ -70,18 +70,20 @@
                   class="img-sm img-thumbnail"
                   alt="Item"
                 />
-
-                <img
-                  src="assets/imgs/items/1.jpg"
-                  class="img-sm img-thumbnail"
-                  alt="Item"
-                />
               </div>
               <div class="info">
-                <h6 class="mb-0">{{ review.userName }}</h6>
+                <h6 class="mb-0">
+                  {{ review.userName }} 's comment on
+
+                  <span class="badge rounded-pill alert-primary">
+                    {{ review.product.name }}</span
+                  >
+                  product
+                </h6>
               </div>
             </a>
           </div>
+
           <div class="col-lg-2 col-sm-2 col-4 col-price">
             <span>{{ review.comment }}</span>
           </div>
@@ -111,7 +113,10 @@
             >
           </div>
           <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
-            <a href="#" class="btn btn-sm font-sm rounded btn-brand">
+            <a
+              [routerLink]="'/review/update/' + review.id"
+              class="btn btn-sm font-sm rounded btn-brand"
+            >
               <i class="material-icons md-edit"></i> Edit
             </a>
             <a

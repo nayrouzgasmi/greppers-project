@@ -1,11 +1,15 @@
 package tn.esprit.pidev.Controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.bytebuddy.utility.RandomString;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 
@@ -36,6 +41,7 @@ import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Entities.Review;
 import tn.esprit.pidev.Services.IReviewService;
 
+import java.nio.charset.Charset;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 
@@ -44,7 +50,9 @@ import java.nio.file.Files;
 @RequestMapping("/api/reviews")
 public class ReviewController {
 
-	private final Path root = Paths.get("src/main/resources/static/uploads");
+		private static final String ThreadLocalRandom = null;
+
+		private final Path root = Paths.get("C:\\Users\\mohamed\\Documents\\workspace-sts-3.8.4.RELEASE\\greppers-project\\Frontend\\Admin\\src\\assets\\imgs\\people"); 
 
 	@Autowired
 	private IReviewService reviewService;
@@ -52,29 +60,38 @@ public class ReviewController {
 	// to add new review
 	@PostMapping(value = "", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseEntity<Review> createReview(@RequestParam("file") MultipartFile file,
-			@RequestParam("comment") String comment,@RequestParam("userName") String userName,@RequestParam("active") String active
-			,@RequestParam("note") String note) {
+			@RequestParam("comment") String comment, @RequestParam("userName") String userName,
+			@RequestParam("active") String active, @RequestParam("note") String note,@RequestParam("product") String product_id) {
 		Review r = new Review();
 		Product p = new Product();
-		p.setId(2);
+		p.setId(Long.parseLong(product_id));
 		r.setActive(Boolean.parseBoolean(active));
 		r.setComment(comment);
 		r.setNote(Integer.parseInt(note));
 		r.setUserName(userName);
 		r.setProduct(p);
-		r.setUserPhoto(file.getOriginalFilename());
+
+		// generate random string for photo
+		String generatedString =   UUID.randomUUID().toString().concat(".");
+		
+		
+		String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+		String filename = generatedString.concat(ext);
+
 		try {
-			Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()),
-					StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(file.getInputStream(), this.root.resolve(filename));
+			r.setUserPhoto(filename);
+			
+
 		} catch (Exception e) {
 			if (e instanceof FileAlreadyExistsException) {
 
 			}
-
 			throw new RuntimeException(e.getMessage());
 		}
 		Review createdReview = reviewService.save(r);
 		return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
+
 	}
 
 	// to get list of reviews
@@ -112,9 +129,42 @@ public class ReviewController {
 	}
 
 	// to update review
-	@PutMapping("/{id}")
-	public ResponseEntity<Review> updateReview(@PathVariable("id") long id, @RequestBody Review review) {
-		Review updatedReview = reviewService.updateReview(id, review);
+	@PutMapping(value ="/{id}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+	public ResponseEntity<Review> updateReview(@PathVariable("id") long id, @RequestParam(value ="file", required = false) MultipartFile file,
+			@RequestParam("comment") String comment, @RequestParam("userName") String userName,
+			@RequestParam("active") String active, @RequestParam("note") String note, @RequestParam("userPhoto") String userPhoto,@RequestParam("product") String product_id) {
+		
+		Review r = new Review();
+		Product p = new Product();
+		p.setId(  Long.parseLong(product_id)  );
+		r.setActive(Boolean.parseBoolean(active));
+		r.setComment(comment);
+		r.setNote(Integer.parseInt(note));
+		r.setUserName(userName);
+		r.setProduct(p);
+		if(file != null) {
+			String generatedString =   UUID.randomUUID().toString().concat(".");	
+			String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+			String filename = generatedString.concat(ext);
+
+			try {
+				Files.copy(file.getInputStream(), this.root.resolve(filename));
+				r.setUserPhoto(filename);
+				
+
+			} catch (Exception e) {
+				if (e instanceof FileAlreadyExistsException) {
+
+				}
+				throw new RuntimeException(e.getMessage());
+			}
+			
+		}else {
+			r.setUserPhoto(userPhoto);
+		}
+		
+		//ici
+		Review updatedReview = reviewService.updateReview(id, r);
 		if (updatedReview != null) {
 			return new ResponseEntity<>(updatedReview, HttpStatus.OK);
 		} else {

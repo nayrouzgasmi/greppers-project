@@ -14,6 +14,7 @@ import { ReviewComponent } from './review/review.component';
 import { HeaderComponent } from './ui/header/header.component';
 import { CreateReviewComponent } from './create-review/create-review.component';
 import { LoadingComponent } from './ui/loading/loading.component';
+import { UpdateReviewComponent } from './update-review/update-review.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { LoadingComponent } from './ui/loading/loading.component';
     ReviewComponent,
     HeaderComponent,
     CreateReviewComponent,
-    LoadingComponent
+    LoadingComponent,
+    UpdateReviewComponent
 
   ],
   imports: [
