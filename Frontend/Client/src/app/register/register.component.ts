@@ -3,7 +3,7 @@ import { AuthService } from '../security/auth.service';
 import { Request } from '../model/sign-up-request';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 import { SocialService } from '../login/social.service';
 
 @Component({
@@ -38,7 +38,6 @@ export class RegisterComponent implements OnInit{
 	onChangeCategory(event: any, role: any) {
 		// set the selected state of the role based on the checkbox state
 		this.selectedRoles.push(role.value);
-		
 		// check if the "Doctor" role is selected
 		if (role.name === 'Doctor' && role.selected) {
 		  this.showAdditionalInputs = true;
@@ -65,7 +64,6 @@ export class RegisterComponent implements OnInit{
 		}
 	}
 
-  
 	signInWithGoogle(): void {
 		this.auth.signIn(GoogleLoginProvider.PROVIDER_ID).then(
 		  data => {
@@ -75,6 +73,22 @@ export class RegisterComponent implements OnInit{
 			  }
 			})
 			console.log(data.idToken)
+		  }
+		);
+	  }
+
+	  signInWithFB(): void {
+		this.auth.signIn(FacebookLoginProvider.PROVIDER_ID).then(
+		  data => {
+			this.social.loginWithFacebook(data.authToken).subscribe({
+			  next: response =>{
+				this.router.navigateByUrl("/")
+				let name=response.user.userRoles[0].roleName;
+				console.log('role:', name);
+				console.log(sessionStorage.getItem("id"));
+			  }
+			})
+			console.log(data.authToken)
 		  }
 		);
 	  }

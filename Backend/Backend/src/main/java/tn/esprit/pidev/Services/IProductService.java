@@ -20,6 +20,8 @@ public interface IProductService {
 
     void deleteById(long id);
     void deleteProductWithReference(Long productId) ;
-    Product createProductAndAssignToStore(Long storeId, Product productDto,List<MultipartFile> multipartFiles) throws IOException;
+    Product createProductAndAssignToStore(Long storeId, Product product, List<MultipartFile> multipartFiles)
+            throws IOException ;
+    // Product createProductAndAssignToStore(Long storeId, Product productDto,List<MultipartFile> multipartFiles) throws IOException;
 
 }

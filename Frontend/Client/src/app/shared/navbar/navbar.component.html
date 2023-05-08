@@ -10,7 +10,7 @@
                         <h6 class="mb-10 text-brand-2">Deal of the Day</h6>
                     </div>
                     <div class="deal-content detail-info">
-                        <h4 class="product-title"><a routerLink="" class="text-heading">Organic fruit
+                        <h4 class="product-title"><a href="shop-product-right.html" class="text-heading">Organic fruit
                                 for your family's health</a></h4>
                         <div class="clearfix product-price-cover">
                             <div class="product-price primary-color float-left">
@@ -155,10 +155,10 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="header-info">
                         <ul>
-                            <li><a routerLink="/about">About Us</a></li>
-                            <li><a routerLink="/register">My Account</a></li>
-                            <li><a routerLink="/cart">Wishlist</a></li>
-                            <li><a routerLink="/">Order Tracking</a></li>
+                            <li><a href="page-about.htlm">About Us</a></li>
+                            <li><a href="page-account.html">My Account</a></li>
+                            <li><a href="shop-wishlist.html">Wishlist</a></li>
+                            <li><a href="shop-order.html">Order Tracking</a></li>
                         </ul>
                     </div>
                 </div>
@@ -217,7 +217,7 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a routerLink="/"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
+                    <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
                 </div>
                 <div class="header-right">
                     <div class="search-style-2">
@@ -356,19 +356,19 @@
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
-                    <a routerLink="/"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
+                    <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
                 </div>
                 <div class="header-nav d-none d-lg-flex">
                     <div class="main-categori-wrap d-none d-lg-block">
-                        <a class="categories-button-active" [ngClass]="toggleCategories ? 'open' : ''" (click)="clickEventCategories()">
+                        <a class="categories-button-active" href="#">
                             <span class="fi-rs-apps"></span> <span class="et">Browse</span> All Categories
                             <i class="fi-rs-angle-down"></i>
                         </a>
-                        <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading" [ngClass]="toggleCategories ? 'open' : ''">
+                        <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
                             <div class="d-flex categori-dropdown-inner">
                                 <ul>
                                     <li>
-                                        <a routerLink=""> <img
+                                        <a href="shop-grid-right.html"> <img
                                                 src="assets/imgs/theme/icons/category-1.svg" alt="" />Milks and
                                             Dairies</a>
                                     </li>
@@ -416,6 +416,34 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div class="more_slide_open" style="display: none">
+                                <div class="d-flex categori-dropdown-inner">
+                                    <ul>
+                                        <li>
+                                            <a href="shop-grid-right.html"> <img
+                                                    src="assets/imgs/theme/icons/icon-1.svg" alt="" />Milks and
+                                                Dairies</a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-grid-right.html"> <img
+                                                    src="assets/imgs/theme/icons/icon-2.svg" alt="" />Clothing &
+                                                beauty</a>
+                                        </li>
+                                    </ul>
+                                    <ul class="end">
+                                        <li>
+                                            <a href="shop-grid-right.html"> <img
+                                                    src="assets/imgs/theme/icons/icon-3.svg" alt="" />Wines & Drinks</a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-grid-right.html"> <img
+                                                    src="assets/imgs/theme/icons/icon-4.svg" alt="" />Fresh Seafood</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">Show
+                                    more...</span></div>
                         </div>
                     </div>
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">

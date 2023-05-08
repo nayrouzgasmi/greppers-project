@@ -7,4 +7,5 @@ import tn.esprit.pidev.Entities.Tag;
 
 public interface TagRepository extends JpaRepository<Tag,Long>{
     Tag findFirstByName(String name);
+    Tag findByName(String name);
 }

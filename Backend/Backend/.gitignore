@@ -199,3 +199,10 @@ README.html
 *.iml
 .idea
 .exercism
+.classpath
+.factorypath
+.project
+.settings/
+target/
+idea/
+.idea/

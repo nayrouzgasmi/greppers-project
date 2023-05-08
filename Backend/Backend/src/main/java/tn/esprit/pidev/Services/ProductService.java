@@ -111,7 +111,7 @@ public class ProductService implements IProductService {
             productRepository.delete(product);
         }
     }
-
+    @Override
     public Product createProductAndAssignToStore(Long storeId, Product product, List<MultipartFile> multipartFiles)
             throws IOException {
         // Retrieve the store from the repository

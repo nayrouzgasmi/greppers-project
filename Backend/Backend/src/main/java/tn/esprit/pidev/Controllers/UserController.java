@@ -2,6 +2,7 @@ package tn.esprit.pidev.Controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pidev.Entities.Code;
@@ -12,6 +13,9 @@ import tn.esprit.pidev.Repositories.UserRepository;
 import tn.esprit.pidev.Services.*;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 // http://localhost:8080/
@@ -179,6 +183,21 @@ public class UserController {
     @CrossOrigin("http://localhost:4201")
     public void deleteSellers(@RequestParam Long id){
          userService.deleteSeller(id);
+    }
+
+
+    @GetMapping("/users")
+    public ResponseEntity<?> getUsers(){
+        Long totalUsers = userRepository.count();
+        Long totalClients = userRepository.CountClients();
+        Long totalMarchants = userRepository.CountMarchants();
+        long totalAdmins = userRepository.CountAdmins();
+        Map<String,Object> data = new HashMap<>();
+        data.put("totalUsers",totalUsers);
+        data.put("totalClients",totalClients);
+        data.put("totalMarchants",totalMarchants);
+        data.put("totalAdmins",totalAdmins);
+       return ResponseEntity.ok(data);
     }
 
 }
