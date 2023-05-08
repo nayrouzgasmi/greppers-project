@@ -26,6 +26,14 @@
     "@angular-devkit/core" "15.2.7"
     "rxjs" "6.6.7"
 
+"@angular-devkit/architect@0.1502.7":
+  "integrity" "sha512-MzB6D/yUo6cBJfQ31zNDHJ3C3iKmBtxP3i9WIRnnkZwS1VUfO8OX3TZ6lycYbREF1oL/AQ/r9GK+KA5DNEBSAw=="
+  "resolved" "https://registry.npmjs.org/@angular-devkit/architect/-/architect-0.1502.7.tgz"
+  "version" "0.1502.7"
+  dependencies:
+    "@angular-devkit/core" "15.2.7"
+    "rxjs" "6.6.7"
+
 "@angular-devkit/build-angular@^15.2.2":
   version "15.2.5"
   resolved "https://registry.npmjs.org/@angular-devkit/build-angular/-/build-angular-15.2.5.tgz"
@@ -4382,6 +4390,19 @@ ngx-cookie-service@^15.0.0:
   integrity sha512-KU1JCjfpDTvD6L0FhHN9W/oP3Sue8yMAAK6XY3h/MEhrPS7vx6t3+h0ulY8l8R/9d1cmlQVyTHn1Jd1Jdf5K+g==
   dependencies:
     tslib "^2.0.0"
+
+"nice-napi@^1.0.2":
+  "integrity" "sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA=="
+  "resolved" "https://registry.npmjs.org/nice-napi/-/nice-napi-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "node-addon-api" "^3.0.0"
+    "node-gyp-build" "^4.2.2"
+
+"node-addon-api@^3.0.0":
+  "integrity" "sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A=="
+  "resolved" "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz"
+  "version" "3.2.1"
 
 "nice-napi@^1.0.2":
   "integrity" "sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA=="
