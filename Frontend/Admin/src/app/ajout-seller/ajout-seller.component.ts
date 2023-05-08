@@ -18,7 +18,7 @@ export class AjoutSellerComponent implements OnInit {
 	phone_number: string = '';
 
 	user_roles: any = [
-		{name:'Client', value:'Client', selected: false},
+		// {name:'Client', value:'Client', selected: false},
 		{name:'Marchant', value:'Marchant', selected: false},
 	]
 

@@ -135,7 +135,7 @@
         var id = $(this).attr("id");
         var sliderID = "#" + id;
         var appendArrowsClassName = "#" + id + "-arrows";
-
+console.log("something is happpeningghubfejbe")
         $(sliderID).slick({
             dots: false,
             infinite: true,

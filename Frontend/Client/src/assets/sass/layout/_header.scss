@@ -1566,6 +1566,7 @@
 /* Header style 1 */
 .header-style-1 {
 	position: relative;
+	background-color: #3BB77E;
 	 overflow-x: clip;
 	&.header-height-2 {
 		border-bottom: 0;
@@ -1733,6 +1734,9 @@
 		color: #fff !important;
 	}
 	
+}
+.header-top{
+	background-color: #3BB77E;
 }
 .header-style-1.header-style-5 {
 	.header-bottom-bg-color {

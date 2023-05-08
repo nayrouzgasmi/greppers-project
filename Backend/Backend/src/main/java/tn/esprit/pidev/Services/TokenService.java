@@ -16,9 +16,12 @@ import tn.esprit.pidev.Repositories.UserRepository;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 @Service
+@Transactional
 public class TokenService {
     private AuthenticationManager authenticationManager;
 

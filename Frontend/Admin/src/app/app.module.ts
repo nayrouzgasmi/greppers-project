@@ -10,6 +10,13 @@ import { FormsModule } from '@angular/forms';
 import { AjoutSellerComponent } from './ajout-seller/ajout-seller.component';
 import { ClientComponent } from './client/client.component';
 import { AjoutClientComponent } from './client/ajout-client/ajout-client.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { StoresComponent } from './stores/stores.component';
+import { StoreComponent } from './store/store.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { AddStoreComponent } from './add-store/add-store.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +25,14 @@ import { AjoutClientComponent } from './client/ajout-client/ajout-client.compone
     SellerComponent,
     AjoutSellerComponent,
     ClientComponent,
-    AjoutClientComponent
+    AjoutClientComponent,
+    AddProductComponent,
+    SidebarComponent,
+    StoresComponent,
+    StoreComponent,
+    EditProductComponent,
+    AddStoreComponent,
+    UserDetailsComponent
     
   ],
   imports: [
