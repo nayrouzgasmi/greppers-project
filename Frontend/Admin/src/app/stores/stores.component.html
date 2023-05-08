@@ -98,7 +98,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let store of stores | async ">
+                            <tr *ngFor="let store of stores  ">
                                 <td width="40%">
                                     <a routerLink="/store/{{store.id}}" class="itemside">
                                         <div class="left">
@@ -110,8 +110,8 @@
                                         </div>
                                     </a>
                                 </td>
-                                <td>{{store.owner || "undefined"}}</td>
-                                <td><span class="badge rounded-pill alert-success">Active</span></td>
+                                <td>{{store.description}}</td>
+                                <td><span class="badge rounded-pill alert-success" [ngClass]="{'alert-danger': !store.approved, 'alert-success' : store.approved}">{{store.approved?"approved":"not approved"}}</span></td>
                                 <td>08.07.2020</td>
                                 <td class="text-end flex-col flex">
                                     <button (click)="deleteStore(store.id)" class="btn btn-sm btn-danger rounded font-sm m-2">Delete <i class="material-icons md-delete"></i></button>

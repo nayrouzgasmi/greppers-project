@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import tn.esprit.pidev.Entities.Store;
+import tn.esprit.pidev.Entities.User;
 import tn.esprit.pidev.Entities.Vendor;
 
 public interface IVendorService {
@@ -13,6 +14,8 @@ public interface IVendorService {
     Optional<Vendor> getVendorById(Long id);
 
     Vendor saveVendor(Vendor vendor);
+    void saveVendorWithUser(User user);
+
 
     void deleteVendorById(Long id);
 

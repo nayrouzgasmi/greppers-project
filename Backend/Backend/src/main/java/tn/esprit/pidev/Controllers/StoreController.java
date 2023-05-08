@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import tn.esprit.pidev.Entities.Store;
+import tn.esprit.pidev.Entities.Vendor;
 import tn.esprit.pidev.Services.IStoreService;
 
 @RestController
@@ -40,13 +41,17 @@ public class StoreController {
     // }
     @PostMapping("/{id}")
     public Store createOrUpdateStore(@PathVariable("id") long id, @RequestParam("store") String storeJson,
+            @RequestParam(value = "userId",required = false) String userId,
             @RequestParam(value = "logo", required = false) MultipartFile logo,
             @RequestParam(value = "banner", required = false) MultipartFile storeImage)
             throws JsonMappingException, JsonProcessingException {
         System.out.println("hello");
         ObjectMapper objectMapper = new ObjectMapper();
         Store store = objectMapper.readValue(storeJson, Store.class);
-        return storeService.createOrUpdateStore(store, logo, storeImage);
+        Long longUserId=null;
+        if(userId!=null)
+        longUserId=objectMapper.readValue(userId, Long.class);
+        return storeService.createOrUpdateStore(longUserId,store, logo, storeImage);
     }
 
     @PutMapping("/{id}")
@@ -57,7 +62,6 @@ public class StoreController {
         ObjectMapper objectMapper = new ObjectMapper();
         Store store = objectMapper.readValue(storeJson, Store.class);
         return storeService.updateStore(id,store, logo, storeImage);
-
     }
 
     // @PutMapping("/{id}")

@@ -38,6 +38,8 @@ public class UserController {
         this.userRepository = userRepository;
 
     }
+    @Autowired
+    public IVendorService vendorService;
 
     // http://localhost:8080/signin
     @PostMapping("/signin")
@@ -81,7 +83,8 @@ public class UserController {
             Code code = new Code();
             code.setCode(myCode);
             user.setCode(code);
-            userRepository.save(user);
+            User createdUser= userRepository.save(user);
+            vendorService.saveVendorWithUser(createdUser);
             accountResponse.setResult(1);
         }
         return accountResponse;

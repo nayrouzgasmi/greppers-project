@@ -14,7 +14,7 @@ public interface IStoreService {
 
     Optional<Store> getStoreById(Long id);
 
-    Store createOrUpdateStore(Store store, MultipartFile logo, MultipartFile storeImage);
+    Store createOrUpdateStore(Long userId,Store store, MultipartFile logo, MultipartFile storeImage);
 
     void deleteStoreById(Long id);
 

@@ -9,43 +9,38 @@
     </div>
     <nav>
         <ul class="menu-aside">
-            <li class="menu-item active">
+            <li class="menu-item active" *ngIf="isAdmin || isMarchant">
                 <a class="menu-link" routerLink="">
                     <i class="icon material-icons md-home"></i>
                     <span class="text">Dashboard</span>
                 </a>
             </li>
-            <li class="menu-item has-submenu">
+            <li class="menu-item">
                 <a class="menu-link" routerLink="/stores">
                     <i class="icon material-icons md-store"></i>
                     <span class="text">Stores</span>
                 </a>
-                <div class="submenu">
-                    <a>Sellers cards</a>
-                    <a>Sellers list</a>
-                    <a>Seller profile</a>
-                </div>
             </li>
-            <li class="menu-item has-submenu">
+            <li class="menu-item has-submenu" *ngIf="isAdmin">
                 <a class="menu-link" routerLink="/products">
                     <i class="icon material-icons md-add"></i>
                     <span class="text">Products</span>
                 </a>
             </li>
-            <li class="menu-item has-submenu">
+            <li class="menu-item has-submenu" *ngIf="isAdmin">
                 <a class="menu-link" routerLink="/carcirogenics">
                     <i class="icon material-icons md-add"></i>
                     <span class="text">Carcirogenics</span>
                 </a>
             </li>
             <li class="menu-item has-submenu">
-                <a class="menu-link" routerLink="/categories">
+                <a class="menu-link" routerLink="/categories" *ngIf="isAdmin">
                     <i class="icon material-icons md-add"></i>
                     <span class="text">Categories</span>
                 </a>
             </li>
             <li class="menu-item has-submenu">
-                <a class="menu-link" routerLink="/seller">
+                <a class="menu-link" routerLink="/seller" *ngIf="isAdmin">
                     <i class="icon material-icons md-store"></i>
                     <span class="text">Sellers</span>
                 </a>
@@ -55,7 +50,7 @@
                     <a>Seller profile</a>
                 </div>
             </li>
-            <li class="menu-item has-submenu ">
+            <li class="menu-item has-submenu " *ngIf="isAdmin">
                 <a class="menu-link " routerLink="/client">
                     <i class="icon material-icons md-person "></i>
                     <span class="text ">Client</span>

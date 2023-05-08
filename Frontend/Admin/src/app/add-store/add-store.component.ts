@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddStoreService } from './add-store.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { isMarchant, id as userId} from '../utils/getRole';
 @Component({
   selector: 'app-add-store',
   templateUrl: './add-store.component.html',
@@ -42,6 +42,9 @@ export class AddStoreComponent implements OnInit {
     // console.log(this.data.getAll("file"))
     this.data.append('logo',this.logo)
     this.data.append('banner',this.banner)
+    if (isMarchant) {
+      this.data.append('userId',userId);
+    }
     const id = this.route.snapshot.params['id'];
     this.addStoreService.addStoreToVendor(id, this.data);
   }

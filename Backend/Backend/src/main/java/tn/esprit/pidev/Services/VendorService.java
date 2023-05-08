@@ -40,7 +40,7 @@ public class VendorService implements IVendorService {
 
     @Override
     public Optional<Vendor> getVendorById(Long id) {
-        return vendorRepository.findById(id);
+        return vendorRepository.findVendorByUserId(id);
     }
 
     @Override
@@ -55,7 +55,14 @@ public class VendorService implements IVendorService {
         }
         return vendorRepository.save(vendor);
     }
-
+    @Override
+    public void saveVendorWithUser(User user){
+        Vendor vendor=new Vendor();
+        vendor.setName(user.getUsername());
+        vendor.setLastName(user.getUsername());
+        vendor.setUser(user);
+        vendorRepository.save(vendor);
+    }
     @Override
     public Vendor assignStoreToVendor(Long id, Store store) {
 

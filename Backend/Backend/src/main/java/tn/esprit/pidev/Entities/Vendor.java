@@ -38,7 +38,7 @@ public class Vendor implements Serializable {
     @ColumnDefault("false")
     boolean isVerified;
     @Nullable
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     Set<Store> stores;
     public void addStore(Store store) {
@@ -47,5 +47,4 @@ public class Vendor implements Serializable {
     }
     @OneToOne
     User user;
-
 }
