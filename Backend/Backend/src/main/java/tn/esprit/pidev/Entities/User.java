@@ -120,6 +120,4 @@ public class User{
     public void setCode(Code code) {
         this.code = code;
     }
-
-    
 }

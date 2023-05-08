@@ -26,11 +26,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-// http://localhost:8080
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/social")
-// http://localhost:8080/social
 public class SocialController {
 
     @Value("google.id")

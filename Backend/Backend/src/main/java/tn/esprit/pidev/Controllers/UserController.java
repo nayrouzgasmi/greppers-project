@@ -18,11 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-// http://localhost:8080/
 @RestController
 @CrossOrigin("*")
 @RequestMapping
-// http://localhost:8080/
 public class UserController {
 
     private TokenService tokenService;
@@ -45,18 +43,16 @@ public class UserController {
     @Autowired
     public IVendorService vendorService;
 
-    // http://localhost:8080/signin
     @PostMapping("/signin")
     public LoginResponse logIn(@RequestBody JwtLogin jwtLogin){
         return tokenService.login(jwtLogin);
     }
-    @CrossOrigin("http://localhost:4201")
+    
     @GetMapping("/getSellers")
     public List<User> GetAllSellers(){
         return userService.fetchSellerList();
     }
 
-    @CrossOrigin("http://localhost:4201")
     @GetMapping("/getClients")
     public List<User> GetAllClients(){
         return userService.fetchClientList();
@@ -158,7 +154,7 @@ public class UserController {
         User user = this.userService.getUserByMail(newPassword.getEmail());
         AccountResponse accountResponse = new AccountResponse();
         if(user != null){
-            if(user.getCode().getCode().equals(newPassword.getCode())){
+            if(user.getCode().equals(newPassword.getCode())){
                 user.setPassword(passwordEncoder.encode(newPassword.getPassword()));
                 userService.addUser(user);
                 accountResponse.setResult(1);
@@ -173,14 +169,14 @@ public class UserController {
     }
 
     @PutMapping("/updateSellers")
-    @CrossOrigin("http://localhost:4201")
+    @CrossOrigin("http://localhost:4200")
 
     public User updateUser(@RequestBody User seller){
         return userService.updateUser(seller);
     }
 
     @DeleteMapping("/deleteSellers")
-    @CrossOrigin("http://localhost:4201")
+    @CrossOrigin("http://localhost:4200")
     public void deleteSellers(@RequestParam Long id){
          userService.deleteSeller(id);
     }

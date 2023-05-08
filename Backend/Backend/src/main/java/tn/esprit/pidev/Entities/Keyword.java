@@ -1,11 +1,20 @@
 package tn.esprit.pidev.Entities;
 
+import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
-@Table(name = "keywords")
-public class Keyword {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Keyword implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
@@ -13,48 +22,6 @@ public class Keyword {
     @ManyToMany(mappedBy = "keywords")
     private Set<Article> articles;
 
+    @Column(unique=true)
     private String name;
-
-    // Constructors
-    public Keyword() {
-    }
-
-    public Keyword(String name) {
-        this.name = name;
-    }
-
-    // Getters
-    public Long getId() {
-        return id;
-    }
-
-    public Set<Article> getArticles() {
-        return articles;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    // Setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setArticles(Set<Article> articles) {
-        this.articles = articles;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Keyword { " +
-	    "id = " + id +
-	    ", articles = " + articles +
-	    ", name = " + name +
-	    " }";
-    }
 }
