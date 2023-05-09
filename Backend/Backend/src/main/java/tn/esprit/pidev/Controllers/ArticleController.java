@@ -10,7 +10,7 @@ import tn.esprit.pidev.Entities.Article;
 
 @RestController
 @RequestMapping("/articles")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class ArticleController {
 
     ArticleService service;

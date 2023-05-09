@@ -1,14 +1,8 @@
 FROM mysql:8.0
 
-ENV MYSQL_ROOT_PASSWORD=""
 ENV MYSQL_DATABASE="pidev"
-ENV MYSQL_USER="pidev"
-ENV MYSQL_PASSWORD="pidev"
-ENV MYSQL_HOST="localhost"
-ENV MYSQL_PORT="3306"
-ENV MYSQL_ALLOW_EMPTY_PASSWORD="yes"
-
-ADD SQL/data.sql /etc/mysql/data.sql
-RUN cp /etc/mysql/data.sql /docker-entrypoint-initdb.d
+ENV MYSQL_PORT=3306
+ENV MYSQL_HOST="0.0.0.0"
+ENV MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 EXPOSE 3306

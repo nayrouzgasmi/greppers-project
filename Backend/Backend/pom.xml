@@ -12,6 +12,7 @@
     <groupId>tn.esprit</groupId>
     <artifactId>pidev</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>pidev</name>
     <description>pidev</description>
     <properties>
@@ -120,6 +121,26 @@
                     </excludes>
                 </configuration>
             </plugin>
+	    <plugin>
+	      <groupId>org.apache.tomcat.maven</groupId>
+	      <artifactId>tomcat7-maven-plugin</artifactId>
+	      <version>2.0</version>
+	      <executions>
+		<execution>
+		  <id>tomcat-run</id>
+		  <goals>
+                    <goal>exec-war-only</goal>
+		  </goals>
+		  <phase>package</phase>
+		  <configuration>
+                    <path>/</path>
+                    <enableNaming>false</enableNaming>
+                    <finalName>app.jar</finalName>
+                    <charset>utf-8</charset>
+		  </configuration>
+		</execution>
+	      </executions>
+	    </plugin>
         </plugins>
         <resources>
             <resource>
