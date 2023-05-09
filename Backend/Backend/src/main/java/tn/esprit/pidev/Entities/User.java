@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -37,14 +38,29 @@ public class User{
     @Column(name = "active")
     private int active;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Event> events;
+
+
+    public List<Event> getEvents()
+    {
+        return this.events;
+    }
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JsonIgnore
     private Set<Role> userRoles = new HashSet<>();
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "code_id")
     @JsonIgnore
     private Code code;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "author_articles",
+	       joinColumns = @JoinColumn(name =  "user_id"),
+	       inverseJoinColumns = @JoinColumn(name = "article_id"))
+    private Set<Article> articles;
+
     public Set<Role> getUserRoles() {
         return userRoles;
     }
@@ -104,4 +120,6 @@ public class User{
     public void setCode(Code code) {
         this.code = code;
     }
+
+    
 }

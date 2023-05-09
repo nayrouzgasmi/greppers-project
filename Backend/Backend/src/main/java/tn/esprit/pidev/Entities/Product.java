@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,12 +39,13 @@ public class Product implements Serializable {
     @JoinColumn(name = "store_id")
     @JsonBackReference
     Store store;
-    @OneToMany
+    @ManyToMany
     Set<Composition> compositions;
     int quantity;
+    int Etoile=5;
     boolean isAvailable;
     float bioScore;
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     Set<Tag> tags;
     @ElementCollection
     Set<String> imageUrls;

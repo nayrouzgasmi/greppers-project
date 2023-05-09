@@ -26,6 +26,9 @@ import { MerchantDashboardComponent } from './merchant-dashboard/merchant-dashbo
 import { MerchantGuideComponent } from './merchant-guide/merchant-guide.component';
 import { AboutComponent } from './about/about.component';
 import { ProductComponent } from './product/product.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { EventDetailsComponent } from './events/event-details/event-details.component';
+import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { ProductComponent } from './product/product.component';
     MerchantDashboardComponent,
     MerchantGuideComponent,
     AboutComponent,
-    ProductComponent
+    ProductComponent,
+    UserDetailsComponent,
+    EventDetailsComponent,
+    CreateTicketComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +78,7 @@ import { ProductComponent } from './product/product.component';
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('224006282781296')
+            provider: new FacebookLoginProvider('557258556600595')
           }
         ]
       } as SocialAuthServiceConfig,

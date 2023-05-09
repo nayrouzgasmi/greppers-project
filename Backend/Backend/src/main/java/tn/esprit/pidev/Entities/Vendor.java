@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -37,8 +38,13 @@ public class Vendor implements Serializable {
     @ColumnDefault("false")
     boolean isVerified;
     @Nullable
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     Set<Store> stores;
-
+    public void addStore(Store store) {
+        stores.add(store);
+        store.setVendor(this);
+    }
+    @OneToOne
+    User user;
 }

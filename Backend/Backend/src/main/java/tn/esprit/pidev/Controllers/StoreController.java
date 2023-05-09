@@ -1,5 +1,6 @@
 package tn.esprit.pidev.Controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,13 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import tn.esprit.pidev.Entities.Product;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
 import tn.esprit.pidev.Entities.Store;
+import tn.esprit.pidev.Entities.Vendor;
 import tn.esprit.pidev.Services.IStoreService;
+import tn.esprit.pidev.Util.LocalDateDeserializer;
 
 @RestController
 @RequestMapping("/api/stores")
+@CrossOrigin
 public class StoreController {
 
     @Autowired
@@ -30,16 +39,49 @@ public class StoreController {
         return store.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Store createOrUpdateStore(@RequestBody Store store) {
-        return storeService.createOrUpdateStore(store);
+    // @PostMapping("/{id}")
+    // public Store createOrUpdateStore(@RequestBody Store store) {
+    // return storeService.createOrUpdateStore(store);
+    // }
+    @PostMapping("/{id}")
+    public Store createOrUpdateStore(@PathVariable("id") long id, @RequestParam("store") String storeJson,
+            @RequestParam(value = "userId", required = false) String userId,
+            @RequestParam(value = "logo", required = false) MultipartFile logo,
+            @RequestParam(value = "banner", required = false) MultipartFile storeImage)
+            throws JsonMappingException, JsonProcessingException {
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        // Gson gson = new Gson();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(module);
+        Store store = objectMapper.readValue(storeJson, Store.class);
+        Long longUserId = null;
+        if (userId != null)
+            longUserId = objectMapper.readValue(userId, Long.class);
+        return storeService.createOrUpdateStore(longUserId, store, logo, storeImage);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Store> updateStore(@PathVariable Long id, @RequestBody Store store) {
-        Store updatedStore = storeService.updateStore(id, store);
-        return updatedStore != null ? ResponseEntity.ok(updatedStore) : ResponseEntity.notFound().build();
+    public Store UpdateStore(@PathVariable("id") long id, @RequestParam("store") String storeJson,
+            @RequestParam(value = "logo", required = false) MultipartFile logo,
+            @RequestParam(value = "banner", required = false) MultipartFile storeImage)
+            throws JsonMappingException, JsonProcessingException {
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        // Gson gson = new Gson();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(module);
+        Store store = objectMapper.readValue(storeJson, Store.class);
+        return storeService.updateStore(id, store, logo, storeImage);
     }
+
+    // @PutMapping("/{id}")
+    // public ResponseEntity<Store> updateStore(@PathVariable Long id, @RequestBody
+    // Store store) {
+    // Store updatedStore = storeService.updateStore(id, store);
+    // return updatedStore != null ? ResponseEntity.ok(updatedStore) :
+    // ResponseEntity.notFound().build();
+    // }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStoreById(@PathVariable Long id) {
@@ -52,5 +94,4 @@ public class StoreController {
         Store updatedStore = storeService.assignExistingProductToStore(id, productId);
         return updatedStore != null ? ResponseEntity.ok(updatedStore) : ResponseEntity.notFound().build();
     }
-
 }

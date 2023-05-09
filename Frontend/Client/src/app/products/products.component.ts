@@ -6,9 +6,7 @@ import { Observable } from 'rxjs';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    Authorization:
-      'Bearer ' +
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJraGFsaWwuY2hldHRhb3VpMDZAZ21haWwuY29tIiwiZXhwIjoxNjgzNTcyNTA0fQ.Ji-N0L_8aTjyuuiU_TaqKP5M1k6c9r1qXHbNJgd6--NpWLEgeadlG3Yms2aSYGooh7iGA0f9JvVjht0XC_3Bog',
+    Authorization: sessionStorage.getItem('token') || '',
   }),
 };
 @Component({
@@ -32,10 +30,23 @@ export class ProductsComponent {
     //   this.products = data;
     // })
     // console.log(this.getProducts().subscribe(data=>this.products=data))
+    console.log('hello  ', sessionStorage.getItem('token'));
     this.products = this.getProducts();
   }
+  public displayScore(product: any) {
+    if (product.bioScore >= 80) {
+      return 'Healthy & Approved';
+    }
+    if (product.bioScore < 80 && product.bioScore >= 60) {
+      return 'Safe';
+    }
+    if (product.bioScore < 60 && product.bioScore >= 50) {
+      return 'Standard';
+    }
+    return 'Low';
+  }
 
-  public getProducts(): Observable<any[]> | any{
+  public getProducts(): Observable<any[]> | any {
     return this.http.get(this.baseUrl, httpOptions);
   }
 }

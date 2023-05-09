@@ -2,6 +2,7 @@ package tn.esprit.pidev.Entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +23,7 @@ public class Tag implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+    @Column(unique = true)
     String name;
     String icon;
     // Subcategories for FOOD_AND_EDIBLE category

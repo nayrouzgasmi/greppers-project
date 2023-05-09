@@ -2,6 +2,7 @@ package tn.esprit.pidev.Controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.pidev.Entities.Code;
@@ -12,6 +13,9 @@ import tn.esprit.pidev.Repositories.UserRepository;
 import tn.esprit.pidev.Services.*;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 // http://localhost:8080/
@@ -38,17 +42,21 @@ public class UserController {
         this.userRepository = userRepository;
 
     }
+    @Autowired
+    public IVendorService vendorService;
 
     // http://localhost:8080/signin
     @PostMapping("/signin")
     public LoginResponse logIn(@RequestBody JwtLogin jwtLogin){
         return tokenService.login(jwtLogin);
     }
-
+    @CrossOrigin("http://localhost:4201")
     @GetMapping("/getSellers")
     public List<User> GetAllSellers(){
         return userService.fetchSellerList();
     }
+
+    @CrossOrigin("http://localhost:4201")
     @GetMapping("/getClients")
     public List<User> GetAllClients(){
         return userService.fetchClientList();
@@ -60,8 +68,6 @@ public class UserController {
         AccountResponse accountResponse = new AccountResponse();
         boolean result = userService.ifEmailExist(jwtLogin.getEmail());
         if(result){
-            ///////
-            ///
             accountResponse.setResult(0);
         } else {
             String myCode = UserCode.getCode();
@@ -74,7 +80,6 @@ public class UserController {
                 Role ur = new Role();
                 ur.setRoleName(r);
                 return ur;
-                /////////////////////////////////////////////////////////////////////////////
             }).collect(Collectors.toSet()));
             user.setActive(0);
             Mail mail = new Mail(jwtLogin.getEmail(),myCode);
@@ -82,7 +87,8 @@ public class UserController {
             Code code = new Code();
             code.setCode(myCode);
             user.setCode(code);
-            userRepository.save(user);
+            User createdUser= userRepository.save(user);
+            vendorService.saveVendorWithUser(createdUser);
             accountResponse.setResult(1);
         }
         return accountResponse;
@@ -136,7 +142,7 @@ public class UserController {
         if(user != null){
             String code = UserCode.getCode();
             Mail mail = new Mail(resetPassword.getEmail(),code);
-            emailService.sendCodeByMail(mail);
+           // emailService.sendCodeByMail(mail);
             user.getCode().setCode(code);
             this.userService.editUser(user);
             accountResponse.setResult(1);
@@ -167,13 +173,31 @@ public class UserController {
     }
 
     @PutMapping("/updateSellers")
+    @CrossOrigin("http://localhost:4201")
+
     public User updateUser(@RequestBody User seller){
         return userService.updateUser(seller);
     }
 
     @DeleteMapping("/deleteSellers")
+    @CrossOrigin("http://localhost:4201")
     public void deleteSellers(@RequestParam Long id){
          userService.deleteSeller(id);
+    }
+
+
+    @GetMapping("/users")
+    public ResponseEntity<?> getUsers(){
+        Long totalUsers = userRepository.count();
+        Long totalClients = userRepository.CountClients();
+        Long totalMarchants = userRepository.CountMarchants();
+        long totalAdmins = userRepository.CountAdmins();
+        Map<String,Object> data = new HashMap<>();
+        data.put("totalUsers",totalUsers);
+        data.put("totalClients",totalClients);
+        data.put("totalMarchants",totalMarchants);
+        data.put("totalAdmins",totalAdmins);
+       return ResponseEntity.ok(data);
     }
 
 }

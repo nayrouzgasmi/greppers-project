@@ -29,6 +29,12 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Store implements Serializable {
+    @Override
+    public String toString() {
+        return  " name=" + name + ", description=" + description + ", vendor=" + vendor
+                + ", products=" + products + ", storeImage=" + storeImage + ", logo=" + logo + ", isApproved="
+                + isApproved + "]";
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
@@ -42,5 +48,7 @@ public class Store implements Serializable {
     @JsonIgnore
     Set<Product> products;
     String storeImage;
+    String logo;
     boolean isApproved;
+    String address;
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.pidev.Entities.Composition;
+import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Repositories.CompositionRepository;
 
 @Service
@@ -29,9 +30,10 @@ public class CompositionService implements ICompositionService {
     }
 
     @Override
-    public void deleteCompositionById(long id) {
+    public void deleteCompositionById(long id, Product product) {
         compositionRepository.deleteById(id);
     }
+
     @Override
     public Composition updateComposition(long id, Composition composition) {
         Composition existingComposition = compositionRepository.findById(id).orElse(null);

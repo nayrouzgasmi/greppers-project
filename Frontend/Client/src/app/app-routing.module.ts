@@ -1,3 +1,4 @@
+import { EventDetailsComponent } from './events/event-details/event-details.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -13,6 +14,8 @@ import { StoreComponent } from './store/store.component';
 import { AboutComponent } from './about/about.component';
 import { MerchantGuideComponent } from './merchant-guide/merchant-guide.component';
 import { ProductComponent } from './product/product.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 
 const routes: Routes = [
   {
@@ -21,6 +24,7 @@ const routes: Routes = [
   },
   { path: 'about', component: AboutComponent },
   { path: 'events', component: EventsComponent },
+  { path: 'event/:id', component: EventDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {path: 'reset', component:ResetPasswordComponent},
@@ -33,6 +37,9 @@ const routes: Routes = [
   { path: 'vendor-stores', component: StoresComponent },
   { path: 'stores', component: StoresComponent },
   { path: 'store/:id', component: StoreComponent },
+  {path:'user-details',component:UserDetailsComponent},
+  {path:'create-ticket',component: CreateTicketComponent},
+
 ];
 
 @NgModule({

@@ -12,6 +12,7 @@ declare var $: any;
 })
 export class NavbarComponent implements  OnInit{
   isSignedin = false;
+  toggleCategories:boolean=false;
 	constructor(private route: ActivatedRoute, private router: Router, private auth: AuthService,private social: SocialService,private authService: SocialAuthService,) {}
 
   ngOnInit(){
@@ -27,4 +28,7 @@ export class NavbarComponent implements  OnInit{
   doSignout() {
 		this.auth.signout();
 	}
+  clickEventCategories(){
+    this.toggleCategories = !this.toggleCategories;       
+  }
 }

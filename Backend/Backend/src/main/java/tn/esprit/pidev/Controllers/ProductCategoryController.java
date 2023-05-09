@@ -10,9 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/api/categories")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProductCategoryController {
 
     @Autowired
@@ -36,19 +42,22 @@ public class ProductCategoryController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ProductCategory> createProductCategory(@RequestBody ProductCategory productCategory) {
-        ProductCategory createdProductCategory = productCategoryService.saveProductCategory(productCategory);
+    public ResponseEntity<ProductCategory> createProductCategory(@RequestParam(value = "category") String categoryJson,
+            @RequestParam(value = "icon", required = false) MultipartFile icon)
+            throws JsonMappingException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProductCategory category = objectMapper.readValue(categoryJson, ProductCategory.class);
+        ProductCategory createdProductCategory = productCategoryService.saveProductCategory(category,icon);
         return new ResponseEntity<>(createdProductCategory, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<ProductCategory> saveSubcategoryWithCategory(@PathVariable("id") long id,
             @RequestBody ProductSubcategory productSubcategory) {
-                ProductCategory savedProductSubcategory = productCategoryService
-                .saveSubcategoryWithCategory(id,productSubcategory);
+        ProductCategory savedProductSubcategory = productCategoryService
+                .saveSubcategoryWithCategory(id, productSubcategory);
         return new ResponseEntity<>(savedProductSubcategory, HttpStatus.CREATED);
     }
-
 
     // @PutMapping("/{id}")
     // public ResponseEntity<ProductCategory> updateProductCategory(@PathVariable
