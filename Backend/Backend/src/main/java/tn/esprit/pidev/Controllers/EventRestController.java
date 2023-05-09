@@ -20,7 +20,7 @@ import tn.esprit.pidev.Entities.Event;
 import tn.esprit.pidev.Services.EventService;
 
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/events")
 public class EventRestController {

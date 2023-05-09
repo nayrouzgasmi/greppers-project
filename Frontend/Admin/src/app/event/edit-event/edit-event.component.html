@@ -134,7 +134,7 @@
 
 
       <form #updateForm="ngForm">
-        <img style="width: 50%; height: 50%;" [src]="'http://localhost:8080/uploads/' + eventData.image" alt="" />
+        <img style="width: 50%; height: 50%;" src="{{eventData.image}}" alt="" />
 
         <div class="form-group">
           <label for="titre">Image:</label>
