@@ -52,7 +52,8 @@ public class ReviewController {
 
 	private static final String ThreadLocalRandom = null;
 
-	private final Path root = Paths.get("C:\\Users\\mohamed\\Documents\\workspace-sts-3.8.4.RELEASE\\greppers-project\\Frontend\\Admin\\src\\assets\\imgs\\people");
+	private final Path root = Paths.get(
+			"C:\\Users\\mohamed\\Documents\\workspace-sts-3.8.4.RELEASE\\greppers-project\\Frontend\\Admin\\src\\assets\\imgs\\people");
 
 	@Autowired
 	private IReviewService reviewService;
@@ -60,37 +61,37 @@ public class ReviewController {
 	// to add new review
 	@PostMapping(value = "", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseEntity<Review> createReview(@RequestParam("file") MultipartFile file,
-											   @RequestParam("comment") String comment, @RequestParam("userName") String userName,
-											   @RequestParam("active") String active, @RequestParam("note") String note,@RequestParam("product") String product_id) {
-		Review r = new Review();
-		Product p = new Product();
-		p.setId(Long.parseLong(product_id));
-		r.setActive(Boolean.parseBoolean(active));
-		r.setComment(comment);
-		r.setNote(Integer.parseInt(note));
-		r.setUserName(userName);
-		r.setProduct(p);
+			@RequestParam("comment") String comment, @RequestParam("userName") String userName,
+			@RequestParam("active") String active, @RequestParam("note") String note,
+			@RequestParam("product") String product_id) {
+			Review r = new Review();
+			Product p = new Product();
+			p.setId(Long.parseLong(product_id));
+			r.setActive(Boolean.parseBoolean(active));
+			r.setComment(comment);
+			r.setNote(Integer.parseInt(note));
+			r.setUserName(userName);
+			r.setProduct(p);
 
-// generate random string for photo
-		String generatedString =   UUID.randomUUID().toString().concat(".");
+			// generate random string for photo
+			String generatedString = UUID.randomUUID().toString().concat(".");
 
+			// String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+			// String filename = generatedString.concat(ext);
 
-		String ext = FilenameUtils.getExtension(file.getOriginalFilename());
-		String filename = generatedString.concat(ext);
+			try {
+				// Files.copy(file.getInputStream(), this.root.resolve(filename));
+				r.setUserPhoto("");
 
-		try {
-			Files.copy(file.getInputStream(), this.root.resolve(filename));
-			r.setUserPhoto(filename);
+			} catch (Exception e) {
+				if (e instanceof FileAlreadyExistsException) {
 
-
-		} catch (Exception e) {
-			if (e instanceof FileAlreadyExistsException) {
-
+				}
+				throw new RuntimeException(e.getMessage());
 			}
-			throw new RuntimeException(e.getMessage());
-		}
-		Review createdReview = reviewService.save(r);
-		return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
+			Review createdReview = reviewService.save(r);
+			return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
+
 
 	}
 
@@ -101,11 +102,11 @@ public class ReviewController {
 		return new ResponseEntity<>(reviews, HttpStatus.OK);
 	}
 
-// list pagination
+	// list pagination
 
 	@GetMapping("list")
 	public ResponseEntity<Map<String, Object>> getAllReviewsPagination(@RequestParam(defaultValue = "0") Integer pageNo,
-																	   @RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
+			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
 		List<Review> listReviews = new ArrayList<Review>();
 		Page<Review> reviews = reviewService.findPaginated(pageNo, pageSize, sortBy);
 		listReviews = reviews.getContent();
@@ -129,28 +130,29 @@ public class ReviewController {
 	}
 
 	// to update review
-	@PutMapping(value ="/{id}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
-	public ResponseEntity<Review> updateReview(@PathVariable("id") long id, @RequestParam(value ="file", required = false) MultipartFile file,
-											   @RequestParam("comment") String comment, @RequestParam("userName") String userName,
-											   @RequestParam("active") String active, @RequestParam("note") String note, @RequestParam("userPhoto") String userPhoto,@RequestParam("product") String product_id) {
+	@PutMapping(value = "/{id}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+	public ResponseEntity<Review> updateReview(@PathVariable("id") long id,
+			@RequestParam(value = "file", required = false) MultipartFile file,
+			@RequestParam("comment") String comment, @RequestParam("userName") String userName,
+			@RequestParam("active") String active, @RequestParam("note") String note,
+			@RequestParam("userPhoto") String userPhoto, @RequestParam("product") String product_id) {
 
 		Review r = new Review();
 		Product p = new Product();
-		p.setId(  Long.parseLong(product_id)  );
+		p.setId(Long.parseLong(product_id));
 		r.setActive(Boolean.parseBoolean(active));
 		r.setComment(comment);
 		r.setNote(Integer.parseInt(note));
 		r.setUserName(userName);
 		r.setProduct(p);
-		if(file != null) {
-			String generatedString =   UUID.randomUUID().toString().concat(".");
+		if (file != null) {
+			String generatedString = UUID.randomUUID().toString().concat(".");
 			String ext = FilenameUtils.getExtension(file.getOriginalFilename());
 			String filename = generatedString.concat(ext);
 
 			try {
 				Files.copy(file.getInputStream(), this.root.resolve(filename));
 				r.setUserPhoto(filename);
-
 
 			} catch (Exception e) {
 				if (e instanceof FileAlreadyExistsException) {
@@ -159,11 +161,11 @@ public class ReviewController {
 				throw new RuntimeException(e.getMessage());
 			}
 
-		}else {
+		} else {
 			r.setUserPhoto(userPhoto);
 		}
 
-//ici
+		// ici
 		Review updatedReview = reviewService.updateReview(id, r);
 		if (updatedReview != null) {
 			return new ResponseEntity<>(updatedReview, HttpStatus.OK);
@@ -177,13 +179,14 @@ public class ReviewController {
 		reviewService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-//getReviewsByProductId
+	// getReviewsByProductId
 
 	@GetMapping("front/{id}")
-	public ResponseEntity<Map<String, Object>> getAllReviewsByProductPagination(@PathVariable("id") long id,@RequestParam(defaultValue = "0") Integer pageNo,
-																				@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
+	public ResponseEntity<Map<String, Object>> getAllReviewsByProductPagination(@PathVariable("id") long id,
+			@RequestParam(defaultValue = "0") Integer pageNo,
+			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
 		List<Review> listReviews = new ArrayList<Review>();
-		Page<Review> reviews = reviewService.findByProductId(pageNo, pageSize, sortBy,id);
+		Page<Review> reviews = reviewService.findByProductId(pageNo, pageSize, sortBy, id);
 		listReviews = reviews.getContent();
 		Map<String, Object> response = new HashMap<>();
 		response.put("reviews", listReviews);
