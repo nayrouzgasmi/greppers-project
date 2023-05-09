@@ -32,6 +32,10 @@ import { UpdateTicketComponent } from './update-ticket/update-ticket.component';
 import { CreateReponseComponent } from './create-reponse/create-reponse.component';
 import { UpdateReponseComponent } from './update-reponse/update-reponse.component';
 import { StatistiqueComponent } from './statistique/statistique.component';
+import { HeaderComponent } from './ui/header/header.component';
+import { ReviewComponent } from './review/review.component';
+import { CreateReviewComponent } from './create-review/create-review.component';
+import { UpdateReviewComponent } from './update-review/update-review.component';
 const routes: Routes = [
   // {path:"", component: MenuComponent},
   {path:"edit-product/:storeId/:id", component: EditProductComponent},
@@ -41,7 +45,7 @@ const routes: Routes = [
     { path: 'create', component: CreateReviewComponent },
     { path: 'update/:id', component: UpdateReviewComponent }
 
-  ]}
+  ]},
   // {path:"add-product/:id", component: AddProductComponent},
   // {path:"stores", component: StoresComponent},
   // {path:"store/:id", component: StoreComponent},

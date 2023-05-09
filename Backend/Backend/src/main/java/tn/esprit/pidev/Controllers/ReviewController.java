@@ -52,7 +52,7 @@ public class ReviewController {
 
 	private static final String ThreadLocalRandom = null;
 
-	private final Path root = Paths.get("C:\\Users\\mohamed\\Documents\\workspace-sts-3.8.4.RELEASE\\greppers-project\\Frontend\\Admin\\src\\assets\\imgs\\people");
+	private final Path root = Paths.get("C:\\Users\\arfaoui\\Desktop\\4_arctic\\pi\\greppers-project\\Frontend\\Admin\\src\\assets\\imgs\\people");
 
 	@Autowired
 	private IReviewService reviewService;
