@@ -44,6 +44,7 @@ public class Product implements Serializable {
     @OneToMany
     Set<Composition> compositions;
     int quantity;
+    int Etoile=5;
     boolean isAvailable;
     float bioScore;
     @ManyToMany(cascade = CascadeType.ALL)

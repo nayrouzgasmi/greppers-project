@@ -28,6 +28,7 @@ import { AboutComponent } from './about/about.component';
 import { ProductComponent } from './product/product.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { EventDetailsComponent } from './events/event-details/event-details.component';
+import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { EventDetailsComponent } from './events/event-details/event-details.comp
     AboutComponent,
     ProductComponent,
     UserDetailsComponent,
-    EventDetailsComponent
+    EventDetailsComponent,
+    CreateTicketComponent,
   ],
   imports: [
     BrowserModule,

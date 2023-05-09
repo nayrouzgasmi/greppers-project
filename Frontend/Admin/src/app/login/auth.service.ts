@@ -23,7 +23,7 @@ export class AuthService {
             sessionStorage.setItem("email",resp.email)
 this.setId(resp.user.id)
           sessionStorage.setItem("token",`Bearer ${resp.token}`)
-
+          sessionStorage.setItem("role",resp.user.userRoles[0].roleName)
           this.setRoles(resp.user.userRoles)
 
           setTimeout(() => {
@@ -117,7 +117,9 @@ this.setId(resp.user.id)
 
         sessionStorage.removeItem('token');
 sessionStorage.removeItem('roles');
-        this.router.navigateByUrl('/login');
+sessionStorage.removeItem('role');
+
+        this.router.navigateByUrl('/');
 
     }
 

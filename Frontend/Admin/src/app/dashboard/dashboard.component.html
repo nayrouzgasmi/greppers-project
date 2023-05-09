@@ -42,6 +42,7 @@
                         <a class="dropdown-item " href="# "><img src="assets/imgs/theme/flag-cn.png " alt="Français " />中国人</a>
                     </div>
                 </li>
+
                 <li class="dropdown nav-item ">
                     <a class="dropdown-toggle " data-bs-toggle="dropdown " href="# " id="dropdownAccount " aria-expanded="false "> <img class="img-xs rounded-circle " src="assets/imgs/people/avatar-2.png " alt="User " /></a>
                     <div class="dropdown-menu dropdown-menu-end " aria-labelledby="dropdownAccount ">
@@ -59,8 +60,11 @@
                                 class="material-icons md-exit_to_app "></i>Logout</a>
                     </div>
                 </li>
+                <li> <a (click)="signout()">Logout</a></li>
             </ul>
+
         </div>
+
     </header>
     <section class="content-main ">
         <div class="row">
@@ -110,8 +114,10 @@
             </div>
         </div>
 
-        <canvas #pieChart></canvas>
-
+        <div class="chart-container" style="width: 600px; height: 400px;">
+            <canvas id="my-chart">
+            </canvas>
+        </div>
 
     </section>
 

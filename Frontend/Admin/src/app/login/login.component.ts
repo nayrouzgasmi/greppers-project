@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
 				let name=response.user.userRoles[0].roleName;
 				console.log('role:',name);
 				console.log('id :',sessionStorage.getItem('id'));
-        this.router.navigateByUrl("/menu")
+        this.router.navigateByUrl("dashboard")
 
 			  }
 			})

@@ -15,6 +15,7 @@ import { AboutComponent } from './about/about.component';
 import { MerchantGuideComponent } from './merchant-guide/merchant-guide.component';
 import { ProductComponent } from './product/product.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { CreateTicketComponent } from './create-ticket/create-ticket.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,9 @@ const routes: Routes = [
   { path: 'vendor-stores', component: StoresComponent },
   { path: 'stores', component: StoresComponent },
   { path: 'store/:id', component: StoreComponent },
-  {path:'user-details',component:UserDetailsComponent}
+  {path:'user-details',component:UserDetailsComponent},
+  {path:'create-ticket',component: CreateTicketComponent},
+
 ];
 
 @NgModule({
