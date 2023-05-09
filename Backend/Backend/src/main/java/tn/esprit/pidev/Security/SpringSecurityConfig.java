@@ -54,7 +54,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-    
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -80,7 +80,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/getClients").permitAll()
                 .antMatchers("/updateSellers").permitAll()
                 .antMatchers("/deleteSellers").permitAll()
-                .antMatchers("/public/**", "/resources/**","/resources/public/**","/uploads/**").permitAll()
+                .antMatchers("/api/reviews/front/**").permitAll()
                 .anyRequest().authenticated();
     }
     @Bean

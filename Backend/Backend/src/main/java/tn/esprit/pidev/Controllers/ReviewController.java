@@ -50,9 +50,9 @@ import java.nio.file.Files;
 @RequestMapping("/api/reviews")
 public class ReviewController {
 
-		private static final String ThreadLocalRandom = null;
+	private static final String ThreadLocalRandom = null;
 
-		private final Path root = Paths.get("C:\\Users\\mohamed\\Documents\\workspace-sts-3.8.4.RELEASE\\greppers-project\\Frontend\\Admin\\src\\assets\\imgs\\people"); 
+	private final Path root = Paths.get("C:\\Users\\mohamed\\Documents\\workspace-sts-3.8.4.RELEASE\\greppers-project\\Frontend\\Admin\\src\\assets\\imgs\\people");
 
 	@Autowired
 	private IReviewService reviewService;
@@ -60,8 +60,8 @@ public class ReviewController {
 	// to add new review
 	@PostMapping(value = "", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseEntity<Review> createReview(@RequestParam("file") MultipartFile file,
-			@RequestParam("comment") String comment, @RequestParam("userName") String userName,
-			@RequestParam("active") String active, @RequestParam("note") String note,@RequestParam("product") String product_id) {
+											   @RequestParam("comment") String comment, @RequestParam("userName") String userName,
+											   @RequestParam("active") String active, @RequestParam("note") String note,@RequestParam("product") String product_id) {
 		Review r = new Review();
 		Product p = new Product();
 		p.setId(Long.parseLong(product_id));
@@ -71,17 +71,17 @@ public class ReviewController {
 		r.setUserName(userName);
 		r.setProduct(p);
 
-		// generate random string for photo
+// generate random string for photo
 		String generatedString =   UUID.randomUUID().toString().concat(".");
-		
-		
+
+
 		String ext = FilenameUtils.getExtension(file.getOriginalFilename());
 		String filename = generatedString.concat(ext);
 
 		try {
 			Files.copy(file.getInputStream(), this.root.resolve(filename));
 			r.setUserPhoto(filename);
-			
+
 
 		} catch (Exception e) {
 			if (e instanceof FileAlreadyExistsException) {
@@ -101,11 +101,11 @@ public class ReviewController {
 		return new ResponseEntity<>(reviews, HttpStatus.OK);
 	}
 
-	// list pagination
+// list pagination
 
 	@GetMapping("list")
 	public ResponseEntity<Map<String, Object>> getAllReviewsPagination(@RequestParam(defaultValue = "0") Integer pageNo,
-			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
+																	   @RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
 		List<Review> listReviews = new ArrayList<Review>();
 		Page<Review> reviews = reviewService.findPaginated(pageNo, pageSize, sortBy);
 		listReviews = reviews.getContent();
@@ -131,9 +131,9 @@ public class ReviewController {
 	// to update review
 	@PutMapping(value ="/{id}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
 	public ResponseEntity<Review> updateReview(@PathVariable("id") long id, @RequestParam(value ="file", required = false) MultipartFile file,
-			@RequestParam("comment") String comment, @RequestParam("userName") String userName,
-			@RequestParam("active") String active, @RequestParam("note") String note, @RequestParam("userPhoto") String userPhoto,@RequestParam("product") String product_id) {
-		
+											   @RequestParam("comment") String comment, @RequestParam("userName") String userName,
+											   @RequestParam("active") String active, @RequestParam("note") String note, @RequestParam("userPhoto") String userPhoto,@RequestParam("product") String product_id) {
+
 		Review r = new Review();
 		Product p = new Product();
 		p.setId(  Long.parseLong(product_id)  );
@@ -143,14 +143,14 @@ public class ReviewController {
 		r.setUserName(userName);
 		r.setProduct(p);
 		if(file != null) {
-			String generatedString =   UUID.randomUUID().toString().concat(".");	
+			String generatedString =   UUID.randomUUID().toString().concat(".");
 			String ext = FilenameUtils.getExtension(file.getOriginalFilename());
 			String filename = generatedString.concat(ext);
 
 			try {
 				Files.copy(file.getInputStream(), this.root.resolve(filename));
 				r.setUserPhoto(filename);
-				
+
 
 			} catch (Exception e) {
 				if (e instanceof FileAlreadyExistsException) {
@@ -158,12 +158,12 @@ public class ReviewController {
 				}
 				throw new RuntimeException(e.getMessage());
 			}
-			
+
 		}else {
 			r.setUserPhoto(userPhoto);
 		}
-		
-		//ici
+
+//ici
 		Review updatedReview = reviewService.updateReview(id, r);
 		if (updatedReview != null) {
 			return new ResponseEntity<>(updatedReview, HttpStatus.OK);
@@ -176,6 +176,21 @@ public class ReviewController {
 	public ResponseEntity<Void> deleteReview(@PathVariable("id") long id) {
 		reviewService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+//getReviewsByProductId
+
+	@GetMapping("front/{id}")
+	public ResponseEntity<Map<String, Object>> getAllReviewsByProductPagination(@PathVariable("id") long id,@RequestParam(defaultValue = "0") Integer pageNo,
+																				@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
+		List<Review> listReviews = new ArrayList<Review>();
+		Page<Review> reviews = reviewService.findByProductId(pageNo, pageSize, sortBy,id);
+		listReviews = reviews.getContent();
+		Map<String, Object> response = new HashMap<>();
+		response.put("reviews", listReviews);
+		response.put("currentPage", reviews.getNumber());
+		response.put("totalItems", reviews.getTotalElements());
+		response.put("totalPages", reviews.getTotalPages());
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 }

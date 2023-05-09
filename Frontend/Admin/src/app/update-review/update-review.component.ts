@@ -89,7 +89,7 @@ export class UpdateReviewComponent implements OnInit {
     formData.append('comment', this.reviewToSave.comment);
     formData.append('note', this.reviewToSave.note);
     formData.append('userName', this.reviewToSave.userName);
-    formData.append('active', this.reviewToSave.isActive);
+    formData.append('active', this.reviewToSave.active);
     formData.append('product', this.reviewToSave.product.id);
     this.reviewService.updateReview(this.reviewToSave.id, formData).subscribe(
       (result) => {
@@ -109,7 +109,7 @@ export class UpdateReviewComponent implements OnInit {
   }
 
   changeFn() {
-    this.reviewToSave.isActive == true ? false : true;
+    this.reviewToSave.active == true ? false : true;
   }
   // controle de saisit sur input file
   focusFileFunction() {

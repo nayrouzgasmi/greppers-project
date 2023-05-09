@@ -21,9 +21,9 @@ public class ReviewService implements IReviewService {
 
 	@Autowired
 	private ReviewRepository reviewRepository;
-	
-	 @Autowired
-	 private ProductRepository productRepository;
+
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Override
 	public List<Review> findAll() {
@@ -34,11 +34,13 @@ public class ReviewService implements IReviewService {
 	public Optional<Review> findById(long id) {
 		return reviewRepository.findById(id);
 	}
-	
-	
+
+
 	@Override
-	public Optional<Product> findByProductId(long id) {
-		return productRepository.findById(id);
+	public Page<Review>  findByProductId(int pageNo, int pageSize,String sortBy,long id){
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC,sortBy));
+		Page<Review> pagedResult = reviewRepository.findReviewsByProductId(paging, id);
+		return pagedResult  ;
 	}
 
 
@@ -74,8 +76,13 @@ public class ReviewService implements IReviewService {
 	@Override
 	public Page<Review> findPaginated(int pageNo, int pageSize,String sortBy) {
 		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC,sortBy));
-        Page<Review> pagedResult = reviewRepository.findAll(paging);
-        return pagedResult;
+		Page<Review> pagedResult = reviewRepository.findAll(paging);
+		return pagedResult;
+	}
+	public Page<Review> findPaginatedByProductId(int pageNo, int pageSize,String sortBy,Long product_id) {
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC,sortBy));
+		Page<Review> pagedResult = reviewRepository.findAll(paging);
+		return pagedResult;
 	}
 
 }

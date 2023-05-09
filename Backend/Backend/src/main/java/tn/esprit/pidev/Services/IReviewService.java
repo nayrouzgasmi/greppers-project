@@ -10,9 +10,9 @@ import tn.esprit.pidev.Entities.Review;
 
 public interface IReviewService {
 
-	
+
 	Page<Review> findPaginated(int pageNo, int pageSize,String sortBy);
-	
+
 	List<Review> findAll();
 
 	Optional<Review> findById(long id);
@@ -22,8 +22,8 @@ public interface IReviewService {
 	Review updateReview(long id, Review updatedReview);
 
 	void deleteById(long id);
-	
-	Optional<Product>  findByProductId(long id);
+
+	Page<Review>   findByProductId(int pageNo, int pageSize,String sortBy,long id);
 
 
 }
