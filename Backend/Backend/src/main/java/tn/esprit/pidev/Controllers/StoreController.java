@@ -1,5 +1,6 @@
 package tn.esprit.pidev.Controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +13,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
 import tn.esprit.pidev.Entities.Store;
 import tn.esprit.pidev.Entities.Vendor;
 import tn.esprit.pidev.Services.IStoreService;
+import tn.esprit.pidev.Util.LocalDateDeserializer;
 
 @RestController
 @RequestMapping("/api/stores")
@@ -41,17 +45,20 @@ public class StoreController {
     // }
     @PostMapping("/{id}")
     public Store createOrUpdateStore(@PathVariable("id") long id, @RequestParam("store") String storeJson,
-            @RequestParam(value = "userId",required = false) String userId,
+            @RequestParam(value = "userId", required = false) String userId,
             @RequestParam(value = "logo", required = false) MultipartFile logo,
             @RequestParam(value = "banner", required = false) MultipartFile storeImage)
             throws JsonMappingException, JsonProcessingException {
-        System.out.println("hello");
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        // Gson gson = new Gson();
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(module);
         Store store = objectMapper.readValue(storeJson, Store.class);
-        Long longUserId=null;
-        if(userId!=null)
-        longUserId=objectMapper.readValue(userId, Long.class);
-        return storeService.createOrUpdateStore(longUserId,store, logo, storeImage);
+        Long longUserId = null;
+        if (userId != null)
+            longUserId = objectMapper.readValue(userId, Long.class);
+        return storeService.createOrUpdateStore(longUserId, store, logo, storeImage);
     }
 
     @PutMapping("/{id}")
@@ -59,9 +66,13 @@ public class StoreController {
             @RequestParam(value = "logo", required = false) MultipartFile logo,
             @RequestParam(value = "banner", required = false) MultipartFile storeImage)
             throws JsonMappingException, JsonProcessingException {
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        // Gson gson = new Gson();
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(module);
         Store store = objectMapper.readValue(storeJson, Store.class);
-        return storeService.updateStore(id,store, logo, storeImage);
+        return storeService.updateStore(id, store, logo, storeImage);
     }
 
     // @PutMapping("/{id}")

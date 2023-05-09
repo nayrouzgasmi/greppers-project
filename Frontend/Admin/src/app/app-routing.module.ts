@@ -34,7 +34,7 @@ import { UpdateReponseComponent } from './update-reponse/update-reponse.componen
 import { StatistiqueComponent } from './statistique/statistique.component';
 const routes: Routes = [
   // {path:"", component: MenuComponent},
-  // {path:"edit-product/:storeId/:id", component: EditProductComponent},
+  {path:"edit-product/:storeId/:id", component: EditProductComponent},
   // {path:"add-product/:id", component: AddProductComponent},
   // {path:"stores", component: StoresComponent},
   // {path:"store/:id", component: StoreComponent},
