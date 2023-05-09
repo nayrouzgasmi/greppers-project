@@ -1,0 +1,297 @@
+<section class="content-main" *ngIf="!isLoading && !isLoadingSingleReview">
+  <div class="content-header">
+    <h2 class="content-title">Update review</h2>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="row gx-5">
+        <div class="col-lg-12">
+          <section class="content-body p-xl-4">
+            <form
+              #reviewform="ngForm"
+              (ngSubmit)="addReview()"
+              ngNativeValidate
+            >
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="row gx-3">
+                    <!-- col .// -->
+                    <div class="col-lg-12 mb-3">
+                      <label class="form-label" for="inputname">name</label>
+                      <input
+                        [(ngModel)]="reviewToSave.userName"
+                        name="userName"
+                        [class]="
+                          userName.errors &&
+                          (userName.touched || userName.dirty)
+                            ? 'form-control  is-invalid'
+                            : 'form-control'
+                        "
+                        type="text"
+                        placeholder="name"
+                        id="inputname"
+                        required
+                        minlength="4"
+                        #userName="ngModel"
+                      />
+                    </div>
+
+                    <div class="col-lg-12 mb-3">
+                      <label class="form-label" for="inputProduct"
+                        >Product</label
+                      >
+                      <select
+                        class="form-control"
+                        id="inputProduct"
+                        aria-label="choose a product"
+                        [(ngModel)]="reviewToSave.product.id"
+                        name="productId"
+                        required
+                        min="1"
+                        #productId="ngModel"
+                      >
+                        <option
+                          *ngFor="let product of listProducts"
+                          [value]="product.id"
+                        >
+                          {{ product.name }}
+                        </option>
+                      </select>
+
+                      <div
+                        style="color: red"
+                        *ngIf="
+                          reviewToSave.product === 0 &&
+                          (productId.touched || productId.dirty)
+                        "
+                      >
+                        Please choose a product from list.
+                      </div>
+                    </div>
+                    <!-- col .// -->
+                    <div class="col-lg-12 mb-3">
+                      <label class="form-label" for="inputcomment"
+                        >Comment</label
+                      >
+                      <textarea
+                        [(ngModel)]="reviewToSave.comment"
+                        name="comment"
+                        id="inputcomment"
+                        [class]="
+                          comment.errors && (comment.touched || comment.dirty)
+                            ? 'form-control  is-invalid'
+                            : 'form-control'
+                        "
+                        placeholder="Type here"
+                        required
+                        minlength="4"
+                        #comment="ngModel"
+                      >
+                      </textarea>
+                    </div>
+
+                    <div class="col-lg-12 mb-3 rating">
+                      <label>
+                        <input
+                          type="radio"
+                          name="stars1"
+                          value="1"
+                          [(ngModel)]="reviewToSave.note"
+                        />
+                        <span
+                          [class]="
+                            reviewToSave.note >= 1 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                      </label>
+                      <label>
+                        <input
+                          type="radio"
+                          name="stars2"
+                          value="2"
+                          [(ngModel)]="reviewToSave.note"
+                        />
+                        <span
+                          [class]="
+                            reviewToSave.note >= 2 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 2 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                      </label>
+                      <label>
+                        <input
+                          type="radio"
+                          name="stars3"
+                          value="3"
+                          [(ngModel)]="reviewToSave.note"
+                        />
+                        <span
+                          [class]="
+                            reviewToSave.note >= 3 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 3 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 3 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                      </label>
+                      <label>
+                        <input
+                          type="radio"
+                          name="stars4"
+                          value="4"
+                          [(ngModel)]="reviewToSave.note"
+                        />
+                        <span
+                          [class]="
+                            reviewToSave.note >= 4 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 4 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 4 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 4 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                      </label>
+                      <label>
+                        <input
+                          type="radio"
+                          name="stars5"
+                          value="5"
+                          [(ngModel)]="reviewToSave.note"
+                        />
+                        <span
+                          [class]="
+                            reviewToSave.note >= 5 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 5 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 5 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 5 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                        <span
+                          [class]="
+                            reviewToSave.note >= 5 ? 'span-checked' : 'icon'
+                          "
+                          >★</span
+                        >
+                      </label>
+                    </div>
+
+                    <!-- col .// -->
+
+                    <div class="col-lg-6 mb-3">
+                      <label class="form-label"
+                        >Is active {{ reviewToSave.active ? "Yes" : "No" }}
+                      </label>
+                      <br />
+                      <label class="switch">
+                        <input
+                          type="checkbox"
+                          [(ngModel)]="reviewToSave.active"
+                          name="isActive"
+                          (change)="changeFn()"
+                        />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                    <!-- col .// -->
+                  </div>
+                  <!-- row.// -->
+                </div>
+                <!-- col.// -->
+                <aside class="col-lg-4">
+                  <figure class="text-lg-center">
+                    <img
+                      class="img-lg mb-3 img-avatar"
+                      [src]="localUrl"
+                      *ngIf="localUrl"
+                      alt="User Photo"
+                    />
+                    <figcaption style="margin-left: 40px">
+                      <input
+                        (change)="onFileSelect($event)"
+                        (click)="focusFileFunction()"
+                        class="form-control"
+                        type="file"
+                        accept="image/*"
+                        id="img"
+                      />
+                    </figcaption>
+                  </figure>
+                </aside>
+                <!-- col.// -->
+              </div>
+              <!-- row.// -->
+              <br />
+              <button
+                class="btn btn-primary"
+                type="submit"
+                [disabled]="loadButtonSubmit"
+              >
+                {{ !loadButtonSubmit ? "Save changes" : "Loading..." }}
+              </button>
+            </form>
+            <hr class="my-5" />
+
+            <!-- row.// -->
+          </section>
+          <!-- content-body .// -->
+        </div>
+        <!-- col.// -->
+      </div>
+      <!-- row.// -->
+    </div>
+    <!-- card body end// -->
+  </div>
+  <!-- card end// -->
+</section>
+
+<section class="content-main" *ngIf="isLoading || isLoadingSingleReview">
+  <app-loading></app-loading>
+</section>

@@ -10,6 +10,11 @@ import { SellerComponent } from './seller/seller.component';
 import { AjoutSellerComponent } from './ajout-seller/ajout-seller.component';
 import { ClientComponent } from './client/client.component';
 import { AjoutClientComponent } from './client/ajout-client/ajout-client.component';
+import { ReviewComponent } from './review/review.component';
+import { HeaderComponent } from './ui/header/header.component';
+import { CreateReviewComponent } from './create-review/create-review.component';
+import { LoadingComponent } from './ui/loading/loading.component';
+import { UpdateReviewComponent } from './update-review/update-review.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StoresComponent } from './stores/stores.component';
@@ -49,6 +54,12 @@ import { StatistiqueComponent } from './statistique/statistique.component';
     AjoutSellerComponent,
     ClientComponent,
     AjoutClientComponent,
+    ReviewComponent,
+    HeaderComponent,
+    CreateReviewComponent,
+    LoadingComponent,
+    UpdateReviewComponent,
+
     AddProductComponent,
     SidebarComponent,
     StoresComponent,
