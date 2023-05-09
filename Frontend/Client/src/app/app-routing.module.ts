@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: 'stores', component: StoresComponent },
   { path: 'store/:id', component: StoreComponent },
   {path:'user-details',component:UserDetailsComponent},
-  {path:'create-ticket',component: CreateTicketComponent},
+  {path:'create-ticket/:id',component: CreateTicketComponent},
 
 ];
 

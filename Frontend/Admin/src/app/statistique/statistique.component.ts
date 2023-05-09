@@ -47,7 +47,7 @@ printDate(){
     this.chartOption = {
       xAxis: {
         type: 'category',
-        data: ['traite', 'nontraite']
+        data: ['handled', 'unhandled']
       },
       yAxis: {
         type: 'value'

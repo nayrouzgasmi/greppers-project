@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.sass'],
+  styleUrls: ['./product.component.css'],
 })
 export class ProductComponent {
   productData: any;
@@ -14,5 +14,6 @@ export class ProductComponent {
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
     this.productService.getProduct(id).subscribe((data) => (this.product = data));
+    
   }
 }

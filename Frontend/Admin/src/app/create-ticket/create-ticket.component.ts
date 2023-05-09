@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Ticket } from '../entity/ticket';
 import { TicketService } from '../services/ticket.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup ,Validators } from '@angular/forms';
 
 @Component({
@@ -15,15 +15,21 @@ export class CreateTicketComponent implements OnInit {
 
   registerForm!: FormGroup;
   submitted = false;
+  idGet!:number;
 
  
 
 
   constructor(private ticketService:TicketService,
-    private router:Router,private formBuilder: FormBuilder
+    private router:Router,private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
     ) { }
   
   ngOnInit(): void {
+    this.idGet= this.route.snapshot.params['id'];
+
+    console.clear()
+    console.log("id product",this.idGet);
     this.registerForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -31,7 +37,13 @@ export class CreateTicketComponent implements OnInit {
       satisfaction: ['', Validators.required],
       type: ['', Validators.required],
       priority: ['', Validators.required],
+      
+      
   });
+
+    
+
+
   }
 
   get f() { return this.registerForm.controls; }
@@ -39,7 +51,7 @@ export class CreateTicketComponent implements OnInit {
 saveTicket(){
   this.ticket.id_user=1;
   this.ticket.status="PENDING";
-  this.ticketService.addTicket(this.ticket).subscribe( data => {
+  this.ticketService.addTicket(this.ticket,this.idGet).subscribe( data => {
     if (data===null)
     {
       // alert bad words
