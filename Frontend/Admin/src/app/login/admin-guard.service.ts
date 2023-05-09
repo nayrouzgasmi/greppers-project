@@ -9,7 +9,7 @@ export class AdminGuardService implements CanActivate{
   constructor(private router : Router) { }
   role = sessionStorage.getItem("role");
   canActivate():boolean{
-    if (this.role==="Admin" || this.role==="Marchant"){
+    if (this.role=="Admin" || this.role=="Marchant"){
       return true;
     }
     else{

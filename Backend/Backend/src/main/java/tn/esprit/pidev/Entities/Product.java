@@ -44,6 +44,7 @@ public class Product implements Serializable {
     @ManyToMany
     Set<Composition> compositions;
     int quantity;
+    int Etoile=5;
     boolean isAvailable;
     float bioScore;
     @ManyToMany

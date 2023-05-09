@@ -33,7 +33,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { HttpInterceptorService } from './login/http-interceptor.service';
 import { ForbidenComponent } from './login/forbiden/forbiden.component';
-
+import { TicketListComponent } from './ticket-list/ticket-list.component';
+import { CreateTicketComponent } from './create-ticket/create-ticket.component';
+import { UpdateTicketComponent } from './update-ticket/update-ticket.component';
+import { ReponseListComponent } from './reponse-list/reponse-list.component';
+import { CreateReponseComponent } from './create-reponse/create-reponse.component';
+import { UpdateReponseComponent } from './update-reponse/update-reponse.component';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { StatistiqueComponent } from './statistique/statistique.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,8 +69,14 @@ import { ForbidenComponent } from './login/forbiden/forbiden.component';
     WalletComponent,
     DashboardComponent,
     LoginComponent,
-    ForbidenComponent
-
+    ForbidenComponent,
+    TicketListComponent,
+    CreateTicketComponent,
+    UpdateTicketComponent,
+    ReponseListComponent,
+    CreateReponseComponent,
+    UpdateReponseComponent,
+    StatistiqueComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +84,10 @@ import { ForbidenComponent } from './login/forbiden/forbiden.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
   ],
   providers: [  {provide: HTTP_INTERCEPTORS,
     useClass: HttpInterceptorService,

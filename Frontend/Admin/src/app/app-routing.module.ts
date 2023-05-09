@@ -25,7 +25,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { AdminGuardService } from './login/admin-guard.service';
 import { ForbidenComponent } from './login/forbiden/forbiden.component';
-
+import { TicketListComponent } from './ticket-list/ticket-list.component';
+import { ReponseListComponent } from './reponse-list/reponse-list.component';
+import { CreateTicketComponent } from './create-ticket/create-ticket.component';
+import { UpdateTicketComponent } from './update-ticket/update-ticket.component';
+import { CreateReponseComponent } from './create-reponse/create-reponse.component';
+import { UpdateReponseComponent } from './update-reponse/update-reponse.component';
+import { StatistiqueComponent } from './statistique/statistique.component';
 const routes: Routes = [
   // {path:"", component: MenuComponent},
   // {path:"edit-product/:storeId/:id", component: EditProductComponent},
@@ -44,6 +50,7 @@ const routes: Routes = [
   {path:"categories/:id", component: CategoriesProductsComponent},
   {path:"menu", component: MenuComponent , canActivate: [AdminGuardService]},
   {path:"", component: LoginComponent },
+  {path:"dashboard", component: DashboardComponent  , canActivate: [AdminGuardService]},
   {path:"seller", component: SellerComponent, canActivate: [AdminGuardService]},
   {path:"client", component: ClientComponent, canActivate: [AdminGuardService]},
   {path:"edit-product/:id", component: EditProductComponent, canActivate: [AdminGuardService]},
@@ -58,9 +65,14 @@ const routes: Routes = [
   {path:"events", component: EventComponent, canActivate: [AdminGuardService]},
   {path:"addEvent", component: AddEventComponent, canActivate: [AdminGuardService]},
   {path:"editEvent/:id", component: EditEventComponent, canActivate: [AdminGuardService]},
-  {path:"wallet", component: WalletComponent, canActivate: [AdminGuardService]}
-
-
+  {path:"wallet", component: WalletComponent, canActivate: [AdminGuardService]},
+  {path:'tickets', component: TicketListComponent, canActivate: [AdminGuardService]},
+  {path:'reponses', component: ReponseListComponent, canActivate: [AdminGuardService]},
+  {path:'create-ticket',component: CreateTicketComponent,canActivate: [AdminGuardService]},
+  {path:'update-ticket/:id',component: UpdateTicketComponent,canActivate: [AdminGuardService]},
+  {path:'create-reponse/:id',component: CreateReponseComponent},
+  {path:'update-reponse/:id',component: UpdateReponseComponent},
+  {path:'stat',component: StatistiqueComponent}
 ];
 
 @NgModule({
