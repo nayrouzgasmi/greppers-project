@@ -26,10 +26,10 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Getter
-@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "products")
+@Setter
+@Getter
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,4 +51,5 @@ public class Product implements Serializable {
     Set<Tag> tags;
     @ElementCollection
     Set<String> imageUrls;
+    
 }
