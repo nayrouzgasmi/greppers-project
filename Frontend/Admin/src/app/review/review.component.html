@@ -66,9 +66,10 @@
             <a class="itemside" href="#">
               <div class="left">
                 <img
-                  [src]="'assets/imgs/people/' + review.userPhoto"
+                  [src]="review.userPhoto"
                   class="img-sm img-thumbnail"
                   alt="Item"
+                  *ngIf="review.userPhoto"
                 />
               </div>
               <div class="info">

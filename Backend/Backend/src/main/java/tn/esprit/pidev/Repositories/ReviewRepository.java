@@ -12,7 +12,10 @@ import tn.esprit.pidev.Entities.Review;
 
 public interface ReviewRepository extends PagingAndSortingRepository <Review,Long> {
 
-    @Query(value = "SELECT r FROM Review r where r.product.id= :id_product AND r.isActive= true ")
+    // @Query(value = "SELECT r FROM Reviews r where r.product.id= :id_product AND r.isActive= true ")
+    // Page<Review> findReviewsByProductId(Pageable pageable,@Param("id_product") long id);
     Page<Review> findReviewsByProductId(Pageable pageable,@Param("id_product") long id);
+
+    
 
 }

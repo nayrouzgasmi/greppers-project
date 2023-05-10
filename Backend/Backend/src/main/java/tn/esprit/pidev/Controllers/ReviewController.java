@@ -39,7 +39,10 @@ import java.time.format.DateTimeFormatter;
 
 import tn.esprit.pidev.Entities.Product;
 import tn.esprit.pidev.Entities.Review;
+import tn.esprit.pidev.Repositories.ProductRepository;
+import tn.esprit.pidev.Services.IObjectStorageService;
 import tn.esprit.pidev.Services.IReviewService;
+import tn.esprit.pidev.Services.ProductService;
 
 import java.nio.charset.Charset;
 import java.nio.file.FileAlreadyExistsException;
@@ -57,16 +60,23 @@ public class ReviewController {
 
 	@Autowired
 	private IReviewService reviewService;
+	@Autowired
+	private IObjectStorageService objectStorageService;
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private ProductRepository productRepository;
 
 	// to add new review
 	@PostMapping(value = "", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
-	public ResponseEntity<Review> createReview(@RequestParam("file") MultipartFile file,
+	public ResponseEntity<Review> createReview(@RequestParam(value = "file",required = false) MultipartFile file,
 			@RequestParam("comment") String comment, @RequestParam("userName") String userName,
 			@RequestParam("active") String active, @RequestParam("note") String note,
 			@RequestParam("product") String product_id) {
 			Review r = new Review();
 			Product p = new Product();
 			p.setId(Long.parseLong(product_id));
+
 			r.setActive(Boolean.parseBoolean(active));
 			r.setComment(comment);
 			r.setNote(Integer.parseInt(note));
@@ -78,22 +88,42 @@ public class ReviewController {
 
 			// String ext = FilenameUtils.getExtension(file.getOriginalFilename());
 			// String filename = generatedString.concat(ext);
-
-			try {
-				// Files.copy(file.getInputStream(), this.root.resolve(filename));
-				r.setUserPhoto("");
-
-			} catch (Exception e) {
-				if (e instanceof FileAlreadyExistsException) {
-
-				}
-				throw new RuntimeException(e.getMessage());
-			}
+			if(file!=null){
+				String picture=objectStorageService.saveFileAlone(file, "");
+				r.setUserPhoto(picture);}
 			Review createdReview = reviewService.save(r);
 			return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
 
 
 	}
+	@PostMapping(value = "/{id}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+	public ResponseEntity<Review> createReviewFront(@RequestParam(value = "file",required = false) MultipartFile file,
+			@RequestParam("comment") String comment, @RequestParam("userName") String userName,
+			@RequestParam("active") String active, @RequestParam("note") String note,
+			@RequestParam("product") String product_id,@PathVariable("id") Long id) {
+			Review r = new Review();
+			Product product = productRepository.findById(id).get();
+
+			r.setActive(Boolean.parseBoolean(active));
+			r.setComment(comment);
+			r.setNote(Integer.parseInt(note));
+			r.setUserName(userName);
+			r.setProduct(product);
+
+			// generate random string for photo
+			String generatedString = UUID.randomUUID().toString().concat(".");
+
+			// String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+			// String filename = generatedString.concat(ext);
+			if(file!=null){
+				String picture=objectStorageService.saveFileAlone(file, "");
+				r.setUserPhoto(picture);}
+			Review createdReview = reviewService.save(r);
+			return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
+
+
+	}
+
 
 	// to get list of reviews
 	@GetMapping("")
@@ -146,13 +176,15 @@ public class ReviewController {
 		r.setUserName(userName);
 		r.setProduct(p);
 		if (file != null) {
-			String generatedString = UUID.randomUUID().toString().concat(".");
-			String ext = FilenameUtils.getExtension(file.getOriginalFilename());
-			String filename = generatedString.concat(ext);
+			// String generatedString = UUID.randomUUID().toString().concat(".");
+			// String ext = FilenameUtils.getExtension(file.getOriginalFilename());
+			// String filename = generatedString.concat(ext);
 
 			try {
-				Files.copy(file.getInputStream(), this.root.resolve(filename));
-				r.setUserPhoto(filename);
+				// Files.copy(file.getInputStream(), this.root.resolve(filename));
+				String picture=objectStorageService.saveFileAlone(file, "");
+				r.setUserPhoto(picture);
+				// r.setUserPhoto(filename);
 
 			} catch (Exception e) {
 				if (e instanceof FileAlreadyExistsException) {
@@ -181,7 +213,7 @@ public class ReviewController {
 	}
 	// getReviewsByProductId
 
-	@GetMapping("front/{id}")
+	@GetMapping("/front/{id}")
 	public ResponseEntity<Map<String, Object>> getAllReviewsByProductPagination(@PathVariable("id") long id,
 			@RequestParam(defaultValue = "0") Integer pageNo,
 			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {

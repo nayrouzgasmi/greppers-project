@@ -154,88 +154,10 @@
                                         <div class="tab-pane fade" id="Additional-info">
                                             <table class="font-md">
                                                 <tbody>
-                                                    <tr class="stand-up">
-                                                        <th>Stand Up</th>
+                                                    <tr class="stand-up" *ngFor="let composition of product.compositions">
+                                                        <th>{{composition.name}}</th>
                                                         <td>
-                                                            <p>35″L x 24″W x 37-45″H(front to back wheel)</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="folded-wo-wheels">
-                                                        <th>Folded (w/o wheels)</th>
-                                                        <td>
-                                                            <p>32.5″L x 18.5″W x 16.5″H</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="folded-w-wheels">
-                                                        <th>Folded (w/ wheels)</th>
-                                                        <td>
-                                                            <p>32.5″L x 24″W x 18.5″H</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="door-pass-through">
-                                                        <th>Door Pass Through</th>
-                                                        <td>
-                                                            <p>24</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="frame">
-                                                        <th>Frame</th>
-                                                        <td>
-                                                            <p>Aluminum</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="weight-wo-wheels">
-                                                        <th>Weight (w/o wheels)</th>
-                                                        <td>
-                                                            <p>20 LBS</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="weight-capacity">
-                                                        <th>Weight Capacity</th>
-                                                        <td>
-                                                            <p>60 LBS</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="width">
-                                                        <th>Width</th>
-                                                        <td>
-                                                            <p>24″</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="handle-height-ground-to-handle">
-                                                        <th>Handle height (ground to handle)</th>
-                                                        <td>
-                                                            <p>37-45″</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="wheels">
-                                                        <th>Wheels</th>
-                                                        <td>
-                                                            <p>12″ air / wide track slick tread</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="seat-back-height">
-                                                        <th>Seat back height</th>
-                                                        <td>
-                                                            <p>21.5″</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="head-room-inside-canopy">
-                                                        <th>Head room (inside canopy)</th>
-                                                        <td>
-                                                            <p>25″</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="pa_color">
-                                                        <th>Color</th>
-                                                        <td>
-                                                            <p>Black, Blue, Red, White</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="pa_size">
-                                                        <th>Size</th>
-                                                        <td>
-                                                            <p>M, S</p>
+                                                            <p>{{composition.description}}</p>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -291,14 +213,14 @@
                                                     <div class="col-lg-8">
                                                         <h4 class="mb-30">Customer questions & answers</h4>
                                                         <div class="comment-list">
-                                                            <div
+                                                            <div *ngFor="let review of reviews"
                                                                 class="single-comment justify-content-between d-flex mb-30">
                                                                 <div class="user justify-content-between d-flex">
                                                                     <div class="thumb text-center">
                                                                         <img src="assets/imgs/blog/author-2.png"
                                                                             alt="" />
                                                                         <a href="#"
-                                                                            class="font-heading text-brand">Sienna</a>
+                                                                            class="font-heading text-brand">{{review.userName}}</a>
                                                                     </div>
                                                                     <div class="desc">
                                                                         <div
@@ -313,78 +235,7 @@
                                                                                     style="width: 100%"></div>
                                                                             </div>
                                                                         </div>
-                                                                        <p class="mb-10">Lorem ipsum dolor sit amet,
-                                                                            consectetur adipisicing elit. Delectus,
-                                                                            suscipit exercitationem accusantium
-                                                                            obcaecati quos voluptate nesciunt facilis
-                                                                            itaque modi commodi dignissimos sequi
-                                                                            repudiandae minus ab deleniti totam officia
-                                                                            id incidunt? <a href="#"
-                                                                                class="reply">Reply</a></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                class="single-comment justify-content-between d-flex mb-30 ml-30">
-                                                                <div class="user justify-content-between d-flex">
-                                                                    <div class="thumb text-center">
-                                                                        <img src="assets/imgs/blog/author-3.png"
-                                                                            alt="" />
-                                                                        <a href="#"
-                                                                            class="font-heading text-brand">Brenna</a>
-                                                                    </div>
-                                                                    <div class="desc">
-                                                                        <div
-                                                                            class="d-flex justify-content-between mb-10">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span
-                                                                                    class="font-xs text-muted">December
-                                                                                    4, 2022 at 3:12 pm </span>
-                                                                            </div>
-                                                                            <div class="product-rate d-inline-block">
-                                                                                <div class="product-rating"
-                                                                                    style="width: 80%"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <p class="mb-10">Lorem ipsum dolor sit amet,
-                                                                            consectetur adipisicing elit. Delectus,
-                                                                            suscipit exercitationem accusantium
-                                                                            obcaecati quos voluptate nesciunt facilis
-                                                                            itaque modi commodi dignissimos sequi
-                                                                            repudiandae minus ab deleniti totam officia
-                                                                            id incidunt? <a href="#"
-                                                                                class="reply">Reply</a></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="single-comment justify-content-between d-flex">
-                                                                <div class="user justify-content-between d-flex">
-                                                                    <div class="thumb text-center">
-                                                                        <img src="assets/imgs/blog/author-4.png"
-                                                                            alt="" />
-                                                                        <a href="#"
-                                                                            class="font-heading text-brand">Gemma</a>
-                                                                    </div>
-                                                                    <div class="desc">
-                                                                        <div
-                                                                            class="d-flex justify-content-between mb-10">
-                                                                            <div class="d-flex align-items-center">
-                                                                                <span
-                                                                                    class="font-xs text-muted">December
-                                                                                    4, 2022 at 3:12 pm </span>
-                                                                            </div>
-                                                                            <div class="product-rate d-inline-block">
-                                                                                <div class="product-rating"
-                                                                                    style="width: 80%"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <p class="mb-10">Lorem ipsum dolor sit amet,
-                                                                            consectetur adipisicing elit. Delectus,
-                                                                            suscipit exercitationem accusantium
-                                                                            obcaecati quos voluptate nesciunt facilis
-                                                                            itaque modi commodi dignissimos sequi
-                                                                            repudiandae minus ab deleniti totam officia
-                                                                            id incidunt? <a href="#"
+                                                                        <p class="mb-10">{{review.comment}}<a href="#"
                                                                                 class="reply">Reply</a></p>
                                                                     </div>
                                                                 </div>
@@ -440,7 +291,189 @@
                                                 <div class="product-rate d-inline-block mb-30"></div>
                                                 <div class="row">
                                                     <div class="col-lg-8 col-md-12">
-                                                        <form class="form-contact comment_form" action="#"
+                                                        <form
+                                                        #reviewform="ngForm"
+                                                        (ngSubmit)="addReview()"
+                                                        ngNativeValidate
+                                                      >
+                                                        <div class="row">
+                                                          <div class="col-lg-8">
+                                                            <div class="row gx-3">
+                                                              <!-- col .// -->
+                                                              <div class="col-lg-12 mb-3">
+                                                                <label class="form-label" for="inputname">name</label>
+                                                                <input
+                                                                  [(ngModel)]="reviewToSave.userName"
+                                                                  name="userName"
+                                                                  [class]="
+                                                                    userName.errors &&
+                                                                    (userName.touched || userName.dirty)
+                                                                      ? 'form-control  is-invalid'
+                                                                      : 'form-control'
+                                                                  "
+                                                                  type="text"
+                                                                  placeholder="name"
+                                                                  id="inputname"
+                                                                  required
+                                                                  minlength="4"
+                                                                  #userName="ngModel"
+                                                                />
+                                                              </div>
+                                          
+                                                              <!-- <div class="col-lg-12 mb-3">
+                                                                <label class="form-label" for="inputProduct"
+                                                                  >Product</label
+                                                                >
+                                                                <select
+                                                                  class="form-control"
+                                                                  id="inputProduct"
+                                                                  aria-label="choose a product"
+                                                                  [(ngModel)]="reviewToSave.product"
+                                                                  name="productId"
+                                                                  required
+                                                                  min="1"
+                                                                  #productId="ngModel"
+                                                                >
+                                                                  <option
+                                                                    *ngFor="let product of listProducts"
+                                                                    [value]="product.id"
+                                                                  >
+                                                                    {{ product.name }}
+                                                                  </option>
+                                                                </select>
+                                          
+                                                                <div
+                                                                  style="color: red"
+                                                                  *ngIf="
+                                                                    reviewToSave.product === 0 &&
+                                                                    (productId.touched || productId.dirty)
+                                                                  "
+                                                                >
+                                                                  Please choose a product from list.
+                                                                </div>
+                                                              </div> -->
+                                                              <!-- col .// -->
+                                                              <div class="col-lg-12 mb-3">
+                                                                <label class="form-label" for="inputcomment"
+                                                                  >Comment</label
+                                                                >
+                                                                <textarea
+                                                                  [(ngModel)]="reviewToSave.comment"
+                                                                  name="comment"
+                                                                  id="inputcomment"
+                                                                  [class]="
+                                                                    comment.errors && (comment.touched || comment.dirty)
+                                                                      ? 'form-control  is-invalid'
+                                                                      : 'form-control'
+                                                                  "
+                                                                  placeholder="Type here"
+                                                                  required
+                                                                  minlength="4"
+                                                                  #comment="ngModel"
+                                                                >
+                                                                </textarea>
+                                                              </div>
+                                          
+                                                              <div class="col-lg-12 mb-3 rating">
+                                                                <label>
+                                                                  <input
+                                                                    type="radio"
+                                                                    name="stars1"
+                                                                    value="1"
+                                                                    [(ngModel)]="reviewToSave.note"
+                                                                  />
+                                                                  <span class="icon">★</span>
+                                                                </label>
+                                                                <label>
+                                                                  <input
+                                                                    type="radio"
+                                                                    name="stars2"
+                                                                    value="2"
+                                                                    [(ngModel)]="reviewToSave.note"
+                                                                  />
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                </label>
+                                                                <label>
+                                                                  <input
+                                                                    type="radio"
+                                                                    name="stars3"
+                                                                    value="3"
+                                                                    [(ngModel)]="reviewToSave.note"
+                                                                  />
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                </label>
+                                                                <label>
+                                                                  <input
+                                                                    type="radio"
+                                                                    name="stars4"
+                                                                    value="4"
+                                                                    [(ngModel)]="reviewToSave.note"
+                                                                  />
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                </label>
+                                                                <label>
+                                                                  <input
+                                                                    type="radio"
+                                                                    name="stars5"
+                                                                    value="5"
+                                                                    [(ngModel)]="reviewToSave.note"
+                                                                  />
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                  <span class="icon">★</span>
+                                                                </label>
+                                                              </div>
+                                          
+                                                              <!-- col .// -->
+                                          
+                                                              <!-- <div class="col-lg-6 mb-3">
+                                                                <label class="form-label"
+                                                                  >Is active {{ reviewToSave.isActive ? "Yes" : "No" }}
+                                                                </label>
+                                                                <br />
+                                                                <label class="switch">
+                                                                  <input
+                                                                    type="checkbox"
+                                                                    [(ngModel)]="reviewToSave.isActive"
+                                                                    name="isActive"
+                                                                    (change)="changeFn()"
+                                                                  />
+                                                                  <span class="slider round"></span>
+                                                                </label>
+                                                              </div> -->
+                                                              <!-- col .// -->
+                                                            </div>
+                                                            <!-- row.// -->
+                                                          </div>
+                                                          <!-- col.// -->
+                                                          <aside class="col-lg-4">
+                                                            <figure class="text-lg-center">
+                                                              <figcaption style="margin-left: 40px">
+    
+                                                              </figcaption>
+                                                            </figure>
+                                                          </aside>
+                                                          <!-- col.// -->
+                                                        </div>
+                                                        <!-- row.// -->
+                                                        <br />
+                                                        <button
+                                                          class="btn btn-primary"
+                                                          type="submit"
+                                                          [disabled]="loadButtonSubmit"
+                                                        >
+                                                          {{ !loadButtonSubmit ? "Save changes" : "Loading..." }}
+                                                        </button>
+                                                      </form>
+                                                        <!-- <form class="form-contact comment_form" action="#"
                                                             id="commentForm">
                                                             <div class="row">
                                                                 <div class="col-12">
@@ -477,7 +510,7 @@
                                                                     class="button button-contactForm">Submit
                                                                     Review</button>
                                                             </div>
-                                                        </form>
+                                                        </form> -->
                                                     </div>
                                                 </div>
                                             </div>

@@ -24,6 +24,8 @@ public class ReviewService implements IReviewService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private IObjectStorageService objectStorageService;
 
 	@Override
 	public List<Review> findAll() {
@@ -42,6 +44,13 @@ public class ReviewService implements IReviewService {
 		Page<Review> pagedResult = reviewRepository.findReviewsByProductId(paging, id);
 		return pagedResult  ;
 	}
+
+	// @Override
+	// public Page<Review>  findByProductIdFront(Long id){
+	// 	Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC,sortBy));
+	// 	Page<Review> pagedResult = reviewRepository.findReviewsByProductId(paging, id);
+	// 	return pagedResult  ;
+	// }
 
 
 	@Override
@@ -69,6 +78,9 @@ public class ReviewService implements IReviewService {
 
 	@Override
 	public void deleteById(long id) {
+		Review review=reviewRepository.findById(id).get();
+		if(review!=null||review.getUserPhoto()!=null)
+		objectStorageService.deleteFile(review.getUserPhoto());
 		reviewRepository.deleteById(id);
 
 	}
