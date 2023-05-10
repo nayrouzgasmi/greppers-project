@@ -76,6 +76,7 @@ public class ProductController {
         Product product = objectMapper.readValue(productJson, Product.class);
         System.out.println(product.toString());
         Product createdProduct = productService.createProductAndAssignToStore(id, product, images);
+        System.out.println(createdProduct.getName());
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
         // } catch (Exception e) {
         // System.out.println(e.getMessage());

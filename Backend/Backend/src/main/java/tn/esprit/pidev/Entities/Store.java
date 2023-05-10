@@ -45,7 +45,6 @@ public class Store implements Serializable {
     @JsonBackReference
     Vendor vendor;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
     Set<Product> products;
     String storeImage;
     String logo;
