@@ -28,6 +28,7 @@ import { AboutComponent } from './about/about.component';
 import { ProductComponent } from './product/product.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { EventDetailsComponent } from './events/event-details/event-details.component';
+import { BlogComponent } from './blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { EventDetailsComponent } from './events/event-details/event-details.comp
     AboutComponent,
     ProductComponent,
     UserDetailsComponent,
-    EventDetailsComponent
+    EventDetailsComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule,
@@ -66,24 +68,24 @@ import { EventDetailsComponent } from './events/event-details/event-details.comp
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '998943596311-agii5b72rppsj1h1tdp5f75mhnfj22s7.apps.googleusercontent.com'
-            )
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('557258556600595')
-          }
-        ]
+	autoLogin: false,
+	providers: [
+	  {
+	    id: GoogleLoginProvider.PROVIDER_ID,
+	    provider: new GoogleLoginProvider(
+	      '998943596311-agii5b72rppsj1h1tdp5f75mhnfj22s7.apps.googleusercontent.com'
+	    )
+	  },
+	  {
+	    id: FacebookLoginProvider.PROVIDER_ID,
+	    provider: new FacebookLoginProvider('557258556600595')
+	  }
+	]
       } as SocialAuthServiceConfig,
     },
     {provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true},
+     useClass: HttpInterceptorService,
+     multi: true},
     CookieService
   ],
   bootstrap: [AppComponent]

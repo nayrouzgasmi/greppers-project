@@ -21,7 +21,6 @@ export class SellerService {
 
   public deleteSellers(id:any){
     return this.http.delete(this.BASE + '/deleteSellers?id=' + id)
-
   }
 
   

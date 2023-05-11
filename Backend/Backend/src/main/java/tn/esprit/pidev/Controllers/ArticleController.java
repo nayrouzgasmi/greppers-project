@@ -1,16 +1,15 @@
 package tn.esprit.pidev.Controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import tn.esprit.pidev.Services.ArticleService;
 import tn.esprit.pidev.Entities.Article;
 
 @RestController
 @RequestMapping("/articles")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin("*")
 public class ArticleController {
 
     ArticleService service;
@@ -28,8 +27,8 @@ public class ArticleController {
     }
 
     @GetMapping("{id}")
-    public Article get(@PathVariable("id") Long id) {
-        return service.get(id);
+    public ResponseEntity<Article> get(@PathVariable("id") Long id) {
+        return service.get(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("{id}")
@@ -39,11 +38,11 @@ public class ArticleController {
 
     @PutMapping
     public Article update(@RequestBody Article article) {
-	return service.update(article);
+        return service.update(article);
     }
 
     @PostMapping
-    public Article create(@RequestBody Article article) {
-	return service.create(article);
+    public Article create(@RequestBody Article article, @RequestParam("username") String username) {
+        return service.create(article, username);
     }
 }

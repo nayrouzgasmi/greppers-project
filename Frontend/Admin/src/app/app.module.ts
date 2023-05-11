@@ -26,6 +26,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { HttpInterceptorService } from './login/http-interceptor.service';
 import { ForbidenComponent } from './login/forbiden/forbiden.component';
+import { ArticleComponent } from './article/article.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +49,8 @@ import { ForbidenComponent } from './login/forbiden/forbiden.component';
     WalletComponent,
     DashboardComponent,
     LoginComponent,
-    ForbidenComponent
-
+    ForbidenComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserModule,

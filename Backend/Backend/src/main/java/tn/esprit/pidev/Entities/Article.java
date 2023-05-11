@@ -34,5 +34,11 @@ public class Article {
     @Lob
     private String content;
 
+    @NotBlank
+    private String description;
+
+    @NotBlank
+    private String title;
+
     private LocalDate published;
 }
