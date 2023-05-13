@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
 				console.log('role:',name);
 				console.log('id :',sessionStorage.getItem('id'));
 				if( name ==='Admin'){
-					window.location.href = 'http://localhost:4201/'
+					window.location.href = 'http://localhost:4200/'
 				}
 				else{
 					this.router.navigateByUrl("")

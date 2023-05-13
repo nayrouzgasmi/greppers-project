@@ -48,8 +48,9 @@ public class ReponseTicketController {
         ticket.setStatus(TicketStatus.ACCEPTED);
         ticketService.updateTicket(ticket);
         String code = UserCode.getCode();
-        Mail mail = new Mail("mokhtar.farouk@esprit.tn","votre reclamatoion est traite merci de voir la reponse sur notre site");
-        emailService.sendCodeByMail(mail);
+        // Mail mail = new Mail("mokhtar.farouk@esprit.tn","votre reclamatoion est traite merci de voir la reponse sur notre site");
+        // Mail mail = null;
+        // emailService.sendCodeByMail(mail);
         ReponseTicket rt = rtservice.addReponseTicket(r,idTicket);
         return rt;
     }
